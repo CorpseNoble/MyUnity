@@ -10,8 +10,8 @@ public class Point : GraphElement
     {
         // Create QUAD and give a f*ck
         geometric[0] = FabricGameObject.CreateQuad(transform.position, transform);
-
-        var aboutPos = transform.position.About();
+        blacklist.Add(transform.position);
+        //var aboutPos = transform.position.About();
 
     }
 

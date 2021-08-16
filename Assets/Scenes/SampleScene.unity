@@ -249,6 +249,8 @@ MonoBehaviour:
   area: {fileID: 859860294}
   Generate: 0
   Reset: 0
+  blacklist:
+    PosBlacklist: []
 --- !u!114 &859860294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,13 +263,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a149dcd9896877a4c9e46363f62a7c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildVector: {x: 0, y: 0, z: 1}
+  blacklist:
+    PosBlacklist: []
   rootElement: {fileID: 0}
   subElements: []
+  buildVector: {x: 0, y: 0, z: 1}
   parentElement: {fileID: 0}
   backElement: {fileID: 0}
   texturePack: {fileID: 0}
-  countSubzone: 0
+  countSubzone: -4
 --- !u!4 &859860295
 Transform:
   m_ObjectHideFlags: 0
@@ -394,7 +398,7 @@ MonoBehaviour:
       avarage: 5
       deviation: 2
     maxZoneCount:
-      avarage: 11
+      avarage: 21
       deviation: 5
     nextZoneCount:
       avarage: 1

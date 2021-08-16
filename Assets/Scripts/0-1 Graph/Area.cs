@@ -16,6 +16,26 @@ public class Area : GraphElement
     }
     public void SelectSubZone(Vector3 currentPos, Vector3 currentVector, GraphElement preElement)
     {
+        int foo = 10;
+        if (!blacklist.WayCheckClear(currentPos, currentVector, foo))
+            if (SettingGraph.SettingGraphRef.LRPercent.GetValue())
+            {
+                if (blacklist.WayCheckClear(currentPos, currentVector.ToLeft(), foo))
+                    currentVector = currentVector.ToLeft();
+                else if (blacklist.WayCheckClear(currentPos, currentVector.ToRight(), foo))
+                    currentVector = currentVector.ToRight();
+                else
+                    return;
+            }
+            else
+            {
+                if (blacklist.WayCheckClear(currentPos, currentVector.ToRight(), foo))
+                    currentVector = currentVector.ToRight();
+                else if (blacklist.WayCheckClear(currentPos, currentVector.ToLeft(), foo))
+                    currentVector = currentVector.ToLeft();
+                else
+                    return;
+            }
         countSubzone--;
         GraphElement currElem;
         currElem = FabricGameObject.InstantiateElement<Сorridor>(currentPos, this, currentVector);

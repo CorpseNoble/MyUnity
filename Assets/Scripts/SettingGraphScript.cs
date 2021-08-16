@@ -63,7 +63,7 @@ public class SettingGraph
     {
         SetSeed();
         //GenerateSeed();
-        maxZoneCount = new RandRangeValue(11, 5, random);
+        maxZoneCount = new RandRangeValue(21, 5, random);
         subzoneSize = new RandRangeValue(5, 2, random);
         roomSize = new RandRangeValue(3, 1, random);
         waySize = new RandRangeValue(1.5f, 0.5f, random);

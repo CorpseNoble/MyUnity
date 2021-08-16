@@ -5,6 +5,9 @@ using UnityEngine;
 
 public abstract class GraphElement : MonoBehaviour
 {
+    //gen string
+    public BlacklistManager blacklist;
+
     //internal struct
     public GraphElement rootElement;
     public List<GraphElement> subElements = new List<GraphElement>();

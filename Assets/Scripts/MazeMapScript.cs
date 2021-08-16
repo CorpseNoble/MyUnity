@@ -11,12 +11,15 @@ public class MazeMapScript : MonoBehaviour
     public bool Generate = false;
     public bool Reset = false;
 
+    public BlacklistManager blacklist;
+
     private void OnEnable()
     {
         if (area == null)
             area = gameObject.AddComponent<Area>();
 
-        PosBlacklist ??= new HashSet<Vector3>();
+        blacklist ??= new BlacklistManager();
+
     }
     
     private void OnGUI()
@@ -24,6 +27,7 @@ public class MazeMapScript : MonoBehaviour
         if (Generate)
         {
             Generate = false;
+            area.blacklist = blacklist;
             area.Generate();
         }
         if (Reset)
@@ -37,7 +41,7 @@ public class MazeMapScript : MonoBehaviour
             }
             area.subElements.Clear();
             area.rootElement = null;
-            PosBlacklist.Clear();
+            blacklist.Clear();
         }
     }
 }

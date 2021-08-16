@@ -10,6 +10,7 @@ public class FabricGameObject
         gameObject.transform.parent = parent.transform;
         gameObject.name = typeof(T).Name;
         var t = gameObject.AddComponent<T>();
+        t.blacklist = parent.blacklist;
         t.buildVector = buildVector;
         t.parentElement = parent;
         return t;

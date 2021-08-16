@@ -12,6 +12,8 @@ public class Round : Room
         var leftVector = buildVector.ToLeft();
         for (int j = 0; j < rad * 2 + 1; j++)
         {
+            if (blacklist.Contains(currentPos))
+                break;
             subElements.Add(FabricGameObject.InstantiateElement<Point>(currentPos, this, buildVector));
 
             if (j == rad * 2)
@@ -21,22 +23,36 @@ public class Round : Room
             currentPosL = currentPosR = currentPos;
             for (int i = 0; i < rad; i++)
             {
-                
-
-                currentPosL += leftVector;
                 currentPosR += rightVector;
+                if (blacklist.Contains(currentPosR))
+                    break;
+                if (Vector3.Distance(center, currentPosR) <= rad)
+                {
+                    var er = FabricGameObject.InstantiateElement<Point>(currentPosR, this, buildVector);
+                    subElements.Add(er);
+
+                    if (Vector3.Distance(center, currentPosR) == rad)
+                    {
+                        newWays.Add((er, er.transform.position + rightVector, rightVector));
+                    }
+                }
+
+            }
+
+            for (int i = 0; i < rad; i++)
+            {
+                currentPosL += leftVector;
+                if (blacklist.Contains(currentPosL))
+                    break;
 
                 if (Vector3.Distance(center, currentPosL) <= rad)
                 {
                     var el = FabricGameObject.InstantiateElement<Point>(currentPosL, this, buildVector);
-                    var er = FabricGameObject.InstantiateElement<Point>(currentPosR, this, buildVector);
                     subElements.Add(el);
-                    subElements.Add(er);
 
                     if (Vector3.Distance(center, currentPosL) == rad)
                     {
                         newWays.Add((el, el.transform.position + leftVector, leftVector));
-                        newWays.Add((er, er.transform.position + rightVector, rightVector));
                     }
                 }
             }
@@ -48,14 +64,19 @@ public class Round : Room
             backElement.Connect(rootElement);
         }
 
-        foreach (var e in subElements)
+        for (int i = 0; i < subElements.Count; i++)
         {
-            var d = e.transform.position.About();
+            GraphElement e = subElements[i];
+            var aboutEl = e.transform.position.About();
             var aboutCons = from t in subElements
-                            where d.Contains(t.transform.position)
+                            where aboutEl.Contains(t.transform.position)
                             select t;
-
-
+            if (aboutCons.Count() == 0)
+            {
+                subElements.RemoveAt(i);
+                i--;
+                continue;
+            }
             foreach (var a in aboutCons)
                 e.Connect(a);
 

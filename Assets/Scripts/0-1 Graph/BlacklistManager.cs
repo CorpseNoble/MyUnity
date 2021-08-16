@@ -6,13 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
+[Serializable]
 public class BlacklistManager
 {
-    private HashSet<Vector3> PosBlacklist;
+    [SerializeField]
+    private List<Vector3> PosBlacklist;
 
     public BlacklistManager()
     {
-        PosBlacklist = new HashSet<Vector3>();
+        PosBlacklist = new List<Vector3>();
     }
 
     public void Add(Vector3 pos)
@@ -25,12 +27,19 @@ public class BlacklistManager
         return PosBlacklist.Contains(pos);
     }
 
+    public void Clear()
+    {
+        PosBlacklist.Clear();
+    }
+
     public bool WayCheckClear(Vector3 pos, Vector3 vector, int lenght)
     {
         for (int i = 0; i < lenght; i++)
         {
-            if(PosBlacklist.Contains(pos+ (vector*i)))
+            if (PosBlacklist.Contains(pos) && i < lenght / 2)
                 return false;
+
+            pos += vector;
         }
         return true;
     }
