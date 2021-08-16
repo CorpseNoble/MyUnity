@@ -5,7 +5,7 @@ public class Round : Room
 {
     public override void Generate()
     {
-        var rad = (parentElement as Subzone).roomSize;
+        var rad = (parentElement as Zone).roomSize;
         Vector3 center = transform.position + buildVector * rad;
         Vector3 currentPos = transform.position;
         var rightVector = buildVector.ToRight();
@@ -43,7 +43,10 @@ public class Round : Room
             currentPos += buildVector;
         }
         rootElement = subElements[0];
-        backElement.Connect(rootElement);
+        if (backElement != null)
+        {
+            backElement.Connect(rootElement);
+        }
 
         foreach (var e in subElements)
         {

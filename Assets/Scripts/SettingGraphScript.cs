@@ -105,7 +105,7 @@ public class SettingGraph
 [Serializable]
 public class RandRangeValue
 {
-    [Range(1.5f, 10f)]
+    [Range(1.5f, 20f)]
     public float avarage = 2;
     [Range(0.5f, 10f)]
     public float deviation = 1;

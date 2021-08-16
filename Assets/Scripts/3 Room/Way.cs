@@ -8,6 +8,7 @@ public class Way : Room
     {
         Vector3 currentPos = transform.position;
         var pathLenght = SettingGraph.SettingGraphRef.pathLenght.GetValue();
+     
         for (int j = 0; j < pathLenght; j++)
         {
             var se = FabricGameObject.InstantiateElement<Point>(currentPos, this, buildVector);
@@ -29,12 +30,17 @@ public class Way : Room
         }
         newWays.Add((subElements.Last(),subElements.Last().transform.position + buildVector, buildVector));
         rootElement = subElements.First();
-        backElement.Connect(rootElement);
+        if(backElement != null)
+        {
+            backElement.Connect(rootElement);
+        }
         foreach (var e in subElements)
         {
             
             e.Generate();
         }
+
+        
     }
 }
 

@@ -8,18 +8,18 @@ public class Squar : Room
         Vector3 currentPos = transform.position;
         var rightVector = buildVector.ToRight();
         var leftVector = buildVector.ToLeft();
-        for (int j = 0; j < (parentElement as Subzone).roomLenght; j++)
+        for (int j = 0; j < (parentElement as Zone).roomLenght; j++)
         {
             var se = FabricGameObject.InstantiateElement<Point>(currentPos, this, buildVector);
 
             subElements.Add(se);
 
-            if (j == (parentElement as Subzone).roomLenght - 1)
+            if (j == (parentElement as Zone).roomLenght - 1)
                 newWays.Add((subElements.Last(),subElements.Last().transform.position + buildVector, buildVector));
 
             Vector3 currentPosL, currentPosR;
             currentPosL = currentPosR = currentPos;
-            for (int i = 0; i < (parentElement as Subzone).roomSize; i++)
+            for (int i = 0; i < (parentElement as Zone).roomSize; i++)
             { 
                 currentPosL += leftVector;
                 currentPosR += rightVector;
@@ -30,7 +30,7 @@ public class Squar : Room
                 subElements.Add(pl);
                 subElements.Add(pr);
 
-                if (j == (parentElement as Subzone).roomLenght - 1 && i == (parentElement as Subzone).roomSize - 1)
+                if (j == (parentElement as Zone).roomLenght - 1 && i == (parentElement as Zone).roomSize - 1)
                 {
                     newWays.Add((pl,pl.transform.position + leftVector, leftVector));
                     newWays.Add((pr,pr.transform.position + rightVector, rightVector));
@@ -42,7 +42,10 @@ public class Squar : Room
         }
 
         rootElement = subElements[0];
-        backElement.Connect(rootElement);
+        if (backElement != null)
+        {
+            backElement.Connect(rootElement);
+        }
 
         foreach (var e in subElements)
         {

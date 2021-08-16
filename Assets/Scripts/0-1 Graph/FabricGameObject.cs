@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[ExecuteInEditMode]
 public class FabricGameObject
 {
     public static T InstantiateElement<T>(Vector3 position, GraphElement parent,Vector3 buildVector) where T: GraphElement
@@ -7,6 +8,7 @@ public class FabricGameObject
         GameObject gameObject = new GameObject();
         gameObject.transform.position = position;
         gameObject.transform.parent = parent.transform;
+        gameObject.name = typeof(T).Name;
         var t = gameObject.AddComponent<T>();
         t.buildVector = buildVector;
         t.parentElement = parent;

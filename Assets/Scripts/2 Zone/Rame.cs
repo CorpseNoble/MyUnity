@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Rame : Subzone
+public class Rame : Zone
 {
     int countRoom = SettingGraph.SettingGraphRef.subzoneSize.GetValue() * 2;
     public override void Generate()

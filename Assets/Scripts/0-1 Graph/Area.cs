@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using UnityEngine;
 
-public class Zone : GraphElement
+public class Area : GraphElement
 {
     public TexturePack texturePack;
     public int countSubzone;
@@ -14,15 +14,15 @@ public class Zone : GraphElement
         SelectSubZone(currentPos, currentVector, null);
         rootElement = subElements.First();
     }
-    public void SelectSubZone(Vector3 currentPos, Vector3 currentVector,GraphElement preElement)
+    public void SelectSubZone(Vector3 currentPos, Vector3 currentVector, GraphElement preElement)
     {
         countSubzone--;
         GraphElement currElem;
+        currElem = FabricGameObject.InstantiateElement<Сorridor>(currentPos, this, currentVector);
 
-        if (SettingGraph.SettingGraphRef.corridorPercent.GetValue())
-            currElem = FabricGameObject.InstantiateElement<Сorridor>(currentPos, this, currentVector);
-        else
-            currElem = FabricGameObject.InstantiateElement<Rame>(currentPos, this, currentVector);
+        //if (SettingGraph.SettingGraphRef.corridorPercent.GetValue())
+        //else
+        //    currElem = FabricGameObject.InstantiateElement<Rame>(currentPos, this, currentVector);
 
         currElem.parentElement = this;
         currElem.backElement = preElement;
@@ -31,7 +31,7 @@ public class Zone : GraphElement
         subElements.Add(currElem);
 
         var countnewZone = SettingGraph.SettingGraphRef.nextZoneCount.GetValue();
-
+        countnewZone = countnewZone < 1 ? 1 : countnewZone;
         if (countSubzone < countnewZone)
             countnewZone = countSubzone;
 

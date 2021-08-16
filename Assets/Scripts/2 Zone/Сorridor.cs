@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using UnityEngine;
 
-public class Сorridor : Subzone
+public class Сorridor : Zone
 {
 
     public override void Generate()
@@ -18,12 +18,14 @@ public class Сorridor : Subzone
             currElem.Generate();
             subElements.Add(currElem);
 
+            (preElement, currentPos, currentVector) = currElem.newWays.First();
+
+            currElem.newWays.RemoveAt(0);
+            newWays.AddRange(currElem.newWays);
+
             if (i == zoneSize - 1)
             {
-                (preElement, currentPos, currentVector) = currElem.newWays.First();
-
-                currElem.newWays.RemoveAt(0);
-                newWays.AddRange(currElem.newWays);
+               
 
                 //if (SettingGraph.SettingGraphRef.noizePercent.GetValue())
                 //    if (SettingGraph.SettingGraphRef.LRPercent.GetValue())
