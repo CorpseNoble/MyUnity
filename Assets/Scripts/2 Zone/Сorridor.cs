@@ -32,7 +32,7 @@ public class Сorridor : Zone
                     else
                         break;
                 }
-            var currElem = SelectionRoom(currentVector, currentPos);
+            GraphElement currElem = SelectionRoom(currentVector, currentPos, i == zoneSize - 1);
             currElem.backElement = preElement;
             currElem.Generate();
             subElements.Add(currElem);
@@ -47,18 +47,6 @@ public class Сorridor : Zone
             {
                 Debug.LogWarning(currElem.name + "  : count :" + currElem.newWays.Count());
                 break;
-            }
-            
-
-            if (i == zoneSize - 1)
-            {
-
-
-                //if (SettingGraph.SettingGraphRef.noizePercent.GetValue())
-                //    if (SettingGraph.SettingGraphRef.LRPercent.GetValue())
-                //        currentVector = currentVector.ToLeft();
-                //    else
-                //        currentVector = currentVector.ToRight();
             }
         }
         rootElement = subElements.First();

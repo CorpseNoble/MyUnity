@@ -12,10 +12,10 @@ public abstract class Zone : GraphElement
     /// <param name="currentVector"></param>
     /// <param name="currentPos"></param>
     /// <returns></returns>
-    protected GraphElement SelectionRoom(Vector3 currentVector, Vector3 currentPos)
+    protected GraphElement SelectionRoom(Vector3 currentVector, Vector3 currentPos, bool endEl = false)
     {
         GraphElement currElem;
-        if (SettingGraph.SettingGraphRef.roomPercent.GetValue())
+        if (SettingGraph.SettingGraphRef.roomPercent.GetValue() || endEl)
             if (SettingGraph.SettingGraphRef.roudRoomPercent.GetValue())
                 currElem = FabricGameObject.InstantiateElement<Round>(currentPos, this, currentVector);
             else

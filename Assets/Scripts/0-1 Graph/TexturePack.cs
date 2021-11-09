@@ -2,14 +2,9 @@
 
 public class TexturePack : MonoBehaviour
 {
-
-    public Texture2D Wall;
-
-
-    public Texture2D Floor;
-
-
+    public GameObject Wall;
+    public GameObject Pullar;
+    public GameObject Floor;
     public Texture2D Сeiling;
-
 }
 

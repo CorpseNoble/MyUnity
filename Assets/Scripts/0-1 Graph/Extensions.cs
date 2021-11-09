@@ -38,7 +38,6 @@ public static class Extensions
         vector = vector.ToLeft();
         return vector;
     }
-
     public static Vector3[] About(this Vector3 position)
     {
         return new[] { position + Vector3.forward, position + Vector3.left, position + Vector3.back, position + Vector3.right };

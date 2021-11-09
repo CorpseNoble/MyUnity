@@ -45,7 +45,7 @@ public class Way : Room
                 break;
 
         }
-        newWays.Add((subElements.Last(), subElements.Last().transform.position + buildVector, buildVector));
+        newWays.Insert(0,(subElements.Last(), subElements.Last().transform.position + buildVector, buildVector));
         newWays.Add((subElements.Last(), subElements.Last().transform.position + buildVector.ToLeft(), buildVector.ToLeft()));
         newWays.Add((subElements.Last(), subElements.Last().transform.position + buildVector.ToRight(), buildVector.ToRight()));
         rootElement = subElements.First();

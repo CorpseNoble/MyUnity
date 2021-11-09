@@ -227,6 +227,8 @@ GameObject:
   - component: {fileID: 859860295}
   - component: {fileID: 859860293}
   - component: {fileID: 859860294}
+  - component: {fileID: 859860296}
+  - component: {fileID: 859860297}
   m_Layer: 0
   m_Name: MazeStart
   m_TagString: Untagged
@@ -270,8 +272,8 @@ MonoBehaviour:
   buildVector: {x: 0, y: 0, z: 1}
   parentElement: {fileID: 0}
   backElement: {fileID: 0}
-  texturePack: {fileID: 0}
-  countSubzone: -4
+  texturePack: {fileID: 859860296}
+  countSubzone: 19
 --- !u!4 &859860295
 Transform:
   m_ObjectHideFlags: 0
@@ -286,6 +288,68 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &859860296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859860292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5104e17930f3874e8ae7f1e3ebb3ac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Wall: {fileID: 2612424663575320436, guid: f9e1a69a6016b1b4bacd0f3fe9db7e01, type: 3}
+  Floor: {fileID: 0}
+  "\u0421eiling": {fileID: 0}
+--- !u!114 &859860297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859860292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69aca9687db3d0949bd40794700c34bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GenSeed: 0
+  SettingGraph:
+    seed: 675151741
+    waySize:
+      avarage: 1.5
+      deviation: 0.5
+    roomSize:
+      avarage: 3
+      deviation: 1
+    pathLenght:
+      avarage: 5
+      deviation: 2
+    subzoneSize:
+      avarage: 5
+      deviation: 2
+    maxZoneCount:
+      avarage: 21
+      deviation: 5
+    nextZoneCount:
+      avarage: 10
+      deviation: 2
+    noizePercent:
+      percent: 1
+    LRPercent:
+      percent: 5
+    corridorPercent:
+      percent: 5
+    nextZonePercent:
+      percent: 5
+    rameZonePercent:
+      percent: 5
+    roomPercent:
+      percent: 5
+    roudRoomPercent:
+      percent: 5
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,7 +361,6 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
-  - component: {fileID: 963194229}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -370,50 +433,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &963194229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69aca9687db3d0949bd40794700c34bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GenSeed: 0
-  SettingGraph:
-    seed: 0
-    waySize:
-      avarage: 1.5
-      deviation: 0.5
-    roomSize:
-      avarage: 3
-      deviation: 1
-    pathLenght:
-      avarage: 5
-      deviation: 2
-    subzoneSize:
-      avarage: 5
-      deviation: 2
-    maxZoneCount:
-      avarage: 21
-      deviation: 5
-    nextZoneCount:
-      avarage: 1
-      deviation: 1
-    noizePercent:
-      percent: 1
-    LRPercent:
-      percent: 5
-    corridorPercent:
-      percent: 5
-    nextZonePercent:
-      percent: 5
-    rameZonePercent:
-      percent: 5
-    roomPercent:
-      percent: 3
-    roudRoomPercent:
-      percent: 5

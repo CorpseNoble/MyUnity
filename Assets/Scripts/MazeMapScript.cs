@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,7 +22,22 @@ public class MazeMapScript : MonoBehaviour
         blacklist ??= new BlacklistManager();
 
     }
-    
+    private void GenStepWall()
+    {
+        var points = new List<GraphElement>();
+        foreach(var seZ  in area.subElements)
+        {
+            foreach ( var seR in seZ.subElements)
+            {
+                points.AddRange(seR.subElements);
+
+            }
+        } 
+        foreach(Point p in points)
+        {
+            p.GenWalls();
+        }
+    }
     private void OnGUI()
     {
         if (Generate)
@@ -29,6 +45,7 @@ public class MazeMapScript : MonoBehaviour
             Generate = false;
             area.blacklist = blacklist;
             area.Generate();
+            GenStepWall();
         }
         if (Reset)
         {
