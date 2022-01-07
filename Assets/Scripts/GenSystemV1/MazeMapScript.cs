@@ -8,12 +8,9 @@ public class MazeMapScript : MonoBehaviour
 {
     public Area area;
 
-
-    public bool Generate = false;
-    public bool Reset = false;
-
     public BlacklistManager blacklist;
-
+    public SettingGraphScript settingGraph;
+    
     private void OnEnable()
     {
         if (area == null)
@@ -24,41 +21,46 @@ public class MazeMapScript : MonoBehaviour
     }
     private void GenStepWall()
     {
+
         var points = new List<GraphElement>();
-        foreach(var seZ  in area.subElements)
+        foreach (var seZ in area.subElements)
         {
-            foreach ( var seR in seZ.subElements)
+            foreach (var seR in seZ.subElements)
             {
                 points.AddRange(seR.subElements);
 
             }
-        } 
-        foreach(Point p in points)
+        }
+        foreach (Point p in points)
         {
             p.GenWalls();
         }
     }
-    private void OnGUI()
+    [ContextMenu("Gen")]
+    public void Gen()
     {
-        if (Generate)
+        if (area.subElements.Count>0)
         {
-            Generate = false;
-            area.blacklist = blacklist;
-            area.Generate();
-            GenStepWall();
+            Clear();
         }
-        if (Reset)
-        {
-            Reset = false;
-            foreach(var se in area.subElements)
-            {
-                
-                //Destroy(se.gameObject);
-                DestroyImmediate(se.gameObject);
-            }
-            area.subElements.Clear();
-            area.rootElement = null;
-            blacklist.Clear();
-        }
+
+        settingGraph.SettingGraph.UpdateSeed();
+        area.blacklist = blacklist;
+        area.Generate();
+        GenStepWall();
     }
+    [ContextMenu("Clear")]
+    public void Clear()
+    {
+        foreach (var se in area.subElements)
+        {
+
+            //Destroy(se.gameObject);
+            DestroyImmediate(se.gameObject);
+        }
+        area.subElements.Clear();
+        area.rootElement = null;
+        blacklist.Clear();
+    }
+
 }

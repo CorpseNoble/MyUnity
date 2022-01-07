@@ -7,7 +7,6 @@ using UnityEditor;
 [ExecuteInEditMode]
 public class SettingGraphScript : MonoBehaviour
 {
-    public bool GenSeed = false;
 
     public SettingGraph SettingGraph;
 
@@ -15,13 +14,11 @@ public class SettingGraphScript : MonoBehaviour
     {
         SettingGraph = SettingGraph.SettingGraphRef;
     }
-    public void OnGUI()
+   
+    [ContextMenu("GenSeed")]
+    public void GenSeed()
     {
-        if (GenSeed)
-        {
-            SettingGraph.GenerateSeed();
-            GenSeed = false;
-        }
+        SettingGraph.GenerateSeed();
     }
 }
 
@@ -61,7 +58,7 @@ public class SettingGraph
     private static SettingGraph settingGraphRef;
     private SettingGraph()
     {
-        SetSeed();
+        UpdateSeed();
         //GenerateSeed();
         maxZoneCount = new RandRangeValue(21, 5, random);
         subzoneSize = new RandRangeValue(5, 2, random);
@@ -80,10 +77,10 @@ public class SettingGraph
     public void GenerateSeed()
     {
         seed = random.Next();
-        SetSeed();
+        UpdateSeed();
     }
 
-    public void SetSeed()
+    public void UpdateSeed()
     {
         random = new System.Random(seed);
     }

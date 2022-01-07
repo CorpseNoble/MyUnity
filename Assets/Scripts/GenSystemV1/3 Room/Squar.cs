@@ -8,7 +8,10 @@ public class Squar : Room
         Vector3 currentPos = transform.position;
         var rightVector = buildVector.ToRight();
         var leftVector = buildVector.ToLeft();
-        for (int j = 0; j < (parentElement as Zone).roomLenght; j++)
+        var roomLenght = (parentElement as Zone).roomLenght;
+        var roomSize = (parentElement as Zone).roomSize;
+
+        for (int j = 0; j < roomLenght; j++)
         {
             if (blacklist.Contains(currentPos))
                 break;
@@ -16,43 +19,43 @@ public class Squar : Room
 
             subElements.Add(se);
 
-            if (j == (parentElement as Zone).roomLenght - 1)
+            if (j == roomLenght - 1)
                 newWays.Add((subElements.Last(), subElements.Last().transform.position + buildVector, buildVector));
 
             Vector3 currentPosL, currentPosR;
             currentPosL = currentPosR = currentPos;
-            for (int i = 0; i < (parentElement as Zone).roomSize; i++)
+            for (int i = 0; i < roomSize; i++)
             {
                 currentPosR += rightVector;
                 if (blacklist.Contains(currentPosR))
                     break;
                 var pr = FabricGameObject.InstantiateElement<Point>(currentPosR, this, buildVector);
                 subElements.Add(pr);
-                if (j == (parentElement as Zone).roomLenght - 1 && i == (parentElement as Zone).roomSize - 1)
+                if (j == roomLenght - 1 && i == roomSize - 1)
                 {
                     newWays.Add((pr, pr.transform.position + rightVector, rightVector));
                     newWays.Add((pr, pr.transform.position + buildVector, buildVector));
                 }
-                if (j == (parentElement as Zone).roomLenght - 1 && i == 0)
+                if (j == roomLenght - 1 && i == 0)
                 {
                     newWays.Add((pr, pr.transform.position + rightVector, rightVector));
                     newWays.Add((pr, pr.transform.position + rightVector.ToRight(), rightVector.ToRight()));
                 }
             }
 
-            for (int i = 0; i < (parentElement as Zone).roomSize; i++)
+            for (int i = 0; i < roomSize; i++)
             {
                 currentPosL += leftVector;
                 if (blacklist.Contains(currentPosL))
                     break;
                 var pl = FabricGameObject.InstantiateElement<Point>(currentPosL, this, buildVector);
                 subElements.Add(pl);
-                if (j == (parentElement as Zone).roomLenght - 1 && i == (parentElement as Zone).roomSize - 1)
+                if (j == roomLenght - 1 && i == roomSize - 1)
                 {
                     newWays.Add((pl, pl.transform.position + leftVector, leftVector));
                     newWays.Add((pl, pl.transform.position + buildVector, buildVector));
                 }
-                if (j == (parentElement as Zone).roomLenght - 1 && i == 0)
+                if (j == roomLenght - 1 && i == 0)
                 {
                     newWays.Add((pl, pl.transform.position + leftVector, leftVector));
                     newWays.Add((pl, pl.transform.position + leftVector.ToLeft(), leftVector.ToLeft()));

@@ -4,7 +4,7 @@ public abstract class Zone : GraphElement
 {
     public int waySize = SettingGraph.SettingGraphRef.waySize.GetValue();
     public int roomSize = SettingGraph.SettingGraphRef.roomSize.GetValue();
-    public int roomLenght = SettingGraph.SettingGraphRef.pathLenght.GetValue();
+    public int roomLenght = SettingGraph.SettingGraphRef.roomSize.GetValue();
 
     /// <summary>
     /// Select and setup room on currentPos

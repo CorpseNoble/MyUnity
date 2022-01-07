@@ -11,7 +11,7 @@ public class MouseLock : MonoBehaviour
     [SerializeField, Tooltip("Ограничение угла камеры снизу"), Range(-89, 0)] private float minimumVert = -45.0f;
     [SerializeField, Tooltip("Ограничение угла камеры сверху"), Range(0, 89)] private float maximumVert = 45.0f;
 
-    [SerializeField] private bool debug = false;
+   // [SerializeField] private bool debug = false;
 
     [HideInInspector] public Transform lookPoint;
 
