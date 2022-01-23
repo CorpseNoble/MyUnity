@@ -30,7 +30,7 @@ namespace Assets.Scripts.Inventory
     }
 
     [Serializable]
-    public class StatEffect: Stat
+    public class StatEffect : Stat
     {
         public bool Percent = false;
         public bool UnDuration = false;
@@ -53,7 +53,20 @@ namespace Assets.Scripts.Inventory
         Scroll,
     }
 
+
     public enum MainStatType
+    {
+        Strength,     //сила:         +++PhAttack ++Weight              +HP +SP +Pain
+        Agility,      //ловкость:     ++Acc +CrRate ++Avade             +HP +SP +Pain
+        Vitality,     //выносливость: +++PhRes +MagRes +Weight          +++HP ++SP ++Pain ++Fatigue
+        Endurance,    //стойкость:    +PhRes +++MagRes +Weight          ++HP +++SP ++Pain ++Fatigue   
+        Intelligence, //интеллект:    +++MagAttack                      +MP +++Stress
+        Knowledge,    //знания:       +Acc ++CrRate                     +++MP ++Stress 
+
+        Luck,         //удача:        ++DropRate +Acc +CrRate
+    }
+
+    public enum BarStatType
     {
         HP,           //очки здоровья
         MP,           //очки маны
@@ -61,17 +74,7 @@ namespace Assets.Scripts.Inventory
         Stress,       //стресс
         Pain,         //боль
         Fatigue,      //усталость
-
-        Strength,     //сила:         +++PhAttack ++Width               +HP +SP +Pain
-        Agility,      //ловкость:     ++Acc +CrRate ++Avade             +HP +SP +Pain
-        Vitality,     //выносливость: +++PhRes +MagRes +Width           +++HP ++SP ++Pain ++Fatigue
-        Endurance,    //стойкость:    +PhRes +++MagRes +Width           ++HP +++SP ++Pain ++Fatigue   
-        Intelligence, //интеллект:    +++MagAttack                      +MP +++Stress
-        Knowledge,    //знания:       +Acc ++CrRate                     +++MP ++Stress 
-        
-        Luck,         //удача:        ++DropRate +Acc +CrRate
     }
-
     public enum SecStatType
     {
         PhAttack,
@@ -80,7 +83,7 @@ namespace Assets.Scripts.Inventory
         MagRes,
         Accuracity,
         CritRate,
-        Width,
+        Weight,
         Avade,
         DropRate,
     }

@@ -15,9 +15,10 @@ namespace Assets.Scripts.Inventory
     [Serializable]
     public class Trait
     {
-        public string Name;
-        public string Descriptions;
-        public int expirience;
+        public string Name = "";
+        public string Descriptions = "Trait Description";
+        public int expirience = 0;
+        public int NextTraitID = -1;
         public bool Scalabe = false;
         public List<Stat> Effects = new List<Stat>();
     }

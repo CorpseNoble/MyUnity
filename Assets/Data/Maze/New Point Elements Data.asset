@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d95ad4fe8fc13f54f9af60a9f1abd25b, type: 3}
+  m_Name: New Point Elements Data
+  m_EditorClassIdentifier: 
+  GroundRoof: {fileID: 8402805595255715730, guid: ca7fd1f5bf2319b43a2a1770b3bcbe16, type: 3}
+  GroundPathWay: {fileID: 1877940776385465065, guid: 282073974db58b94b942cd453f92008b, type: 3}
+  GroundPillar: {fileID: 6656861176064105999, guid: 33784b40c8fab5647b5d5af9ea891be3, type: 3}
+  Wall: {fileID: 6040371639833822620, guid: 51433dd6d6d0ced449a8645aba89a235, type: 3}
+  Pillar: {fileID: 4768103716350873968, guid: ce82624d04d0f4246ae5c16217cfae98, type: 3}
+  Door: {fileID: 8604047786785715865, guid: 3a1891201855047468b108512e4471b7, type: 3}
+  Lattice: {fileID: 5490371620909308281, guid: ff10f4f7835e633409a9dd1221f6c038, type: 3}
+  Light: {fileID: 5906541579054830671, guid: 114d7fada816ee849b5ab2af9df9b265, type: 3}
+  Chest: {fileID: 8227963812936457900, guid: d3fe3cac483302e4a92f63028f42cb93, type: 3}

@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d2b17fa2a8f55d4cbdd0e6487770248, type: 3}
+  m_Name: New Graph Settings Data
+  m_EditorClassIdentifier: 
+  seed: 1832373849
+  waySize:
+    avarage: 1.5
+    deviation: 0.5
+  roomSize:
+    avarage: 4
+    deviation: 1
+  pathLenght:
+    avarage: 5
+    deviation: 2
+  subzoneSize:
+    avarage: 5
+    deviation: 2
+  maxZoneCount:
+    avarage: 21
+    deviation: 5
+  nextZoneCount:
+    avarage: 1.5
+    deviation: 0.5
+  noizePercent:
+    percent: 1
+  LRPercent:
+    percent: 5
+  corridorPercent:
+    percent: 5
+  nextZonePercent:
+    percent: 5
+  rameZonePercent:
+    percent: 5
+  roomPercent:
+    percent: 5
+  roudRoomPercent:
+    percent: 5

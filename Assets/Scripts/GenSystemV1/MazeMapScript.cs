@@ -2,65 +2,82 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-[ExecuteInEditMode]
-public class MazeMapScript : MonoBehaviour
+namespace Assets.Scripts.GenSystemV1
 {
-    public Area area;
-
-    public BlacklistManager blacklist;
-    public SettingGraphScript settingGraph;
-    
-    private void OnEnable()
+    [ExecuteInEditMode]
+    public class MazeMapScript : MonoBehaviour
     {
-        if (area == null)
-            area = gameObject.AddComponent<Area>();
+        public Area area;
 
-        blacklist ??= new BlacklistManager();
+        public BlacklistManager blacklist;
+        public GraphSettingsData settingGraph;
 
-    }
-    private void GenStepWall()
-    {
-
-        var points = new List<GraphElement>();
-        foreach (var seZ in area.subElements)
+        void OnEnable()
         {
-            foreach (var seR in seZ.subElements)
-            {
-                points.AddRange(seR.subElements);
+            if (area == null)
+                area = gameObject.AddComponent<Area>();
 
+            blacklist ??= new BlacklistManager();
+
+        }
+        private void GenStepWall()
+        {
+
+            var points = new List<GraphElement>();
+            foreach (var seZ in area.subElements)
+            {
+                foreach (var seR in seZ.subElements)
+                {
+                    points.AddRange(seR.subElements);
+
+                }
+            }
+            foreach (Point p in points)
+            {
+                p.GenWalls();
             }
         }
-        foreach (Point p in points)
+        [ContextMenu("Gen")]
+        public void Gen()
         {
-            p.GenWalls();
+            if (area.subElements.Count > 0)
+            {
+                Clear();
+            }
+
+            settingGraph.UpdateSeed();
+            area.blacklist = blacklist;
+            area.Generate();
+            GenStepWall();
+            area.GenDoor();
+            area.GenLight();
+            area.GenChest();
         }
-    }
-    [ContextMenu("Gen")]
-    public void Gen()
-    {
-        if (area.subElements.Count>0)
+        [ContextMenu("Clear")]
+        public void Clear()
         {
-            Clear();
+            foreach (var chest in area.Chest)
+            {
+                DestroyImmediate(chest.gameObject);
+            }
+            foreach (var door in area.Doors)
+            {
+                DestroyImmediate(door.gameObject);
+            }
+            foreach (var se in area.subElements)
+            {
+
+                //Destroy(se.gameObject);
+                DestroyImmediate(se.gameObject);
+            }
+            area.subElements.Clear();
+            area.rootElement = null;
+            blacklist.Clear();
+            area.Chest.Clear();
+            area.Doors.Clear();
+            area.ChestPlaces.Clear();
+
         }
 
-        settingGraph.SettingGraph.UpdateSeed();
-        area.blacklist = blacklist;
-        area.Generate();
-        GenStepWall();
     }
-    [ContextMenu("Clear")]
-    public void Clear()
-    {
-        foreach (var se in area.subElements)
-        {
-
-            //Destroy(se.gameObject);
-            DestroyImmediate(se.gameObject);
-        }
-        area.subElements.Clear();
-        area.rootElement = null;
-        blacklist.Clear();
-    }
-
 }
