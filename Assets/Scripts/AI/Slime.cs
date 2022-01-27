@@ -7,7 +7,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Collider))]
-public class Slime : MonoBehaviour
+public class Slime : AliveController
 {
     [SerializeField] 
     private GameObject _player;
@@ -15,14 +15,19 @@ public class Slime : MonoBehaviour
     private float _visionDistance;
     [SerializeField][Range(0,10)]
     private float _attackDistance;
+    [SerializeField][Range(0,10)]
+    private float _deathTimer;
 
     private NavMeshAgent _agent;
     private NavMeshPath _path;
     private EnemyState _state;
     private Animator _anim;
+    private bool _stunned = false;
+    
 
     void Start()
     {
+        base.Start();
         _player = GameObject.FindGameObjectWithTag("Player");
         _agent = GetComponent<NavMeshAgent>();
         _agent.isStopped = true;
@@ -97,7 +102,11 @@ public class Slime : MonoBehaviour
     protected void Iddle()
     {
         _agent.isStopped = true;
-        if (_player != null)
+        if (_stunned)
+        {
+            //legushka
+        }
+        else if (_player != null)
         {
             var position = _player.transform.position;
             if ((position - transform.position).magnitude < _attackDistance)
@@ -110,6 +119,24 @@ public class Slime : MonoBehaviour
             }
         }
     }
+    
+    
+    protected override void Death()
+    {
+        WasDead?.Invoke(this);
+        Debug.Log("You Dead");
+        Stun(_deathTimer);
+        Destroy(gameObject,_deathTimer);
+    }
+
+    private IEnumerator Stun(float time)
+    {
+        _state = EnemyState.Iddle;
+        _stunned = true;
+        yield return new WaitForSeconds(time);
+        _stunned = false;
+    }
+    
 }
 
 enum EnemyState
