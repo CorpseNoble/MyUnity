@@ -10,14 +10,17 @@ namespace Assets.Scripts.GenSystemV1
         public bool pleced = false;
 
         Area _area;
-
+        bool _save = false;
         //0 - floor
         //1-4 - walls
 
         public override void Generate()
         {
             _area = parentElement.parentElement.parentElement as Area;
+            _save = (parentElement as Room).saveZone;
             var ground = FabricGameObject.InstantiateGroundPrefab(_area.elementsData.Ground, transform.position, transform);
+            if (_save)
+                SavePoint(ground);
             geometric.Add(ground);
 
 
@@ -55,7 +58,10 @@ namespace Assets.Scripts.GenSystemV1
                 if (!ce.instanted)
                 {
                     ce.instanted = true;
-                    geometric.Add(FabricGameObject.InstantiateVectoredPrefab(_area.elementsData.GroundPathWay, currP, transform, way));
+                    var ground = FabricGameObject.InstantiateVectoredPrefab(_area.elementsData.GroundPathWay, currP, transform, way);
+                    if (_save)
+                        SavePoint(ground);
+                    geometric.Add(ground);
 
                 }
 
@@ -67,7 +73,10 @@ namespace Assets.Scripts.GenSystemV1
                 if (!blacklist.ContainsWall(currP))
                 {
                     blacklist.AddWall(currP);
-                    geometric.Add(FabricGameObject.InstantiateVectoredPrefab(_area.elementsData.GroundPathWay, currP, transform, w));
+                    var ground = FabricGameObject.InstantiateVectoredPrefab(_area.elementsData.GroundPathWay, currP, transform, w);
+                    if (_save)
+                        SavePoint(ground);
+                    geometric.Add(ground);
                 }
 
                 for (int i = 0; i < hight; i++)
@@ -84,8 +93,10 @@ namespace Assets.Scripts.GenSystemV1
                 if (!blacklist.ContainsPillarGround(currP))
                 {
                     blacklist.AddPillarGround(currP);
-
-                    geometric.Add(FabricGameObject.InstantiatePillarPrefab(_area.elementsData.GroundPillar, currP, transform));
+                    var ground = FabricGameObject.InstantiatePillarPrefab(_area.elementsData.GroundPillar, currP, transform);
+                    if (_save)
+                        SavePoint(ground);
+                    geometric.Add(ground);
 
                 }
                 if (!blacklist.ContainsPillar(currP))
@@ -103,7 +114,18 @@ namespace Assets.Scripts.GenSystemV1
             }
         }
 
-
+        private static void SavePoint(GameObject ground)
+        {
+            ground.layer = 6;
+            if (ground.transform.childCount > 0)
+            {
+                for(int i=0;i< ground.transform.childCount; i++)
+                {
+                    var child = ground.transform.GetChild(i);
+                    child.gameObject.layer = 6;
+                }
+            }
+        }
     }
 
 }

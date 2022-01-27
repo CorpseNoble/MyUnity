@@ -144,7 +144,7 @@ public class InputMove : MonoBehaviour
                 fallTimer += sprintTime + 0.1f;
                 sprintMultiplicatorBufer = sprintMultiplicator;
                 Invoke("ReturnSprintOpportunity", sprintTime);
-                Invoke("StopSprint", sprintTime + 0.1f);
+                //Invoke("StopSprint", sprintTime + 0.1f);
                 sprintCount--;
                 currentSprintReloadTime = charController.isGrounded ? sprintReloadTime / 2f : sprintReloadTime;
             }

@@ -7,45 +7,29 @@ namespace Assets.Scripts.GenSystemV1
 {
     public class Area : GraphElement
     {
-        public const int maxLDM = 10;
         [Header("Area")]
-        public int countSubzone;
+        public int countSubzone = 10;
         public PointElementsData elementsData;
         public List<GameObject> lightPlaces = new List<GameObject>();
 
-        [Range(1, maxLDM)] public float llightDistMulti = 1.5f;
+        [Range(1, 10)] public float llightDistMulti = 1.5f;
         public override void Generate()
         {
+            Room.first = false;
             lightPlaces.Clear();
             hight = PrefsGraph.Instant.SettingGraph.hight;
             Vector3 currentPos = transform.position;
             Vector3 currentVector = buildVector;
-            countSubzone = PrefsGraph.Instant.SettingGraph.maxZoneCount.GetValue();
+            countSubzone = PrefsGraph.Instant.SettingGraph.maxZoneCount;
             SelectSubZone(currentPos, currentVector, null);
             rootElement = subElements.First();
         }
         public void SelectSubZone(Vector3 currentPos, Vector3 currentVector, GraphElement preElement)
         {
-            int foo = 10;
-            if (!blacklist.WayCheckClear(currentPos, currentVector, foo))
-                if (PrefsGraph.Instant.SettingGraph.LRPercent.GetValue())
-                {
-                    if (blacklist.WayCheckClear(currentPos, currentVector.ToLeft(), foo))
-                        currentVector = currentVector.ToLeft();
-                    else if (blacklist.WayCheckClear(currentPos, currentVector.ToRight(), foo))
-                        currentVector = currentVector.ToRight();
-                    else
-                        return;
-                }
-                else
-                {
-                    if (blacklist.WayCheckClear(currentPos, currentVector.ToRight(), foo))
-                        currentVector = currentVector.ToRight();
-                    else if (blacklist.WayCheckClear(currentPos, currentVector.ToLeft(), foo))
-                        currentVector = currentVector.ToLeft();
-                    else
-                        return;
-                }
+            int zoneSize = ((int)(PrefsGraph.Instant.SettingGraph.subzoneSize.avarage * PrefsGraph.Instant.SettingGraph.roomSize.avarage));
+            if (!blacklist.FullLRCheck(currentPos, currentVector * HScale, zoneSize, ref currentVector))
+                return;
+           
             countSubzone--;
             GraphElement currElem;
             currElem = FabricGameObject.InstantiateElement<Сorridor>(currentPos, this, currentVector);
@@ -55,7 +39,8 @@ namespace Assets.Scripts.GenSystemV1
             //    currElem = FabricGameObject.InstantiateElement<Rame>(currentPos, this, currentVector);
 
             currElem.parentElement = this;
-            currElem.backElement = preElement;
+            currElem.backElementLow = preElement;
+            currElem.backElement = preElement?.parentElement.parentElement;
             currElem.buildVector = currentVector;
             currElem.Generate();
             subElements.Add(currElem);
@@ -68,7 +53,7 @@ namespace Assets.Scripts.GenSystemV1
             var nextZones = PrefsGraph.Instant.SettingGraph.SelectRandElements(countnewZone, currElem.newWays).ToList();
             for (int i = 0; i < nextZones.Count; i++)
             {
-                SelectSubZone(nextZones[i].pos, nextZones[i].forw, nextZones[i].elem);
+                SelectSubZone(nextZones[i].position, nextZones[i].vector, nextZones[i].elemement);
             }
         }
 

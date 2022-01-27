@@ -8,15 +8,13 @@ namespace Assets.Scripts.GenSystemV1
     {
         public override void Generate()
         {
+            base.Generate();
             Vector3 currentPos = transform.position;
             var rightVector = buildVector.ToRight();
             var leftVector = buildVector.ToLeft();
-            var roomLenght = (parentElement as Zone).roomSize;
-            var roomSize = (parentElement as Zone).roomSize;
-            var area = parentElement.parentElement as Area;
             var generalList = new List<GraphElement>();
 
-            for (int j = 0; j < roomLenght; j++)
+            for (int j = 0; j < roomSize; j++)
             {
                 if (blacklist.Contains(currentPos))
                 {
@@ -29,11 +27,11 @@ namespace Assets.Scripts.GenSystemV1
                 var se = FabricGameObject.InstantiateElement<Point>(currentPos, this, buildVector);
                 generalList.Add(se);
 
-                if (j == roomLenght / 2)
+                if (j == roomSize / 2)
                     interestPlace = generalList.Last() as Point;
 
-                if (j == roomLenght - 1)
-                    newWays.Add((generalList.Last(), generalList.Last().transform.position + buildVector * HScale, buildVector));
+                if (j == roomSize - 1)
+                    newWays.Add(new NewWay(generalList.Last(), generalList.Last().transform.position + buildVector * HScale, buildVector));
 
                 Vector3 currentPosL, currentPosR;
                 currentPosL = currentPosR = currentPos;
@@ -44,16 +42,16 @@ namespace Assets.Scripts.GenSystemV1
                         break;
                     var pr = FabricGameObject.InstantiateElement<Point>(currentPosR, this, buildVector);
                     subElements.Add(pr);
-                    if (j == roomLenght - 1 && i == roomSize / 2 - 1)
-                    {
-                        newWays.Add((pr, pr.transform.position + rightVector * HScale, rightVector));
-                        newWays.Add((pr, pr.transform.position + buildVector * HScale, buildVector));
-                    }
-                    if (j == roomLenght - 1 && i == 0)
-                    {
-                        newWays.Add((pr, pr.transform.position + rightVector * HScale, rightVector));
-                        newWays.Add((pr, pr.transform.position + rightVector.ToRight() * HScale, rightVector.ToRight()));
-                    }
+                    //if (j == roomSize - 1 && i == roomSize / 2 - 1)
+                    //{
+                    //    newWays.Add((pr, pr.transform.position + rightVector * HScale, rightVector));
+                    //    newWays.Add((pr, pr.transform.position + buildVector * HScale, buildVector));
+                    //}
+                    //if (j == roomSize - 1 && i == 0)
+                    //{
+                    //    newWays.Add((pr, pr.transform.position + rightVector * HScale, rightVector));
+                    //    newWays.Add((pr, pr.transform.position + rightVector.ToRight() * HScale, rightVector.ToRight()));
+                    //}
                 }
 
                 for (int i = 0; i < roomSize / 2 - 1; i++)
@@ -63,16 +61,16 @@ namespace Assets.Scripts.GenSystemV1
                         break;
                     var pl = FabricGameObject.InstantiateElement<Point>(currentPosL, this, buildVector);
                     subElements.Add(pl);
-                    if (j == roomLenght - 1 && i == roomSize / 2 - 1)
-                    {
-                        newWays.Add((pl, pl.transform.position + leftVector * HScale, leftVector));
-                        newWays.Add((pl, pl.transform.position + buildVector * HScale, buildVector));
-                    }
-                    if (j == roomLenght - 1 && i == 0)
-                    {
-                        newWays.Add((pl, pl.transform.position + leftVector * HScale, leftVector));
-                        newWays.Add((pl, pl.transform.position + leftVector.ToLeft() * HScale, leftVector.ToLeft()));
-                    }
+                    //if (j == roomSize - 1 && i == roomSize / 2 - 1)
+                    //{
+                    //    newWays.Add((pl, pl.transform.position + leftVector * HScale, leftVector));
+                    //    newWays.Add((pl, pl.transform.position + buildVector * HScale, buildVector));
+                    //}
+                    //if (j == roomSize - 1 && i == 0)
+                    //{
+                    //    newWays.Add((pl, pl.transform.position + leftVector * HScale, leftVector));
+                    //    newWays.Add((pl, pl.transform.position + leftVector.ToLeft() * HScale, leftVector.ToLeft()));
+                    //}
 
                 }
 
@@ -104,6 +102,7 @@ namespace Assets.Scripts.GenSystemV1
 
                 e.Generate();
             }
+            GenNewWays();
             //if (interestPlace != null)
             //    GenRoomEntry();
             //else Debug.Log("interestPlace == Vector3.zero");

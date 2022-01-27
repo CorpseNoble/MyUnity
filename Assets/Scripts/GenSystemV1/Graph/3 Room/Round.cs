@@ -8,13 +8,13 @@ namespace Assets.Scripts.GenSystemV1
     {
         public override void Generate()
         {
-            var roomSize = (parentElement as Zone).roomSize;
+            base.Generate();
+
             var rad = (roomSize - 1) / 2;
             Vector3 center = transform.position + buildVector * rad * HScale;
             Vector3 currentPos = transform.position;
             var rightVector = buildVector.ToRight();
             var leftVector = buildVector.ToLeft();
-            var area = parentElement.parentElement as Area;
             var generalList = new List<GraphElement>();
 
             for (int j = 0; j < roomSize; j++)
@@ -29,7 +29,7 @@ namespace Assets.Scripts.GenSystemV1
                 if (currentPos == center)
                     interestPlace = generalList.Last() as Point;
                 if (j == rad * 2)
-                    newWays.Insert(0, (generalList.Last(), generalList.Last().transform.position + buildVector * HScale, buildVector));
+                    newWays.Add(new NewWay(generalList.Last(), generalList.Last().transform.position + buildVector * HScale, buildVector));
 
                 Vector3 currentPosL, currentPosR;
                 currentPosL = currentPosR = currentPos;
@@ -43,10 +43,10 @@ namespace Assets.Scripts.GenSystemV1
                         var er = FabricGameObject.InstantiateElement<Point>(currentPosR, this, buildVector);
                         subElements.Add(er);
 
-                        if (Vector3.Distance(center, currentPosR) == rad * HScale)
-                        {
-                            newWays.Add((er, er.transform.position + rightVector * HScale, rightVector));
-                        }
+                        //if (Vector3.Distance(center, currentPosR) == rad * HScale)
+                        //{
+                        //    newWays.Add((er, er.transform.position + rightVector * HScale, rightVector));
+                        //}
                     }
 
                 }
@@ -62,10 +62,10 @@ namespace Assets.Scripts.GenSystemV1
                         var el = FabricGameObject.InstantiateElement<Point>(currentPosL, this, buildVector);
                         subElements.Add(el);
 
-                        if (Vector3.Distance(center, currentPosL) == rad * HScale)
-                        {
-                            newWays.Add((el, el.transform.position + leftVector * HScale, leftVector));
-                        }
+                        //if (Vector3.Distance(center, currentPosL) == rad * HScale)
+                        //{
+                        //    newWays.Add((el, el.transform.position + leftVector * HScale, leftVector));
+                        //}
                     }
                 }
                 currentPos += buildVector * HScale;
@@ -76,7 +76,6 @@ namespace Assets.Scripts.GenSystemV1
             {
                 backElement.Connect(rootElement);
             }
-
             for (int i = 0; i < subElements.Count; i++)
             {
                 GraphElement e = subElements[i];
@@ -95,6 +94,7 @@ namespace Assets.Scripts.GenSystemV1
 
                 e.Generate();
             }
+            GenNewWays();
             //if (interestPlace != null)
             //    GenRoomEntry();
             //else Debug.Log("interestPlace == Vector3.zero");

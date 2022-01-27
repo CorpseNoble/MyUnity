@@ -15,17 +15,14 @@ namespace Assets.Scripts.GenSystemV1
         [SerializeField] private List<Vector3> pillarGoundBlacklist = new List<Vector3>();
         [SerializeField] private List<Vector3> wallBlacklist = new List<Vector3>();
 
-        private IEnumerable<Vector3> PosBlacklist = null;
         public BlacklistManager()
         {
             PointBlacklist = new List<Point>();
-            PosBlacklist = PointBlacklist.Select(c => c.transform.position);
         }
 
         public void Add(Point pos)
         {
             PointBlacklist.Add(pos);
-            PosBlacklist = PointBlacklist.Select(c => c.transform.position);
         }
 
         public void AddPillar(Vector3 pos)
@@ -43,7 +40,7 @@ namespace Assets.Scripts.GenSystemV1
 
         public bool Contains(Vector3 pos)
         {
-            return PosBlacklist.Contains(pos);
+            return PointBlacklist.Where(c=>c.transform.position==pos).Any();
         }
         public bool ContainsPillar(Vector3 pos)
         {
@@ -64,7 +61,6 @@ namespace Assets.Scripts.GenSystemV1
             pillarBlacklist.Clear();
             pillarGoundBlacklist.Clear();
             wallBlacklist.Clear();
-            PosBlacklist = PointBlacklist.Select(c => c.transform.position);
         }
 
         public bool WayCheckClear(Vector3 pos, Vector3 vector, int lenght)
@@ -72,10 +68,39 @@ namespace Assets.Scripts.GenSystemV1
 
             for (int i = 0; i < lenght; i++)
             {
-                if (PosBlacklist.Contains(pos) && i < lenght / 2)
+                if (Contains(pos))
                     return false;
 
                 pos += vector;
+            }
+            return true;
+        }
+
+        public bool FullLRCheck(Vector3 pos, Vector3 vector, int lenght,ref Vector3 currentVector)
+        {
+            if (!WayCheckClear(pos, vector, lenght))
+            {
+                var left = WayCheckClear(pos, vector.ToLeft(), lenght);
+                var right = WayCheckClear(pos, vector.ToRight(), lenght);
+                if (left && right)
+                {
+                    if (PrefsGraph.Instant.SettingGraph.LRPercent.GetValue())
+                        currentVector = currentVector.ToLeft();
+                    else
+                        currentVector = currentVector.ToRight();
+                }
+                else if (left)
+                {
+                    currentVector = currentVector.ToLeft();
+                }
+                else if (right)
+                {
+                    currentVector = currentVector.ToRight();
+                }
+                if (!left && !right)
+                {
+                    return false;
+                }
             }
             return true;
         }

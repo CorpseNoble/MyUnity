@@ -150,10 +150,10 @@ MonoBehaviour:
       isFptlEnabled: 0
   m_RenderPipelineResources: {fileID: 11400000, guid: 3ce144cff5783da45aa5d4fdc2da14b7, type: 2}
   m_RenderPipelineRayTracingResources: {fileID: 0}
-  m_DefaultVolumeProfile: {fileID: 11400000, guid: a6c2969e5d98b6a439d658815d20114e, type: 2}
+  m_DefaultVolumeProfile: {fileID: 11400000, guid: 82d3b37e2ee796f42ba7a10fdd3aebaf, type: 2}
   m_LensAttenuation: 0
   m_UseRenderGraph: 1
-  m_DefaultLookDevProfile: {fileID: 11400000, guid: bccf342b3ecdaa74aa9b19a7106b1cb2, type: 2}
+  m_DefaultLookDevProfile: {fileID: 11400000, guid: fa2fd3142f7536c47b7b500ba9cd7c12, type: 2}
   m_RenderingPathDefaultCameraFrameSettings:
     bitDatas:
       data1: 72198262773251917
@@ -197,7 +197,7 @@ MonoBehaviour:
     sssCustomSampleBudget: 20
     materialQuality: 0
   m_RenderPipelineSettings:
-    supportShadowMask: 0
+    supportShadowMask: 1
     supportSSR: 0
     supportSSRTransparent: 0
     supportSSAO: 1
@@ -226,11 +226,11 @@ MonoBehaviour:
     customBufferFormat: 12
     supportedLitShaderMode: 2
     planarReflectionResolution:
-      m_Values: 000100000004000000080000
+      m_Values: 000100000004000000040000
       m_SchemaId:
         m_Id: With3Levels
     supportDecals: 1
-    supportDecalLayers: 1
+    supportDecalLayers: 0
     decalLayerName0: Decal Layer default
     decalLayerName1: Decal Layer 1
     decalLayerName2: Decal Layer 2
@@ -256,18 +256,18 @@ MonoBehaviour:
       cookieFormat: 74
       cookieAtlasLastValidMip: 0
       cookieTexArraySize: 1
-      planarReflectionAtlasSize: 4096
+      planarReflectionAtlasSize: 1024
       reflectionProbeCacheSize: 64
       reflectionCubemapSize: 256
       reflectionCacheCompressed: 0
       reflectionProbeFormat: 74
-      skyReflectionSize: 128
+      skyReflectionSize: 256
       skyLightingOverrideLayerMask:
         serializedVersion: 2
         m_Bits: 0
       supportFabricConvolution: 0
       maxDirectionalLightsOnScreen: 16
-      maxPunctualLightsOnScreen: 1024
+      maxPunctualLightsOnScreen: 512
       maxAreaLightsOnScreen: 64
       maxEnvLightsOnScreen: 64
       maxDecalsOnScreen: 512
@@ -315,7 +315,7 @@ MonoBehaviour:
       lutFormat: 48
       bufferFormat: 74
     dynamicResolutionSettings:
-      enabled: 1
+      enabled: 0
       maxPercentage: 100
       minPercentage: 100
       dynResType: 1
@@ -351,7 +351,7 @@ MonoBehaviour:
       ChromaticAberrationMaxSamples: 03000000060000000c000000
     lightSettings:
       useContactShadow:
-        m_Values: 000000
+        m_Values: 000001
         m_SchemaId:
           m_Id: With3Levels
     maximumLODLevel:
@@ -440,8 +440,8 @@ MonoBehaviour:
   m_DefaultMaterialQualityLevel: 4
   diffusionProfileSettings: {fileID: 0}
   diffusionProfileSettingsList:
-  - {fileID: 11400000, guid: b0607dc77533047438d3c53976047535, type: 2}
-  - {fileID: 11400000, guid: e43d84e8b4b5de04db58a482d1871ae7, type: 2}
+  - {fileID: 11400000, guid: 7a4554a59450a9e49a61d4e9ff171615, type: 2}
+  - {fileID: 11400000, guid: d8a651321f0b1784bb9f7e010721dd5d, type: 2}
   beforeTransparentCustomPostProcesses: []
   beforeTAACustomPostProcesses: []
   beforePostProcessCustomPostProcesses: []

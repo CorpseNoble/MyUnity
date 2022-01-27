@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -10,11 +11,13 @@ namespace Assets.Scripts.GenSystemV1
         [Header("GraphElement")]
         //gen string
         public BlacklistManager blacklist;
+        public GraphElement backElementLow;
 
         //internal struct
         public GraphElement rootElement;
         public List<GraphElement> subElements = new List<GraphElement>();
-        public List<(GraphElement elem, Vector3 pos, Vector3 forw)> newWays = new List<(GraphElement elem, Vector3 pos, Vector3 forw)>();
+        public List<NewWay> newWays = new List<NewWay>();
+        public int number = 0;
 
         //external struct
         public Vector3 buildVector = Vector3.forward;
@@ -52,5 +55,23 @@ namespace Assets.Scripts.GenSystemV1
             return connect;
         }
     }
-
+    [Serializable]
+    public struct NewWay
+    {
+        public GraphElement elemement;
+        public Vector3 position;
+        public Vector3 vector;
+        public NewWay(GraphElement elemement, Vector3 position, Vector3 vector) : this()
+        {
+            this.elemement = elemement;
+            this.position = position;
+            this.vector = vector;
+        }
+        public void Deconstruct(out GraphElement elem, out Vector3 pos,out Vector3 forw)
+        {
+            elem = elemement;
+            pos = position;
+            forw = vector;
+        }
+    }
 }
