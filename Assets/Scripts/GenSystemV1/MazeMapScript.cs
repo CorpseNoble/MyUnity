@@ -2,22 +2,27 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+
 namespace Assets.Scripts.GenSystemV1
 {
     [ExecuteInEditMode]
+    [RequireComponent(typeof(NavMeshSurface))]
+    [RequireComponent(typeof(Area))]
     public class MazeMapScript : MonoBehaviour
     {
-        public Area area;
 
         public BlacklistManager blacklist;
-        public GraphSettingsData settingGraph;
+
+        private NavMeshSurface meshSurface;
+        private Area area;
 
         void OnEnable()
         {
-            if (area == null)
-                area = gameObject.AddComponent<Area>();
 
             blacklist ??= new BlacklistManager();
+            meshSurface = GetComponent<NavMeshSurface>();
+            area = GetComponent<Area>();
 
         }
         private void GenStepWall()
@@ -37,22 +42,75 @@ namespace Assets.Scripts.GenSystemV1
                 p.GenWalls();
             }
         }
-        [ContextMenu("Gen")]
-        public void Gen()
+        [ContextMenu("ReGenMaze")]
+        public void ReGenMaze()
+        {
+            Clear();
+            PrefsGraph.Instant.SettingGraph.UpdateSeed();
+            Gen();
+        }
+        [ContextMenu("GenNewMaze")]
+        public void GenNewMaze()
+        {
+            Clear();
+            PrefsGraph.Instant.SettingGraph.GenerateSeed();
+            Gen();
+        }
+        private void Gen()
         {
             if (area.subElements.Count > 0)
             {
                 Clear();
             }
 
-            settingGraph.UpdateSeed();
             area.blacklist = blacklist;
             area.Generate();
             GenStepWall();
             area.GenDoor();
             area.GenLight();
             area.GenChest();
+            meshSurface.BuildNavMesh();
         }
+       
+        //public NavMeshDataInstance dataInstance = new NavMeshDataInstance();
+        //public NavMeshData data;
+        //public LayerMask buildmask;
+
+        //[ContextMenu("BuildNavMesh")]
+        //public void BuildNavMesh()
+        //{
+        //    dataInstance.Remove();
+
+        //   // var boundsZero = new Bounds();
+        //   // var bounds1000 = new Bounds(Vector3.zero, new Vector3(1000, 1000, 1000));
+        //    var markups = new List<NavMeshBuildMarkup>();
+        //    var sources = new List<NavMeshBuildSource>();
+
+        //    NavMeshBuilder.CollectSources(
+        //        root: transform,
+        //        buildmask,
+        //        NavMeshCollectGeometry.PhysicsColliders,
+        //        defaultArea: 0,
+        //        markups,
+        //        sources);
+
+        //    data = NavMeshBuilder.BuildNavMeshData(
+        //        NavMesh.GetSettingsByID(0),
+        //        sources,
+        //        new Bounds(),
+        //        transform.position,
+        //        transform.rotation);
+
+        //    if (data != null)
+        //    {
+        //        data.name = gameObject.name;
+        //        dataInstance.Remove();
+        //        dataInstance = new NavMeshDataInstance();
+        //        dataInstance = NavMesh.AddNavMeshData(data, transform.position, transform.rotation);
+        //        dataInstance.owner = this;
+        //    }
+        //    Debug.Log("dataInstance.valid: " + dataInstance.valid);
+        //}
         [ContextMenu("Clear")]
         public void Clear()
         {
@@ -76,7 +134,7 @@ namespace Assets.Scripts.GenSystemV1
             area.Chest.Clear();
             area.Doors.Clear();
             area.ChestPlaces.Clear();
-
+            NavMesh.RemoveAllNavMeshData();
         }
 
     }

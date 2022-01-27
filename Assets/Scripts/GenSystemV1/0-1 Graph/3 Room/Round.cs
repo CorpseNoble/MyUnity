@@ -13,13 +13,14 @@ namespace Assets.Scripts.GenSystemV1
             var rightVector = buildVector.ToRight();
             var leftVector = buildVector.ToLeft();
             var area = parentElement.parentElement as Area;
-            area.ChestPlaces.Add(center);
+
             for (int j = 0; j < rad * 2 + 1; j++)
             {
                 if (blacklist.Contains(currentPos))
                     break;
                 subElements.Add(FabricGameObject.InstantiateElement<Point>(currentPos, this, buildVector));
-
+                if (currentPos == center)
+                    area.ChestPlaces.Add(center);
                 if (j == rad * 2)
                     newWays.Insert(0, (subElements.Last(), subElements.Last().transform.position + buildVector * scale, buildVector));
 

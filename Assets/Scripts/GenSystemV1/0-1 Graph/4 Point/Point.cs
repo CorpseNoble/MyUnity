@@ -40,11 +40,11 @@ namespace Assets.Scripts.GenSystemV1
                 Vector3.back,
                 Vector3.left
             };
-            var hasWall = false;
+            //var hasWall = false;
             foreach (var ce in connectElements)
             {
-                if (ce.GetConnect(this).connectElements.Count < 4)
-                    hasWall = true;
+                //if (ce.GetConnect(this).connectElements.Count < 4)
+                //    hasWall = true;
 
                 var way = (ce.GetConnect(this).transform.position - transform.position).normalized;
                 var currP = transform.position + way * scale * 0.5f;
@@ -83,7 +83,7 @@ namespace Assets.Scripts.GenSystemV1
                 }
                 if (!blacklist.ContainsPillar(currP))
                 {
-                    if (walls.Count > 0 || !PrefsGraph.Instant.SettingGraph.PillarAboutWall)
+                    if (walls.Count > 0 || !PrefsGraph.Instant.SettingGraph.pillarAboutWall)
                     {
                         geometric.Add(FabricGameObject.InstantiatePillarPrefab(area.elementsData.Pillar, currP, transform));
                         blacklist.AddPillar(currP);

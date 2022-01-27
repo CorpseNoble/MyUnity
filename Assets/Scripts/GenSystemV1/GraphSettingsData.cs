@@ -9,32 +9,46 @@ namespace Assets.Scripts.GenSystemV1
     public class GraphSettingsData : ScriptableObject
     {
         public int seed = 0;
-        public bool PillarAboutWall = false;
+        public bool pillarAboutWall = true;
         public RandRangeValue waySize;
         public RandRangeValue roomSize;
         public RandRangeValue pathLenght;
-        public RandRangeValue subzoneSize;
-        public RandRangeValue maxZoneCount;
         public RandRangeValue nextZoneCount;
         public RandPercentValue noizePercent;
         public RandPercentValue LRPercent;
+        public RandRangeValue subzoneSize;
+        [HideInInspector] public RandRangeValue maxZoneCount;
+
+        [Header("Room ZoneType")]
         public RandPercentValue corridorPercent;
         public RandPercentValue nextZonePercent;
         public RandPercentValue rameZonePercent;
         public RandPercentValue roomPercent;
         public RandPercentValue roudRoomPercent;
 
-        public System.Random random;
-        
-      
+        [Header("Room Entry")]
+        public RandPercentValue DangerSaveRoomPercent;
+        public RandPercentValue EnemyPercent;
+        public RandPercentValue TrapPercent;
+
+        private System.Random random;
+        private List<IRandom> randomValues;
+
         public GraphSettingsData()
         {
-            UpdateSeed();
-            GenerateSeed();
-            maxZoneCount = new RandRangeValue(21, 5, random);
+            Init();
+        }
+
+        private void Init()
+        {
+            random = new System.Random(seed);
+
+            maxZoneCount = new RandRangeValue(60, 5, random);
+
             subzoneSize = new RandRangeValue(5, 2, random);
-            roomSize = new RandRangeValue(4, 1, random);
-            waySize = new RandRangeValue(1.5f, 0.5f, random);
+
+            roomSize = new RandRangeValue(10, 4, random);
+            waySize = new RandRangeValue(5, 2, random);
             pathLenght = new RandRangeValue(5, 2, random);
             noizePercent = new RandPercentValue(1, random);
             LRPercent = new RandPercentValue(5, random);
@@ -42,8 +56,33 @@ namespace Assets.Scripts.GenSystemV1
             nextZonePercent = new RandPercentValue(5, random);
             corridorPercent = new RandPercentValue(5, random);
             rameZonePercent = new RandPercentValue(5, random);
+
             roomPercent = new RandPercentValue(5, random);
             roudRoomPercent = new RandPercentValue(5, random);
+
+            DangerSaveRoomPercent = new RandPercentValue(5, random);
+            EnemyPercent = new RandPercentValue(7, random);
+            TrapPercent = new RandPercentValue(7, random);
+
+            randomValues = new List<IRandom>()
+            {
+            waySize,
+            roomSize,
+            pathLenght,
+            nextZoneCount,
+            noizePercent,
+            LRPercent,
+            subzoneSize,
+            maxZoneCount,
+            corridorPercent,
+            nextZonePercent,
+            rameZonePercent,
+            roomPercent,
+            roudRoomPercent,
+            DangerSaveRoomPercent,
+            EnemyPercent,
+            TrapPercent,
+            };
         }
         [ContextMenu("GenerateSeed")]
         public void GenerateSeed()
@@ -51,11 +90,20 @@ namespace Assets.Scripts.GenSystemV1
             seed = random.Next();
             UpdateSeed();
         }
-
+        [ContextMenu("UpdateSeed")]
         public void UpdateSeed()
         {
             random = new System.Random(seed);
+            UpdateRef();
         }
+        private void UpdateRef()
+        {
+            foreach (var rand in randomValues)
+            {
+                rand.Random = random;
+            }
+        }
+
         public IEnumerable<T> SelectRandElements<T>(int sizeSelecion, List<T> list)
         {
             var selection = new List<T>();
@@ -72,19 +120,26 @@ namespace Assets.Scripts.GenSystemV1
         }
     }
     [Serializable]
-    public class RandRangeValue
+    public class RandRangeValue : IRandom
     {
         [Range(1.5f, 20f)]
         public float avarage = 2;
         [Range(0.5f, 10f)]
         public float deviation = 1;
 
-        public System.Random random;
+        public System.Random Random { get; set; }
         public RandRangeValue(float avarage, float deviation, System.Random random)
         {
             this.avarage = avarage;
             this.deviation = deviation;
-            this.random = random;
+            this.Random = random;
+        }
+
+        public RandRangeValue(RandRangeValue value, System.Random random)
+        {
+            this.avarage = value.avarage;
+            this.deviation = value.deviation;
+            this.Random = random;
         }
 
         public int MinValue => (int)(avarage - deviation);
@@ -92,26 +147,30 @@ namespace Assets.Scripts.GenSystemV1
 
         public int GetValue()
         {
-            return random.Next(MinValue, MaxValue + 1);
+            return Random.Next(MinValue, MaxValue + 1);
         }
     }
     [Serializable]
-    public class RandPercentValue
+    public class RandPercentValue : IRandom
     {
         [Range(0, 10)]
         public int percent = 0;
 
-
-        public System.Random random;
+        public System.Random Random { get; set; }
         public RandPercentValue(int percent, System.Random random)
         {
             this.percent = percent;
-            this.random = random;
+            this.Random = random;
         }
 
         public bool GetValue()
         {
-            return random.Next(0, 11) < (percent + 1);
+            return Random.Next(0, 11) < (percent + 1);
         }
+    }
+
+    public interface IRandom
+    {
+        public System.Random Random { get; set; }
     }
 }
