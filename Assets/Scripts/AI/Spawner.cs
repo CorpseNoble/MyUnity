@@ -3,45 +3,53 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spawner : MonoBehaviour
+namespace Assets.Scripts.AI
 {
-    [SerializeField][Range(0,10)]
-    private int _spawnRange = 5;
-    [SerializeField][Range(0,10)]
-    private int _spawnLimit = 5;
-    [SerializeField][Range(0,120)]
-    private float _spawnTime = 60;
-
-    private System.Random _random = new System.Random();
-    [SerializeField] 
-    private List<GameObject> _spawnings = new List<GameObject>();  
-    [SerializeField] 
-    private List<GameObject> _spawnedObjects = new List<GameObject>();
-
-    
-    private void Start()
+    public class Spawner : MonoBehaviour
     {
-        StartCoroutine(StartSpawnCoroutine(_spawnTime));
-    }
+        public List<SpawnedObject> spawnedObjects = new List<SpawnedObject>();
 
-    private IEnumerator StartSpawnCoroutine(float time)
-    {
-        while (true)
+        [SerializeField]
+        [Range(0, 10)]
+        private int _spawnRange = 5;
+        [SerializeField]
+        [Range(0, 10)]
+        private int _spawnLimit = 5;
+        [SerializeField]
+        [Range(0, 120)]
+        private float _spawnTime = 60;
+
+        private System.Random _random = new System.Random();
+        [SerializeField]
+        private List<GameObject> _spawnings = new List<GameObject>();
+
+
+        private void Start()
         {
-
-            yield return new WaitForSeconds(time);
-            if (_spawnedObjects.Count<_spawnLimit)
-                Spawn();
+            StartCoroutine(StartSpawnCoroutine(_spawnTime));
         }
-    }
 
-    private void Spawn()
-    {
-        foreach (var spawning in _spawnings)
+        private IEnumerator StartSpawnCoroutine(float time)
         {
-            Vector3 randomPosition = new Vector3(transform.position.x + _random.Next(-1 * _spawnRange, _spawnRange),
-                transform.position.y + _random.Next(-1 * _spawnRange, _spawnRange));
-            Instantiate(spawning, randomPosition, transform.rotation);
+            while (true)
+            {
+                if (spawnedObjects.Count < _spawnLimit)
+                    Spawn();
+                yield return new WaitForSeconds(time);
+
+            }
+        }
+
+        private void Spawn()
+        {
+            foreach (var spawning in _spawnings)
+            {
+                Vector3 randomPosition = new Vector3(transform.position.x + _random.Next(-1 * _spawnRange, _spawnRange),
+                    transform.position.y + _random.Next(-1 * _spawnRange, _spawnRange));
+                var spawnedObject = Instantiate(spawning, randomPosition, transform.rotation).AddComponent<SpawnedObject>();
+                spawnedObject.spawner = this;
+                spawnedObjects.Add(spawnedObject);
+            }
         }
     }
 }

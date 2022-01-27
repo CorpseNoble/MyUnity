@@ -9,14 +9,13 @@ namespace Assets.Scripts.GenSystemV1
     {
         public int countSubzone;
         public PointElementsData elementsData;
-        public List<GameObject> Doors = new List<GameObject>();
-        public List<GameObject> LightPlaces = new List<GameObject>();
-        public List<Vector3> ChestPlaces = new List<Vector3>();
-        public List<GameObject> Chest = new List<GameObject>();
+        public List<GameObject> doors = new List<GameObject>();
+        public List<GameObject> lightPlaces = new List<GameObject>();
 
         [Range(1, 5)] public float llightDistMulti = 1.5f;
         public override void Generate()
         {
+            hight = PrefsGraph.Instant.SettingGraph.hight;
             Vector3 currentPos = transform.position;
             Vector3 currentVector = buildVector;
             countSubzone = PrefsGraph.Instant.SettingGraph.maxZoneCount.GetValue();
@@ -82,38 +81,31 @@ namespace Assets.Scripts.GenSystemV1
             {
                 var connect = con.lowConnect?.lowConnect;
                 var vector = (connect.Elements[1].transform.position - connect.Elements[0].transform.position).normalized;
-                var pos = connect.Elements[0].transform.position + vector * scale * 0.5f;
+                var pos = connect.Elements[0].transform.position + vector * HScale * 0.5f;
 
-                Doors.Add(FabricGameObject.InstantiateVectoredPrefab(elementsData.Door, pos, transform, vector));
+                doors.Add(FabricGameObject.InstantiateVectoredPrefab(elementsData.Door, pos, connect.Elements[0].transform, vector));
             }
         }
 
         public void GenLight()
         {
-            while (LightPlaces.Count > 0)
+            while (lightPlaces.Count > 0)
             {
-                GameObject lp = LightPlaces[0];
+                GameObject lp = lightPlaces[0];
                 FabricGameObject.InstantiateVectoredPrefab(elementsData.Light, lp.transform.position, lp.transform, -lp.transform.forward);
-                LightPlaces.Remove(lp);
-                for (int j = 0; j < LightPlaces.Count; j++)
+                lightPlaces.Remove(lp);
+                for (int j = 0; j < lightPlaces.Count; j++)
                 {
-                    GameObject lp2 = LightPlaces[j];
-                    if (Vector3.Distance(lp.transform.position, lp2.transform.position) <= scale * llightDistMulti)
+                    GameObject lp2 = lightPlaces[j];
+                    if (Vector3.Distance(lp.transform.position, lp2.transform.position) <= HScale * llightDistMulti)
                     {
-                        LightPlaces.Remove(lp2);
+                        lightPlaces.Remove(lp2);
                         j--;
                     }
                 }
             }
         }
 
-        public void GenChest()
-        {
-            foreach (var cp in ChestPlaces)
-            {
-                Chest.Add(FabricGameObject.InstantiatePrefab(elementsData.Chest, cp, transform));
-            }
-        }
     }
 }
 

@@ -4,139 +4,146 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(NavMeshAgent))]
-[RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(Collider))]
-public class Slime : AliveController
+namespace Assets.Scripts.AI
 {
-    [SerializeField] 
-    private GameObject _player;
-    [SerializeField][Range(0,1000)]
-    private float _visionDistance;
-    [SerializeField][Range(0,10)]
-    private float _attackDistance;
-    [SerializeField][Range(0,10)]
-    private float _deathTimer;
-
-    private NavMeshAgent _agent;
-    private NavMeshPath _path;
-    private EnemyState _state;
-    private Animator _anim;
-    private bool _stunned = false;
-    
-
-    void Start()
+    [RequireComponent(typeof(NavMeshAgent))]
+    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(Collider))]
+    public class Slime : AliveController
     {
-        base.Start();
-        _player = GameObject.FindGameObjectWithTag("Player");
-        _agent = GetComponent<NavMeshAgent>();
-        _agent.isStopped = true;
-        _path = new NavMeshPath();
-        if (_player != null)
+        [SerializeField]
+        private GameObject _player;
+        [SerializeField]
+        [Range(0, 1000)]
+        private float _visionDistance;
+        [SerializeField]
+        [Range(0, 10)]
+        private float _attackDistance;
+        [SerializeField]
+        [Range(0, 10)]
+        private float _deathTimer;
+
+        private NavMeshAgent _agent;
+        private NavMeshPath _path;
+        private EnemyState _state;
+        private Animator _anim;
+        private bool _stunned = false;
+
+
+        new void Start()
         {
-            var position = _player.transform.position;
-            _agent.CalculatePath(position, _path);
-            _agent.path = _path;
-            _agent.isStopped = false;
-        }
-    }
-
-    private void Update()
-    {
-        switch (_state)
-        {
-            case EnemyState.Iddle:
-                Iddle();
-                break;
-            case EnemyState.Move:
-                Move();
-                break;
-            case EnemyState.Attack:
-                Attack();
-                break;
-            default:
-                break;
-        }
-    }
-
-
-
-    protected virtual void Move()
-    {
-        _agent.isStopped = false;
-        var position = _player.transform.position;
-        if (_player != null)
-        {
-            //agent.isStopped = false;
-            if ((_player.transform.position - transform.position).magnitude > _visionDistance)
+            base.Start();
+            acceptor = DamageAcceptor.Enemy;
+            _player = GameObject.FindGameObjectWithTag("Player");
+            _agent = GetComponent<NavMeshAgent>();
+            _agent.isStopped = true;
+            _path = new NavMeshPath();
+            if (_player != null)
             {
-                _state = EnemyState.Iddle;
-            }
-            else if ((_player.transform.position - transform.position).magnitude < _attackDistance)
-            {
-                _state = EnemyState.Attack;
-            }
-            else
-            {
-                //_anim.SetBool("Walk", true);
+                var position = _player.transform.position;
                 _agent.CalculatePath(position, _path);
                 _agent.path = _path;
+                _agent.isStopped = false;
             }
         }
-        else if (!_agent.isStopped)
+
+        private void Update()
+        {
+            switch (_state)
+            {
+                case EnemyState.Iddle:
+                    Iddle();
+                    break;
+                case EnemyState.Move:
+                    Move();
+                    break;
+                case EnemyState.Attack:
+                    Attack();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+
+
+        protected virtual void Move()
+        {
+            _agent.isStopped = false;
+            var position = _player.transform.position;
+            if (_player != null)
+            {
+                //agent.isStopped = false;
+                if ((_player.transform.position - transform.position).magnitude > _visionDistance)
+                {
+                    _state = EnemyState.Iddle;
+                }
+                else if ((_player.transform.position - transform.position).magnitude < _attackDistance)
+                {
+                    _state = EnemyState.Attack;
+                }
+                else
+                {
+                    //_anim.SetBool("Walk", true);
+                    _agent.CalculatePath(position, _path);
+                    _agent.path = _path;
+                }
+            }
+            else if (!_agent.isStopped)
+            {
+                _agent.isStopped = true;
+            }
+        }
+
+        protected void Attack()
         {
             _agent.isStopped = true;
-        }
-    }
-
-    protected void Attack()
-    {
-        _agent.isStopped = true;
-        //_anim.SetTrigger("Attack");   //???
-        if ((_player.transform.position - transform.position).magnitude > _attackDistance) //&& !stunned)//делать рейкаст и доставать компонент каждый раз???
-        {
-            _state = EnemyState.Move;
-        }
-    }
-
-    protected void Iddle()
-    {
-        _agent.isStopped = true;
-        if (_stunned)
-        {
-            //legushka
-        }
-        else if (_player != null)
-        {
-            var position = _player.transform.position;
-            if ((position - transform.position).magnitude < _attackDistance)
-            {
-                _state = EnemyState.Attack;
-            }
-            else if ((position - transform.position).magnitude < _visionDistance)
+            //_anim.SetTrigger("Attack");   //???
+            if ((_player.transform.position - transform.position).magnitude > _attackDistance) //&& !stunned)//делать рейкаст и доставать компонент каждый раз???
             {
                 _state = EnemyState.Move;
             }
         }
-    }
-    
-    
-    protected override void Death()
-    {
-        WasDead?.Invoke(this);
-        Debug.Log("You Dead");
-        Stun(_deathTimer);
-        Destroy(gameObject,_deathTimer);
-    }
 
-    private IEnumerator Stun(float time)
-    {
-        _state = EnemyState.Iddle;
-        _stunned = true;
-        yield return new WaitForSeconds(time);
-        _stunned = false;
+        protected void Iddle()
+        {
+            _agent.isStopped = true;
+            if (_stunned)
+            {
+                //legushka
+            }
+            else if (_player != null)
+            {
+                var position = _player.transform.position;
+                if ((position - transform.position).magnitude < _attackDistance)
+                {
+                    _state = EnemyState.Attack;
+                }
+                else if ((position - transform.position).magnitude < _visionDistance)
+                {
+                    _state = EnemyState.Move;
+                }
+            }
+        }
+
+
+        protected override void Death()
+        {
+            WasDead?.Invoke(this);
+            Debug.Log("You Dead");
+            Stun(_deathTimer);
+            Destroy(gameObject, _deathTimer);
+        }
+
+        private IEnumerator Stun(float time)
+        {
+            _state = EnemyState.Iddle;
+            _stunned = true;
+            yield return new WaitForSeconds(time);
+            _stunned = false;
+        }
+
     }
-    
 }
 
 enum EnemyState

@@ -16,59 +16,64 @@ namespace Assets.Scripts.GenSystemV1
             for (int j = 0; j < roomLenght; j++)
             {
                 if (blacklist.Contains(currentPos))
+                {
+                    if (interestPlace == null)
+                        interestPlace = currentPos - buildVector * HScale;
                     break;
+
+                }
                 var se = FabricGameObject.InstantiateElement<Point>(currentPos, this, buildVector);
 
                 if (j == roomLenght / 2)
-                    area.ChestPlaces.Add(currentPos);
+                    interestPlace = currentPos;
 
                 subElements.Add(se);
 
                 if (j == roomLenght - 1)
-                    newWays.Add((subElements.Last(), subElements.Last().transform.position + buildVector * scale, buildVector));
+                    newWays.Add((subElements.Last(), subElements.Last().transform.position + buildVector * HScale, buildVector));
 
                 Vector3 currentPosL, currentPosR;
                 currentPosL = currentPosR = currentPos;
                 for (int i = 0; i < roomSize / 2 - 1; i++)
                 {
-                    currentPosR += rightVector * scale;
+                    currentPosR += rightVector * HScale;
                     if (blacklist.Contains(currentPosR))
                         break;
                     var pr = FabricGameObject.InstantiateElement<Point>(currentPosR, this, buildVector);
                     subElements.Add(pr);
                     if (j == roomLenght - 1 && i == roomSize / 2 - 1)
                     {
-                        newWays.Add((pr, pr.transform.position + rightVector * scale, rightVector));
-                        newWays.Add((pr, pr.transform.position + buildVector * scale, buildVector));
+                        newWays.Add((pr, pr.transform.position + rightVector * HScale, rightVector));
+                        newWays.Add((pr, pr.transform.position + buildVector * HScale, buildVector));
                     }
                     if (j == roomLenght - 1 && i == 0)
                     {
-                        newWays.Add((pr, pr.transform.position + rightVector * scale, rightVector));
-                        newWays.Add((pr, pr.transform.position + rightVector.ToRight() * scale, rightVector.ToRight()));
+                        newWays.Add((pr, pr.transform.position + rightVector * HScale, rightVector));
+                        newWays.Add((pr, pr.transform.position + rightVector.ToRight() * HScale, rightVector.ToRight()));
                     }
                 }
 
                 for (int i = 0; i < roomSize / 2 - 1; i++)
                 {
-                    currentPosL += leftVector * scale;
+                    currentPosL += leftVector * HScale;
                     if (blacklist.Contains(currentPosL))
                         break;
                     var pl = FabricGameObject.InstantiateElement<Point>(currentPosL, this, buildVector);
                     subElements.Add(pl);
                     if (j == roomLenght - 1 && i == roomSize / 2 - 1)
                     {
-                        newWays.Add((pl, pl.transform.position + leftVector * scale, leftVector));
-                        newWays.Add((pl, pl.transform.position + buildVector * scale, buildVector));
+                        newWays.Add((pl, pl.transform.position + leftVector * HScale, leftVector));
+                        newWays.Add((pl, pl.transform.position + buildVector * HScale, buildVector));
                     }
                     if (j == roomLenght - 1 && i == 0)
                     {
-                        newWays.Add((pl, pl.transform.position + leftVector * scale, leftVector));
-                        newWays.Add((pl, pl.transform.position + leftVector.ToLeft() * scale, leftVector.ToLeft()));
+                        newWays.Add((pl, pl.transform.position + leftVector * HScale, leftVector));
+                        newWays.Add((pl, pl.transform.position + leftVector.ToLeft() * HScale, leftVector.ToLeft()));
                     }
 
                 }
 
-                currentPos += buildVector * scale;
+                currentPos += buildVector * HScale;
 
             }
 
@@ -77,11 +82,11 @@ namespace Assets.Scripts.GenSystemV1
             {
                 backElement.Connect(rootElement);
             }
-
+            GenRoomEntry();
             for (int i = 0; i < subElements.Count; i++)
             {
                 GraphElement e = subElements[i];
-                var d = e.transform.position.About(scale);
+                var d = e.transform.position.About(HScale);
                 var aboutCons = from t in subElements
                                 where d.Contains(t.transform.position)
                                 select t;

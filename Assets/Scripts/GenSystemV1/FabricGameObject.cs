@@ -14,7 +14,9 @@ namespace Assets.Scripts.GenSystemV1
             t.blacklist = parent.blacklist;
             t.buildVector = buildVector;
             t.parentElement = parent;
-            t.scale = parent.scale;
+            t.HScale = parent.HScale;
+            t.VScale = parent.VScale;
+            t.hight = parent.hight;
             return t;
         }
         public static T Instantiate<T>(Vector3 position, Transform parent) where T : Component

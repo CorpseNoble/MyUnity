@@ -10,7 +10,8 @@ namespace Assets.Scripts.GenSystemV1
     [CreateAssetMenu(fileName = "New Point Elements Data", menuName = "Point Elements Data", order = 52)]
     public class PointElementsData : ScriptableObject
     {
-        public GameObject GroundRoof;
+        public GameObject Ground;
+        public GameObject Roof;
         public GameObject GroundPathWay;
         public GameObject GroundPillar;
 
@@ -19,8 +20,10 @@ namespace Assets.Scripts.GenSystemV1
 
         public GameObject Door;
         public GameObject Lattice;
-        
+
         public GameObject Light;
         public GameObject Chest;
+        public GameObject Bonfire;
+        public List<GameObject> MonsterSpawners = new List<GameObject>();
     }
 }

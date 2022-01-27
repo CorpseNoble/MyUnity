@@ -31,24 +31,24 @@ namespace Assets.Scripts.GenSystemV1
                 {
                     if (PrefsGraph.Instant.SettingGraph.LRPercent.GetValue())
                     {
-                        if (!blacklist.Contains(se.transform.position + buildVector.ToLeft()*scale))
-                            newWays.Add((se, se.transform.position + buildVector.ToLeft() * scale, buildVector.ToLeft()));
+                        if (!blacklist.Contains(se.transform.position + buildVector.ToLeft()*HScale))
+                            newWays.Add((se, se.transform.position + buildVector.ToLeft() * HScale, buildVector.ToLeft()));
                     }
                     else
                     {
-                        if (!blacklist.Contains(se.transform.position + buildVector.ToRight() * scale))
-                            newWays.Add((se, se.transform.position + buildVector.ToRight() * scale, buildVector.ToRight()));
+                        if (!blacklist.Contains(se.transform.position + buildVector.ToRight() * HScale))
+                            newWays.Add((se, se.transform.position + buildVector.ToRight() * HScale, buildVector.ToRight()));
                     }
                 }
-                currentPos += buildVector * scale;
+                currentPos += buildVector * HScale;
 
                 if (blacklist.Contains(currentPos))
                     break;
 
             }
-            newWays.Insert(0, (subElements.Last(), subElements.Last().transform.position + buildVector * scale, buildVector));
-            newWays.Add((subElements.Last(), subElements.Last().transform.position + buildVector.ToLeft() * scale, buildVector.ToLeft()));
-            newWays.Add((subElements.Last(), subElements.Last().transform.position + buildVector.ToRight() * scale, buildVector.ToRight()));
+            newWays.Insert(0, (subElements.Last(), subElements.Last().transform.position + buildVector * HScale, buildVector));
+            newWays.Add((subElements.Last(), subElements.Last().transform.position + buildVector.ToLeft() * HScale, buildVector.ToLeft()));
+            newWays.Add((subElements.Last(), subElements.Last().transform.position + buildVector.ToRight() * HScale, buildVector.ToRight()));
             rootElement = subElements.First();
             if (backElement != null)
             {

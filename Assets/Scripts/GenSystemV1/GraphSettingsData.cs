@@ -10,6 +10,7 @@ namespace Assets.Scripts.GenSystemV1
     {
         public int seed = 0;
         public bool pillarAboutWall = true;
+        [Range(1,5)] public int hight = 2;
         public RandRangeValue waySize;
         public RandRangeValue roomSize;
         public RandRangeValue pathLenght;

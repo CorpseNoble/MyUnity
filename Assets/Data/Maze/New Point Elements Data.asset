@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d95ad4fe8fc13f54f9af60a9f1abd25b, type: 3}
   m_Name: New Point Elements Data
   m_EditorClassIdentifier: 
-  GroundRoof: {fileID: 8402805595255715730, guid: ca7fd1f5bf2319b43a2a1770b3bcbe16, type: 3}
+  Ground: {fileID: 8402805595255715730, guid: ca7fd1f5bf2319b43a2a1770b3bcbe16, type: 3}
+  Roof: {fileID: 8402805595255715730, guid: 2a8bc00a312526c47a6aef8c769da3f4, type: 3}
   GroundPathWay: {fileID: 1877940776385465065, guid: 282073974db58b94b942cd453f92008b, type: 3}
   GroundPillar: {fileID: 6656861176064105999, guid: 33784b40c8fab5647b5d5af9ea891be3, type: 3}
   Wall: {fileID: 6040371639833822620, guid: 51433dd6d6d0ced449a8645aba89a235, type: 3}
@@ -21,3 +22,6 @@ MonoBehaviour:
   Lattice: {fileID: 5490371620909308281, guid: ff10f4f7835e633409a9dd1221f6c038, type: 3}
   Light: {fileID: 5906541579054830671, guid: 114d7fada816ee849b5ab2af9df9b265, type: 3}
   Chest: {fileID: 8227963812936457900, guid: d3fe3cac483302e4a92f63028f42cb93, type: 3}
+  Bonfire: {fileID: 8227963812936457900, guid: 21c21c3467218ef4691174e5a579721f, type: 3}
+  MonsterSpawners:
+  - {fileID: 14675295590137274, guid: 11093c19497cef941acb02854f7cb6cc, type: 3}

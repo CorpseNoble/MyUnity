@@ -21,8 +21,14 @@ namespace Assets.Scripts.GenSystemV1
         public GraphElement parentElement;
         public List<Connect> connectElements = new List<Connect>();
         public GraphElement backElement;
-        public float scale = 1;
-        
+       
+        public int hight = 1;
+
+        public float HScale { get => hScale; set => hScale = value; }
+        public float VScale { get => vScale; set => vScale = value; }
+
+        [SerializeField] private float hScale = 1;
+        [SerializeField] private float vScale = 1;
         /// <summary>
         /// Create internal struct
         /// </summary>
