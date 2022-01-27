@@ -31,6 +31,12 @@ namespace Assets.Scripts.GenSystemV1
         {
             return Object.Instantiate(prefab, position, Quaternion.identity, parent);
         }
+
+        public static GameObject InstantiatePrefabPoint(GameObject prefab, Point point)
+        {
+            point.pleced = true;
+            return Object.Instantiate(prefab, point.transform.position, Quaternion.identity, point.transform);
+        }
         public static GameObject CreateQuad(Vector3 position, Transform parent)
         {
             var quad2 = GameObject.CreatePrimitive(PrimitiveType.Quad);

@@ -26,7 +26,7 @@ namespace Assets.Scripts.AI
 
         private void Start()
         {
-            StartCoroutine(StartSpawnCoroutine(_spawnTime));
+            //StartCoroutine(StartSpawnCoroutine(_spawnTime));
         }
 
         private IEnumerator StartSpawnCoroutine(float time)

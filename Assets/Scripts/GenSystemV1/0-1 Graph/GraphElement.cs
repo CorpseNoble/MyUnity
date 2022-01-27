@@ -7,7 +7,7 @@ namespace Assets.Scripts.GenSystemV1
 {
     public abstract class GraphElement : MonoBehaviour
     {
-
+        [Header("GraphElement")]
         //gen string
         public BlacklistManager blacklist;
 

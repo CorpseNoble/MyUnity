@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.GenSystemV1
@@ -7,26 +8,28 @@ namespace Assets.Scripts.GenSystemV1
     {
         public override void Generate()
         {
-            var rad = (parentElement as Zone).roomSize;
+            var roomSize = (parentElement as Zone).roomSize;
+            var rad = (roomSize - 1) / 2;
             Vector3 center = transform.position + buildVector * rad * HScale;
             Vector3 currentPos = transform.position;
             var rightVector = buildVector.ToRight();
             var leftVector = buildVector.ToLeft();
             var area = parentElement.parentElement as Area;
+            var generalList = new List<GraphElement>();
 
-            for (int j = 0; j < rad * 2 + 1; j++)
+            for (int j = 0; j < roomSize; j++)
             {
                 if (blacklist.Contains(currentPos))
                 {
                     if (interestPlace == null)
-                        interestPlace = currentPos - buildVector * HScale;
+                        interestPlace = generalList.Last() as Point;
                     break;
                 }
-                subElements.Add(FabricGameObject.InstantiateElement<Point>(currentPos, this, buildVector));
+                generalList.Add(FabricGameObject.InstantiateElement<Point>(currentPos, this, buildVector));
                 if (currentPos == center)
-                    interestPlace = center;
+                    interestPlace = generalList.Last() as Point;
                 if (j == rad * 2)
-                    newWays.Insert(0, (subElements.Last(), subElements.Last().transform.position + buildVector * HScale, buildVector));
+                    newWays.Insert(0, (generalList.Last(), generalList.Last().transform.position + buildVector * HScale, buildVector));
 
                 Vector3 currentPosL, currentPosR;
                 currentPosL = currentPosR = currentPos;
@@ -67,12 +70,13 @@ namespace Assets.Scripts.GenSystemV1
                 }
                 currentPos += buildVector * HScale;
             }
-            rootElement = subElements[0];
+            subElements.AddRange(generalList);
+            rootElement = generalList[0];
             if (backElement != null)
             {
                 backElement.Connect(rootElement);
             }
-            GenRoomEntry();
+
             for (int i = 0; i < subElements.Count; i++)
             {
                 GraphElement e = subElements[i];
@@ -91,6 +95,9 @@ namespace Assets.Scripts.GenSystemV1
 
                 e.Generate();
             }
+            //if (interestPlace != null)
+            //    GenRoomEntry();
+            //else Debug.Log("interestPlace == Vector3.zero");
         }
     }
 

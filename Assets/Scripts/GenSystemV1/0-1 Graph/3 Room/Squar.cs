@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.GenSystemV1
@@ -13,24 +14,26 @@ namespace Assets.Scripts.GenSystemV1
             var roomLenght = (parentElement as Zone).roomSize;
             var roomSize = (parentElement as Zone).roomSize;
             var area = parentElement.parentElement as Area;
+            var generalList = new List<GraphElement>();
+
             for (int j = 0; j < roomLenght; j++)
             {
                 if (blacklist.Contains(currentPos))
                 {
                     if (interestPlace == null)
-                        interestPlace = currentPos - buildVector * HScale;
+                        interestPlace = generalList.Last() as Point;
                     break;
 
                 }
+
                 var se = FabricGameObject.InstantiateElement<Point>(currentPos, this, buildVector);
+                generalList.Add(se);
 
                 if (j == roomLenght / 2)
-                    interestPlace = currentPos;
-
-                subElements.Add(se);
+                    interestPlace = generalList.Last() as Point;
 
                 if (j == roomLenght - 1)
-                    newWays.Add((subElements.Last(), subElements.Last().transform.position + buildVector * HScale, buildVector));
+                    newWays.Add((generalList.Last(), generalList.Last().transform.position + buildVector * HScale, buildVector));
 
                 Vector3 currentPosL, currentPosR;
                 currentPosL = currentPosR = currentPos;
@@ -76,13 +79,12 @@ namespace Assets.Scripts.GenSystemV1
                 currentPos += buildVector * HScale;
 
             }
-
-            rootElement = subElements[0];
+            subElements.AddRange(generalList);
+            rootElement = generalList[0];
             if (backElement != null)
             {
                 backElement.Connect(rootElement);
             }
-            GenRoomEntry();
             for (int i = 0; i < subElements.Count; i++)
             {
                 GraphElement e = subElements[i];
@@ -102,6 +104,9 @@ namespace Assets.Scripts.GenSystemV1
 
                 e.Generate();
             }
+            //if (interestPlace != null)
+            //    GenRoomEntry();
+            //else Debug.Log("interestPlace == Vector3.zero");
         }
     }
 

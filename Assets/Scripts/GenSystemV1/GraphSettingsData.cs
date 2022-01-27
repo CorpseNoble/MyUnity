@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,7 @@ namespace Assets.Scripts.GenSystemV1
     {
         public int seed = 0;
         public bool pillarAboutWall = true;
-        [Range(1,5)] public int hight = 2;
+        [Range(1, 5)] public int hight = 2;
         public RandRangeValue waySize;
         public RandRangeValue roomSize;
         public RandRangeValue pathLenght;
@@ -105,17 +106,17 @@ namespace Assets.Scripts.GenSystemV1
             }
         }
 
-        public IEnumerable<T> SelectRandElements<T>(int sizeSelecion, List<T> list)
+        public IEnumerable<T> SelectRandElements<T>(int sizeSelecion, IEnumerable<T> list)
         {
+            var list2 = new List<T>(list);
             var selection = new List<T>();
-            if (list.Count < sizeSelecion)
-                return list;
-
+            if (list2.Count < sizeSelecion)
+                return list2;
             for (int i = 0; i < sizeSelecion; i++)
             {
-                var x = random.Next(0, list.Count);
-                selection.Add(list[x]);
-                list.RemoveAt(x);
+                var x = random.Next(0, list2.Count);
+                selection.Add(list2[x]);
+                list2.RemoveAt(x);
             }
             return selection;
         }

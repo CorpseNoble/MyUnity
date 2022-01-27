@@ -5,20 +5,24 @@ namespace Assets.Scripts.GenSystemV1
 {
     public class Point : GraphElement
     {
+        [Header("Point")]
         public List<GameObject> geometric = new List<GameObject>();
-        Area area;
+        public bool pleced = false;
+
+        Area _area;
+
         //0 - floor
         //1-4 - walls
 
         public override void Generate()
         {
-            area = parentElement.parentElement.parentElement as Area;
-            var ground = FabricGameObject.InstantiateGroundPrefab(area.elementsData.Ground, transform.position, transform);
+            _area = parentElement.parentElement.parentElement as Area;
+            var ground = FabricGameObject.InstantiateGroundPrefab(_area.elementsData.Ground, transform.position, transform);
             geometric.Add(ground);
 
 
-            var roof = FabricGameObject.InstantiateGroundPrefab(area.elementsData.Roof, transform.position + (hight-1) * VScale * Vector3.up, transform);
-            area.lightPlaces.Add(roof.GetComponent<WallLightScript>().LightPlace);
+            var roof = FabricGameObject.InstantiateGroundPrefab(_area.elementsData.Roof, transform.position + (hight-1) * VScale * Vector3.up, transform);
+            _area.lightPlaces.Add(roof.GetComponent<WallLightScript>().LightPlace);
             geometric.Add(roof);
 
             blacklist.Add(this);
@@ -51,7 +55,7 @@ namespace Assets.Scripts.GenSystemV1
                 if (!ce.instanted)
                 {
                     ce.instanted = true;
-                    geometric.Add(FabricGameObject.InstantiateVectoredPrefab(area.elementsData.GroundPathWay, currP, transform, way));
+                    geometric.Add(FabricGameObject.InstantiateVectoredPrefab(_area.elementsData.GroundPathWay, currP, transform, way));
 
                 }
 
@@ -63,12 +67,12 @@ namespace Assets.Scripts.GenSystemV1
                 if (!blacklist.ContainsWall(currP))
                 {
                     blacklist.AddWall(currP);
-                    geometric.Add(FabricGameObject.InstantiateVectoredPrefab(area.elementsData.GroundPathWay, currP, transform, w));
+                    geometric.Add(FabricGameObject.InstantiateVectoredPrefab(_area.elementsData.GroundPathWay, currP, transform, w));
                 }
 
                 for (int i = 0; i < hight; i++)
                 {
-                    var wall2 = FabricGameObject.InstantiateVectoredPrefab(area.elementsData.Wall, currP + i * VScale * Vector3.up, transform, w);
+                    var wall2 = FabricGameObject.InstantiateVectoredPrefab(_area.elementsData.Wall, currP + i * VScale * Vector3.up, transform, w);
                     geometric.Add(wall2);
                 }
 
@@ -81,7 +85,7 @@ namespace Assets.Scripts.GenSystemV1
                 {
                     blacklist.AddPillarGround(currP);
 
-                    geometric.Add(FabricGameObject.InstantiatePillarPrefab(area.elementsData.GroundPillar, currP, transform));
+                    geometric.Add(FabricGameObject.InstantiatePillarPrefab(_area.elementsData.GroundPillar, currP, transform));
 
                 }
                 if (!blacklist.ContainsPillar(currP))
@@ -91,7 +95,7 @@ namespace Assets.Scripts.GenSystemV1
                         blacklist.AddPillar(currP);
                         for (int i = 0; i < hight; i++)
                         {
-                            geometric.Add(FabricGameObject.InstantiatePillarPrefab(area.elementsData.Pillar, currP + i * VScale * Vector3.up, transform));
+                            geometric.Add(FabricGameObject.InstantiatePillarPrefab(_area.elementsData.Pillar, currP + i * VScale * Vector3.up, transform));
                         }
 
                     }

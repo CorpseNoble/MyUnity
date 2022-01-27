@@ -63,9 +63,9 @@ namespace Assets.Scripts.GenSystemV1
             GenStepWall();
             area.GenDoor();
             area.GenLight();
+            area.GenRoomEntry();
             meshSurface.BuildNavMesh();
         }
-       
         //public NavMeshDataInstance dataInstance = new NavMeshDataInstance();
         //public NavMeshData data;
         //public LayerMask buildmask;
@@ -117,7 +117,6 @@ namespace Assets.Scripts.GenSystemV1
             area.subElements.Clear();
             area.rootElement = null;
             blacklist.Clear();
-            area.doors.Clear();
             NavMesh.RemoveAllNavMeshData();
         }
 

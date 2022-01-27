@@ -7,6 +7,7 @@ namespace Assets.Scripts.GenSystemV1
         int countRoom = PrefsGraph.Instant.SettingGraph.subzoneSize.GetValue() * 2;
         public override void Generate()
         {
+            base.Generate();
             Vector3 currentPos = transform.position;
             Vector3 currentVector = buildVector;
 

@@ -7,6 +7,7 @@ namespace Assets.Scripts.GenSystemV1
 
         public override void Generate()
         {
+            base.Generate();
             Vector3 currentPos = transform.position;
             Vector3 currentVector = buildVector;
             GraphElement preElement = backElement;

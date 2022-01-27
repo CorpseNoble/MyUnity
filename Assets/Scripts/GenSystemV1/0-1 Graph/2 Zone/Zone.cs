@@ -4,8 +4,15 @@ namespace Assets.Scripts.GenSystemV1
 {
     public abstract class Zone : GraphElement
     {
-        public int waySize = PrefsGraph.Instant.SettingGraph.waySize.GetValue();
-        public int roomSize = PrefsGraph.Instant.SettingGraph.roomSize.GetValue();
+        [Header("Zone")]
+        public int waySize = 5;
+        public int roomSize = 10;
+
+        public override void Generate()
+        {
+            waySize = PrefsGraph.Instant.SettingGraph.waySize.GetValue();
+            roomSize = PrefsGraph.Instant.SettingGraph.roomSize.GetValue();
+        }
 
         /// <summary>
         /// Select and setup room on currentPos

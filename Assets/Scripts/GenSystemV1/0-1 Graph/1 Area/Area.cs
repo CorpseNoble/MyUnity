@@ -7,14 +7,16 @@ namespace Assets.Scripts.GenSystemV1
 {
     public class Area : GraphElement
     {
+        public const int maxLDM = 10;
+        [Header("Area")]
         public int countSubzone;
         public PointElementsData elementsData;
-        public List<GameObject> doors = new List<GameObject>();
         public List<GameObject> lightPlaces = new List<GameObject>();
 
-        [Range(1, 5)] public float llightDistMulti = 1.5f;
+        [Range(1, maxLDM)] public float llightDistMulti = 1.5f;
         public override void Generate()
         {
+            lightPlaces.Clear();
             hight = PrefsGraph.Instant.SettingGraph.hight;
             Vector3 currentPos = transform.position;
             Vector3 currentVector = buildVector;
@@ -83,7 +85,12 @@ namespace Assets.Scripts.GenSystemV1
                 var vector = (connect.Elements[1].transform.position - connect.Elements[0].transform.position).normalized;
                 var pos = connect.Elements[0].transform.position + vector * HScale * 0.5f;
 
-                doors.Add(FabricGameObject.InstantiateVectoredPrefab(elementsData.Door, pos, connect.Elements[0].transform, vector));
+                FabricGameObject.InstantiateVectoredPrefab(elementsData.Door, pos, connect.Elements[0].transform, vector);
+                for(int i = 1; i < hight; i++)
+                {
+                    FabricGameObject.InstantiateVectoredPrefab(elementsData.Wall, pos + i * VScale * Vector3.up, connect.Elements[0].transform, vector);
+                    FabricGameObject.InstantiateVectoredPrefab(elementsData.Wall, pos + i * VScale * Vector3.up, connect.Elements[0].transform, -vector);
+                }
             }
         }
 
@@ -97,11 +104,23 @@ namespace Assets.Scripts.GenSystemV1
                 for (int j = 0; j < lightPlaces.Count; j++)
                 {
                     GameObject lp2 = lightPlaces[j];
-                    if (Vector3.Distance(lp.transform.position, lp2.transform.position) <= HScale * llightDistMulti)
+                    if (Vector3.Distance(lp.transform.position, lp2.transform.position) <= HScale * llightDistMulti / hight)
                     {
                         lightPlaces.Remove(lp2);
                         j--;
                     }
+                }
+            }
+        }
+        public void GenRoomEntry()
+        {
+            foreach (var s in subElements)
+            {
+                foreach (var s1 in s.subElements)
+                {
+                    var s12 = s1 as Room;
+                    if (s12.interestPlace != null)
+                        s12.GenRoomEntry();
                 }
             }
         }
