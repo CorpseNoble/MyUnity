@@ -27,17 +27,12 @@ namespace Assets.Scripts.GenSystemV1
        
         public int hight = 1;
 
-        public float HScale { get => hScale; set => hScale = value; }
-        public float VScale { get => vScale; set => vScale = value; }
-
-        [SerializeField] private float hScale = 1;
-        [SerializeField] private float vScale = 1;
         /// <summary>
         /// Create internal struct
         /// </summary>
         public abstract void Generate();
 
-        public Connect Connect(GraphElement graph)
+        public Connect Connect(GraphElement graph, ConnectType connectType = ConnectType.Path)
         {
             var connect = new Connect(this, graph);
 
@@ -51,7 +46,9 @@ namespace Assets.Scripts.GenSystemV1
             {
                 var parCon = parentElement.Connect(graph.parentElement);
                 parCon.lowConnect = connect;
+                connect.highConnect = parCon;
             }
+            connect.connectType = connectType;
             return connect;
         }
     }

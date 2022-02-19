@@ -4,12 +4,15 @@ using System.Linq;
 
 namespace Assets.Scripts.GenSystemV1
 {
+    [Serializable]
     public class Connect
     {
-        public readonly GraphElement[] Elements;
+        public GraphElement[] Elements;
         public bool instanted = false;
+        public ConnectType connectType = 0;
 
         public Connect lowConnect = null;
+        public Connect highConnect = null;
         public Connect(GraphElement elem1, GraphElement elem2)
         {
             Elements = new GraphElement[] { elem1, elem2 };
@@ -37,9 +40,15 @@ namespace Assets.Scripts.GenSystemV1
         {
             int hashCode = 580546273;
             hashCode = hashCode * -1521134295 + EqualityComparer<GraphElement[]>.Default.GetHashCode(Elements);
-            hashCode = hashCode * -1521134295 + EqualityComparer<Connect>.Default.GetHashCode(lowConnect);
             return hashCode;
         }
     }
 
+    public enum ConnectType
+    {
+        Path = 0,
+        Door = 1,
+        BrokenWall = 3,
+        Lattice = 4,
+    }
 }

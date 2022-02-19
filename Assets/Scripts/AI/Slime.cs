@@ -15,13 +15,13 @@ namespace Assets.Scripts.AI
         private GameObject _player;
         [SerializeField]
         [Range(0, 1000)]
-        private float _visionDistance;
+        private float _visionDistance = 500;
         [SerializeField]
         [Range(0, 10)]
-        private float _attackDistance;
+        private float _attackDistance = 5;
         [SerializeField]
         [Range(0, 10)]
-        private float _deathTimer;
+        private float _deathTimer = 0;
 
         private NavMeshAgent _agent;
         private NavMeshPath _path;
@@ -129,8 +129,8 @@ namespace Assets.Scripts.AI
 
         protected override void Death()
         {
-            WasDead?.Invoke(this);
-            Debug.Log("You Dead");
+            base.Death();
+            Debug.Log("Slame Dead");
             Stun(_deathTimer);
             Destroy(gameObject, _deathTimer);
         }

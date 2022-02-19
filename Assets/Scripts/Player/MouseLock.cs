@@ -49,6 +49,19 @@ public class MouseLock : MonoBehaviour
             Rotate();
             //RaycastLook();
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!inMenu)
+            {
+                Time.timeScale = 0;
+                inMenu = true;
+            }
+            else
+            {
+                Time.timeScale = 1;
+                inMenu = false;
+            }
+        }
     }
 
     public void SmoothLookToTarget(Transform target)

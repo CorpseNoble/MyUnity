@@ -17,6 +17,11 @@ namespace Assets.Scripts.GenSystemV1
         private NavMeshSurface meshSurface;
         private Area area;
 
+        private void Start()
+        {
+            if (area.subElements.Count() <= 0)
+                ReGenMaze();
+        }
         void OnEnable()
         {
 
@@ -56,14 +61,13 @@ namespace Assets.Scripts.GenSystemV1
         }
         private void Gen()
         {
-            
+
             Clear();
             area.blacklist = blacklist;
             area.Generate();
-            GenStepWall();
-            area.GenDoor();
             area.GenLight();
             area.GenRoomEntry();
+            GenStepWall();
             meshSurface.BuildNavMesh();
         }
         //public NavMeshDataInstance dataInstance = new NavMeshDataInstance();

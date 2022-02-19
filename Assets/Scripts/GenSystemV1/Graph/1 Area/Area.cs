@@ -27,9 +27,9 @@ namespace Assets.Scripts.GenSystemV1
         public void SelectSubZone(Vector3 currentPos, Vector3 currentVector, GraphElement preElement)
         {
             int zoneSize = ((int)(PrefsGraph.Instant.SettingGraph.subzoneSize.avarage * PrefsGraph.Instant.SettingGraph.roomSize.avarage));
-            if (!blacklist.FullLRCheck(currentPos, currentVector * HScale, zoneSize, ref currentVector))
+            if (!blacklist.FullLRCheck(currentPos, currentVector, zoneSize, ref currentVector))
                 return;
-           
+
             countSubzone--;
             GraphElement currElem;
             currElem = FabricGameObject.InstantiateElement<Сorridor>(currentPos, this, currentVector);
@@ -57,39 +57,39 @@ namespace Assets.Scripts.GenSystemV1
             }
         }
 
-        public void GenDoor()
-        {
-            var cons = new List<Connect>();
-            foreach (var zone in subElements)
-            {
-                cons = cons.Union(zone.connectElements).ToList();
-            }
-            foreach (var con in cons)
-            {
-                var connect = con.lowConnect?.lowConnect;
-                var vector = (connect.Elements[1].transform.position - connect.Elements[0].transform.position).normalized;
-                var pos = connect.Elements[0].transform.position + vector * HScale * 0.5f;
+        //public void GenDoor()
+        //{
+        //    var cons = new List<Connect>();
+        //    foreach (var zone in subElements)
+        //    {
+        //        cons = cons.Union(zone.connectElements).ToList();
+        //    }
+        //    foreach (var con in cons)
+        //    {
+        //        var connect = con.lowConnect?.lowConnect;
+        //        var vector = (connect.Elements[1].transform.position - connect.Elements[0].transform.position).normalized;
+        //        var pos = connect.Elements[0].transform.position.StepH(vector, 0.5f);
 
-                FabricGameObject.InstantiateVectoredPrefab(elementsData.Door, pos, connect.Elements[0].transform, vector);
-                for(int i = 1; i < hight; i++)
-                {
-                    FabricGameObject.InstantiateVectoredPrefab(elementsData.Wall, pos + i * VScale * Vector3.up, connect.Elements[0].transform, vector);
-                    FabricGameObject.InstantiateVectoredPrefab(elementsData.Wall, pos + i * VScale * Vector3.up, connect.Elements[0].transform, -vector);
-                }
-            }
-        }
+        //        FabricGameObject.InstantiateVectoredPrefab(elementsData.Door, pos, connect.Elements[0].transform, vector);
+        //        for (int i = 1; i < hight; i++)
+        //        {
+        //            FabricGameObject.InstantiateVectoredPrefab(elementsData.Wall, pos + i * VScale * Vector3.up, connect.Elements[0].transform, vector);
+        //            FabricGameObject.InstantiateVectoredPrefab(elementsData.Wall, pos + i * VScale * Vector3.up, connect.Elements[0].transform, -vector);
+        //        }
+        //    }
+        //}
 
         public void GenLight()
         {
             while (lightPlaces.Count > 0)
             {
                 GameObject lp = lightPlaces[0];
-                FabricGameObject.InstantiateVectoredPrefab(elementsData.Light, lp.transform.position, lp.transform, -lp.transform.forward);
+                FabricGameObject.InstLight(lp.transform.position, lp.transform, lp.transform.forward);
                 lightPlaces.Remove(lp);
                 for (int j = 0; j < lightPlaces.Count; j++)
                 {
                     GameObject lp2 = lightPlaces[j];
-                    if (Vector3.Distance(lp.transform.position, lp2.transform.position) <= HScale * llightDistMulti / hight)
+                    if (Vector3.Distance(lp.transform.position, lp2.transform.position) <= FabricGameObject.elementsData.HorScale * llightDistMulti / hight)
                     {
                         lightPlaces.Remove(lp2);
                         j--;

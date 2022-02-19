@@ -21,22 +21,22 @@ namespace Assets.Scripts.GenSystemV1
                 }
                 subElements.Add(se);
 
-               
 
-                //if (PrefsGraph.Instant.SettingGraph.noizePercent.GetValue())
-                //{
-                //    if (PrefsGraph.Instant.SettingGraph.LRPercent.GetValue())
-                //    {
-                //        if (!blacklist.Contains(se.transform.position + buildVector.ToLeft()*HScale))
-                //newWays.Add((se, se.transform.position + buildVector.ToLeft() * HScale, buildVector.ToLeft()));
-                //    }
-                //    else
-                //    {
-                //        if (!blacklist.Contains(se.transform.position + buildVector.ToRight() * HScale))
-                //            newWays.Add((se, se.transform.position + buildVector.ToRight() * HScale, buildVector.ToRight()));
-                //    }
-                //}
-                currentPos += buildVector * HScale;
+
+                if (PrefsGraph.Instant.SettingGraph.noizePercent.GetValue())
+                {
+                    if (PrefsGraph.Instant.SettingGraph.LRPercent.GetValue())
+                    {
+                        if (!blacklist.Contains(se.transform.position.StepH(buildVector.ToLeft())))
+                            newWays.Add(new NewWay(se, se.transform.position.StepH(buildVector.ToLeft()), buildVector.ToLeft()));
+                    }
+                    else
+                    {
+                        if (!blacklist.Contains(se.transform.position.StepH(buildVector.ToRight())))
+                            newWays.Add(new NewWay(se, se.transform.position.StepH(buildVector.ToRight()), buildVector.ToRight()));
+                    }
+                }
+                currentPos = currentPos.StepH(buildVector);
 
                 if (blacklist.Contains(currentPos) || PrefsGraph.Instant.SettingGraph.noizePercent.GetValue())
                     if (PrefsGraph.Instant.SettingGraph.LRPercent.GetValue())
@@ -50,19 +50,12 @@ namespace Assets.Scripts.GenSystemV1
             }
             var lastPoint = subElements.Last();
             var lastPos = lastPoint.transform.position;
-            newWays.Add(new NewWay(lastPoint, lastPos + buildVector * HScale, buildVector));
-            newWays.Add(new NewWay(lastPoint, lastPos + buildVector.ToLeft() * HScale, buildVector.ToLeft()));
-            newWays.Add(new NewWay(lastPoint, lastPos + buildVector.ToRight() * HScale, buildVector.ToRight()));
+            newWays.Add(new NewWay(lastPoint, lastPos.StepH(buildVector), buildVector));
+            newWays.Add(new NewWay(lastPoint, lastPos.StepH(buildVector.ToLeft()), buildVector.ToLeft()));
+            newWays.Add(new NewWay(lastPoint, lastPos.StepH(buildVector.ToRight()), buildVector.ToRight()));
             rootElement = subElements.First();
-            if (backElement != null)
-            {
-                backElement.Connect(rootElement);
-            }
-            //GenNewWays();
-            foreach (var e in subElements)
-            {
-                e.Generate();
-            }
+
+            GenPointEntry(true);
 
 
         }

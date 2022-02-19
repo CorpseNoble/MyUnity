@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
-
 public abstract class AliveController : MonoBehaviour
 {
     [Range(1, 1000)] public int maxHealth = 100;
@@ -49,20 +47,15 @@ public abstract class AliveController : MonoBehaviour
     protected virtual void Death()
     {
         WasDead?.Invoke(this);
-        Debug.Log("You Dead");
-        Invoke(nameof(Restart), 2f);
+
     }
 
-    protected void Restart()
+    protected void OnTriggerStay(Collider other)
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-    protected void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.TryGetComponent(out GetDamage getDamage))
+        if (other.gameObject.TryGetComponent(out DamageZone damageZone))
         {
-            if (acceptor == getDamage.acceptor)
-                this.GetDamage(getDamage.DamageValue);
+            if (acceptor == damageZone.acceptor && !damageZone.Zone)
+                damageZone.GiveGamege(this);
         }
 
         if (other.gameObject.TryGetComponent(out GetHeal getHeal))
@@ -70,5 +63,24 @@ public abstract class AliveController : MonoBehaviour
             if (acceptor == getHeal.acceptor)
                 this.GetHeal(getHeal.HealValue);
         }
+    }
+    protected void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.TryGetComponent(out DamageZone damageZone))
+        {
+            if (acceptor == damageZone.acceptor && damageZone.Zone)
+                damageZone.GiveGamege(this);
+        }
+
+        if (other.gameObject.TryGetComponent(out GetHeal getHeal))
+        {
+            if (acceptor == getHeal.acceptor)
+                this.GetHeal(getHeal.HealValue);
+        }
+    }
+
+    private void EntetZone(Collider other)
+    {
+
     }
 }

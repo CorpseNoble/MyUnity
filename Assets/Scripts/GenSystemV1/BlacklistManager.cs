@@ -42,6 +42,10 @@ namespace Assets.Scripts.GenSystemV1
         {
             return PointBlacklist.Where(c=>c.transform.position==pos).Any();
         }
+        public Point SelectPoint(Vector3 pos)
+        {
+            return PointBlacklist.Where(c => c.transform.position == pos).First();
+        }
         public bool ContainsPillar(Vector3 pos)
         {
             return pillarBlacklist.Contains(pos);
@@ -71,7 +75,7 @@ namespace Assets.Scripts.GenSystemV1
                 if (Contains(pos))
                     return false;
 
-                pos += vector;
+                pos = pos.StepH(vector);
             }
             return true;
         }

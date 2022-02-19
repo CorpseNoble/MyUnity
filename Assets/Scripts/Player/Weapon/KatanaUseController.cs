@@ -14,10 +14,10 @@ public class KatanaUseController : MonoBehaviour
     public string SpeedMulti = "SpeedMulti";
     public float SpeedMultiPerCombo = 0.4f;
     public int MaxCombo = 10;
-
+    [Range(0.1f, 1f)] public float comboMulti = 0.1f;
     public UnityEvent ComboUpHandler;
     public UnityEvent ComboEndHandler;
-
+    public AudioSource audioSource;
     public bool OnOffState
     {
         get => onOffState;
@@ -44,8 +44,7 @@ public class KatanaUseController : MonoBehaviour
         {
             lMB = value;
             {
-                if (value)
-                    animator.SetTrigger(Attack);
+                animator.SetBool(Attack, value);
             }
         }
     }
@@ -90,6 +89,7 @@ public class KatanaUseController : MonoBehaviour
     {
         LMB = Input.GetKey(KeyCode.Mouse0);
         QKey = Input.GetKeyDown(KeyCode.Q);
+
     }
 
     private void ComboUp()
@@ -100,5 +100,17 @@ public class KatanaUseController : MonoBehaviour
     private void ComboEnd()
     {
         ComboCount = 0;
+    }
+    public DamageZone getDamage;
+    private void AttackStart(float multi = 1)
+    {
+        getDamage.Multi = multi + ComboCount * comboMulti;
+    }
+
+    private void AttackEnd()
+    {
+        getDamage.Multi = 0;
+        getDamage.EndHit(out int countHit);
+        ComboCount += countHit;
     }
 }

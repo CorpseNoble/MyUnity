@@ -14,7 +14,7 @@ namespace Assets.Scripts.GenSystemV1
 
             for (int i = 0; i < zoneSize; i++)
             {
-                if (!blacklist.FullLRCheck(currentPos, currentVector*HScale, roomSize, ref currentVector))
+                if (!blacklist.FullLRCheck(currentPos, currentVector, roomSize, ref currentVector))
                     break;
                
                 GraphElement currElem = SelectionRoom(currentVector, currentPos, i >= zoneSize - 1);

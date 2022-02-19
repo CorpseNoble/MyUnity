@@ -22,6 +22,7 @@ namespace Assets.Scripts.GenSystemV1
                 saveZone = true;
             }
         }
+        //генерация точек для создания новых GraphElement
         public void GenNewWays()
         {
             var walls = new List<Vector3>()
@@ -37,13 +38,58 @@ namespace Assets.Scripts.GenSystemV1
                 var pos = wp.transform.position;
                 foreach (var w in walls)
                 {
-                    var newPos = pos + w * HScale;
+                    var newPos = pos.StepH(w);
                     var has = !newWays.Where(c => c.position == newPos).Any();
                     var black = !blacklist.Contains(newPos);
                     if (has)
                         if (black)
                             newWays.Add(new NewWay(wp, newPos, w));
                 }
+            }
+        }
+
+        protected void GenPointEntry(bool sample = false)
+        {
+            if (backElement != null)
+            {
+                var con = backElement.Connect(rootElement);
+                if (backElement.parentElement.parentElement != parentElement)
+                    con.connectType = ConnectType.Door;
+            }
+            if (!sample)
+                for (int i = 0; i < subElements.Count; i++)
+                {
+                    GraphElement e = subElements[i];
+                    var aboutEl = e.transform.position.About();
+                    var aboutCons = from t in subElements
+                                    where aboutEl.Contains(t.transform.position)
+                                    select t;
+
+                    if (aboutCons.Count() == 0)
+                    {
+                        subElements.RemoveAt(i);
+                        i--;
+                        continue;
+                    }
+                    foreach (var a in aboutCons)
+                        e.Connect(a);
+
+                    //Lattice gen
+                    foreach (var elem in aboutEl)
+                    {
+                        if (aboutCons.Where(c => c.transform.position == elem).Any())
+                            continue;
+                        if (blacklist.Contains(elem))
+                        {
+                            var point = blacklist.SelectPoint(elem);
+                            e.Connect(point, ConnectType.Lattice);
+                        }
+                    }
+                }
+
+            foreach (var e in subElements)
+            {
+                e.Generate();
             }
         }
         public void GenRoomEntry()
@@ -56,7 +102,11 @@ namespace Assets.Scripts.GenSystemV1
                     if (PrefsGraph.Instant.SettingGraph.EnemyPercent.GetValue())
                     {
                         var spawner = PrefsGraph.Instant.elementsData.MonsterSpawners.First();
-                        var elements = subElements.Cast<Point>().Where(c => c.connectElements.Count > 3 && !c.pleced).Select(c => c);
+                        var elements = subElements.Cast<Point>()
+                            .Where(c => c.connectElements
+                                .Where(w => w.connectType == ConnectType.Path)
+                                .Select(k => k).Count() > 3 && !c.pleced)
+                            .Select(c => c);
                         var points = PrefsGraph.Instant.SettingGraph.SelectRandElements(countSpawners, elements);
                         foreach (var p in points)
                         {

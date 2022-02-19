@@ -12,12 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d95ad4fe8fc13f54f9af60a9f1abd25b, type: 3}
   m_Name: New Point Elements Data
   m_EditorClassIdentifier: 
+  HorScale: 6
+  VerScale: 4
   Ground: {fileID: 8402805595255715730, guid: ca7fd1f5bf2319b43a2a1770b3bcbe16, type: 3}
   Roof: {fileID: 8402805595255715730, guid: 2a8bc00a312526c47a6aef8c769da3f4, type: 3}
   GroundPathWay: {fileID: 1877940776385465065, guid: 282073974db58b94b942cd453f92008b, type: 3}
   GroundPillar: {fileID: 6656861176064105999, guid: 33784b40c8fab5647b5d5af9ea891be3, type: 3}
   Wall: {fileID: 6040371639833822620, guid: 51433dd6d6d0ced449a8645aba89a235, type: 3}
-  Pillar: {fileID: 4768103716350873968, guid: ce82624d04d0f4246ae5c16217cfae98, type: 3}
+  PillarBase1: {fileID: 6124676528461110588, guid: 5b8c6919d27af914a95af31976034c8a, type: 3}
+  PillarBase2: {fileID: 1782781840173540097, guid: e1adc89aacc65fa4eaa6eca7a4d65781, type: 3}
+  PillarUp: {fileID: 4161907699726195609, guid: 5daa42e64c329a84a85da44a43a77ea3, type: 3}
+  PillarDown: {fileID: 8958601519311569002, guid: 1c557970871ccc54fa02809b92081cec, type: 3}
   Door: {fileID: 8604047786785715865, guid: 3a1891201855047468b108512e4471b7, type: 3}
   Lattice: {fileID: 5490371620909308281, guid: ff10f4f7835e633409a9dd1221f6c038, type: 3}
   Light: {fileID: 5906541579054830671, guid: 114d7fada816ee849b5ab2af9df9b265, type: 3}

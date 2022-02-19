@@ -26,16 +26,21 @@ namespace Assets.Scripts.AI
 
         private void Start()
         {
-            //StartCoroutine(StartSpawnCoroutine(_spawnTime));
+            StartCoroutine(StartSpawnCoroutine(_spawnTime));
         }
 
         private IEnumerator StartSpawnCoroutine(float time)
         {
             while (true)
             {
-                if (spawnedObjects.Count < _spawnLimit)
-                    Spawn();
-                yield return new WaitForSeconds(time);
+                float _time = 0;
+                while (_time < time)
+                {
+                    _time++;
+                    yield return new WaitForSeconds(1);
+                    if (spawnedObjects.Count < _spawnLimit)
+                        Spawn();
+                }
 
             }
         }
@@ -44,8 +49,10 @@ namespace Assets.Scripts.AI
         {
             foreach (var spawning in _spawnings)
             {
-                Vector3 randomPosition = new Vector3(transform.position.x + _random.Next(-1 * _spawnRange, _spawnRange),
-                    transform.position.y + _random.Next(-1 * _spawnRange, _spawnRange));
+                Vector3 randomPosition = new Vector3(
+                    transform.position.x + _random.Next(-1 * _spawnRange, _spawnRange),
+                    transform.position.y,
+                    transform.position.z + _random.Next(-1 * _spawnRange, _spawnRange));
                 var spawnedObject = Instantiate(spawning, randomPosition, transform.rotation).AddComponent<SpawnedObject>();
                 spawnedObject.spawner = this;
                 spawnedObjects.Add(spawnedObject);
