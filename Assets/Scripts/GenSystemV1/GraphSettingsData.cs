@@ -87,7 +87,7 @@ namespace Assets.Scripts.GenSystemV1
         [ContextMenu("GenerateSeed")]
         public void GenerateSeed()
         {
-            seed = random.Next();
+            seed = new System.Random().Next();
             UpdateSeed();
         }
         [ContextMenu("UpdateSeed")]

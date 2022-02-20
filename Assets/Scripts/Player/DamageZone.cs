@@ -13,9 +13,12 @@ public class DamageZone : MonoBehaviour
     [SerializeField] protected bool _zone = false;
     public void GiveGamege(AliveController alive)
     {
+        if (Multi <= 0)
+            return;
+
         if (!Zone)
         {
-            if (hitReserver.Contains(alive) && Multi > 0)
+            if (hitReserver.Contains(alive))
                 return;
             hitReserver.Add(alive);
         }

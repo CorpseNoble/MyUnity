@@ -101,10 +101,12 @@ public class KatanaUseController : MonoBehaviour
     {
         ComboCount = 0;
     }
+    public AudioClip audioClip;
     public DamageZone getDamage;
     private void AttackStart(float multi = 1)
     {
         getDamage.Multi = multi + ComboCount * comboMulti;
+        audioSource.PlayOneShot(audioClip);
     }
 
     private void AttackEnd()
@@ -113,4 +115,5 @@ public class KatanaUseController : MonoBehaviour
         getDamage.EndHit(out int countHit);
         ComboCount += countHit;
     }
+
 }

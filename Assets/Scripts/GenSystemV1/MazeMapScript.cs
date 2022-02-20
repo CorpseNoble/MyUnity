@@ -20,7 +20,7 @@ namespace Assets.Scripts.GenSystemV1
         private void Start()
         {
             if (area.subElements.Count() <= 0)
-                ReGenMaze();
+                GenNewMaze();
         }
         void OnEnable()
         {
