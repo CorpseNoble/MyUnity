@@ -6,114 +6,117 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class KatanaUseController : MonoBehaviour
+namespace Assets.Scripts.Player.Weapon
 {
-    public Animator animator;
-    public string Attack = "Attack";
-    public string OnOff = "OnOff";
-    public string SpeedMulti = "SpeedMulti";
-    public float SpeedMultiPerCombo = 0.4f;
-    public int MaxCombo = 10;
-    [Range(0.1f, 1f)] public float comboMulti = 0.1f;
-    public UnityEvent ComboUpHandler;
-    public UnityEvent ComboEndHandler;
-    public AudioSource audioSource;
-    public bool OnOffState
+    public class KatanaUseController : MonoBehaviour
     {
-        get => onOffState;
-        set
+        public Animator animator;
+        public string Attack = "Attack";
+        public string OnOff = "OnOff";
+        public string SpeedMulti = "SpeedMulti";
+        public float SpeedMultiPerCombo = 0.4f;
+        public int MaxCombo = 10;
+        [Range(0.1f, 1f)] public float comboMulti = 0.1f;
+        public UnityEvent ComboUpHandler;
+        public UnityEvent ComboEndHandler;
+        public AudioSource audioSource;
+        public bool OnOffState
         {
-            onOffState = value;
-            animator.SetTrigger(OnOff);
-        }
-    }
-    public float SpeedMultiplicator
-    {
-        get => speedMultiplicator;
-        set
-        {
-            speedMultiplicator = value;
-            animator.SetFloat(SpeedMulti, value);
-        }
-    }
-
-    public bool LMB
-    {
-        get => lMB;
-        set
-        {
-            lMB = value;
+            get => onOffState;
+            set
             {
-                animator.SetBool(Attack, value);
+                onOffState = value;
+                animator.SetTrigger(OnOff);
             }
         }
-    }
-    public bool QKey
-    {
-        get => qKey;
-        set
+        public float SpeedMultiplicator
         {
-            qKey = value;
-            if (value)
-                OnOffState = !OnOffState;
-        }
-    }
-
-    public int ComboCount
-    {
-        get => comboCount;
-        set
-        {
-            if (value <= MaxCombo)
+            get => speedMultiplicator;
+            set
             {
-                comboCount = value;
-                SpeedMultiplicator = 1 + value * SpeedMultiPerCombo;
+                speedMultiplicator = value;
+                animator.SetFloat(SpeedMulti, value);
             }
         }
-    }
-    [SerializeField] private bool lMB = false;
-    [SerializeField] private bool qKey = false;
-    [SerializeField] private float speedMultiplicator = 1;
-    [SerializeField] private int comboCount = 0;
-    [SerializeField] private bool onOffState = false;
-    private void Start()
-    {
-        if (animator == null)
-            if (gameObject.TryGetComponent(out Animator anim))
-                animator = anim;
 
-        ComboEndHandler.AddListener(ComboEnd);
-        ComboUpHandler.AddListener(ComboUp);
-    }
-    private void Update()
-    {
-        LMB = Input.GetKey(KeyCode.Mouse0);
-        QKey = Input.GetKeyDown(KeyCode.Q);
+        public bool LMB
+        {
+            get => lMB;
+            set
+            {
+                lMB = value;
+                {
+                    animator.SetBool(Attack, value);
+                }
+            }
+        }
+        public bool QKey
+        {
+            get => qKey;
+            set
+            {
+                qKey = value;
+                if (value)
+                    OnOffState = !OnOffState;
+            }
+        }
+
+        public int ComboCount
+        {
+            get => comboCount;
+            set
+            {
+                if (value <= MaxCombo)
+                {
+                    comboCount = value;
+                    SpeedMultiplicator = 1 + value * SpeedMultiPerCombo;
+                }
+            }
+        }
+        [SerializeField] private bool lMB = false;
+        [SerializeField] private bool qKey = false;
+        [SerializeField] private float speedMultiplicator = 1;
+        [SerializeField] private int comboCount = 0;
+        [SerializeField] private bool onOffState = false;
+        private void Start()
+        {
+            if (animator == null)
+                if (gameObject.TryGetComponent(out Animator anim))
+                    animator = anim;
+
+            ComboEndHandler.AddListener(ComboEnd);
+            ComboUpHandler.AddListener(ComboUp);
+        }
+        private void Update()
+        {
+            LMB = Input.GetKey(KeyCode.Mouse0);
+            QKey = Input.GetKeyDown(KeyCode.Q);
+
+        }
+
+        private void ComboUp()
+        {
+            ComboCount++;
+        }
+
+        private void ComboEnd()
+        {
+            ComboCount = 0;
+        }
+        public AudioClip audioClip;
+        public DamageZone getDamage;
+        private void AttackStart(float multi = 1)
+        {
+            getDamage.Multi = multi + ComboCount * comboMulti;
+            audioSource.PlayOneShot(audioClip);
+        }
+
+        private void AttackEnd()
+        {
+            getDamage.Multi = 0;
+            getDamage.EndHit(out int countHit);
+            ComboCount += countHit;
+        }
 
     }
-
-    private void ComboUp()
-    {
-        ComboCount++;
-    }
-
-    private void ComboEnd()
-    {
-        ComboCount = 0;
-    }
-    public AudioClip audioClip;
-    public DamageZone getDamage;
-    private void AttackStart(float multi = 1)
-    {
-        getDamage.Multi = multi + ComboCount * comboMulti;
-        audioSource.PlayOneShot(audioClip);
-    }
-
-    private void AttackEnd()
-    {
-        getDamage.Multi = 0;
-        getDamage.EndHit(out int countHit);
-        ComboCount += countHit;
-    }
-
 }

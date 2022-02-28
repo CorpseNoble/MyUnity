@@ -12,7 +12,10 @@ namespace Assets.Scripts.GenSystemV1
         public PointElementsData elementsData;
         public List<GameObject> lightPlaces = new List<GameObject>();
 
-        [Range(1, 10)] public float llightDistMulti = 1.5f;
+        [Range(0.1f, 10f)] public float llightDistMulti = 1.5f;
+
+        public const float Light_Range = 50f;
+
         public override void Generate()
         {
             Room.first = false;
@@ -34,10 +37,6 @@ namespace Assets.Scripts.GenSystemV1
             GraphElement currElem;
             currElem = FabricGameObject.InstantiateElement<Сorridor>(currentPos, this, currentVector);
 
-            //if (SettingGraph.SettingGraphRef.corridorPercent.GetValue())
-            //else
-            //    currElem = FabricGameObject.InstantiateElement<Rame>(currentPos, this, currentVector);
-
             currElem.parentElement = this;
             currElem.backElementLow = preElement;
             currElem.backElement = preElement?.parentElement.parentElement;
@@ -57,28 +56,6 @@ namespace Assets.Scripts.GenSystemV1
             }
         }
 
-        //public void GenDoor()
-        //{
-        //    var cons = new List<Connect>();
-        //    foreach (var zone in subElements)
-        //    {
-        //        cons = cons.Union(zone.connectElements).ToList();
-        //    }
-        //    foreach (var con in cons)
-        //    {
-        //        var connect = con.lowConnect?.lowConnect;
-        //        var vector = (connect.Elements[1].transform.position - connect.Elements[0].transform.position).normalized;
-        //        var pos = connect.Elements[0].transform.position.StepH(vector, 0.5f);
-
-        //        FabricGameObject.InstantiateVectoredPrefab(elementsData.Door, pos, connect.Elements[0].transform, vector);
-        //        for (int i = 1; i < hight; i++)
-        //        {
-        //            FabricGameObject.InstantiateVectoredPrefab(elementsData.Wall, pos + i * VScale * Vector3.up, connect.Elements[0].transform, vector);
-        //            FabricGameObject.InstantiateVectoredPrefab(elementsData.Wall, pos + i * VScale * Vector3.up, connect.Elements[0].transform, -vector);
-        //        }
-        //    }
-        //}
-
         public void GenLight()
         {
             while (lightPlaces.Count > 0)
@@ -89,7 +66,7 @@ namespace Assets.Scripts.GenSystemV1
                 for (int j = 0; j < lightPlaces.Count; j++)
                 {
                     GameObject lp2 = lightPlaces[j];
-                    if (Vector3.Distance(lp.transform.position, lp2.transform.position) <= FabricGameObject.elementsData.HorScale * llightDistMulti / hight)
+                    if (Vector3.Distance(lp.transform.position, lp2.transform.position) <=  llightDistMulti * Light_Range / (hight * FabricGameObject.elementsData.HorScale))
                     {
                         lightPlaces.Remove(lp2);
                         j--;

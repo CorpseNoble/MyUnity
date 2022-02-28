@@ -3,35 +3,49 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+
+
 public abstract class AliveController : MonoBehaviour
 {
-    [Range(1, 1000)] public int maxHealth = 100;
-    public DamageAcceptor acceptor = DamageAcceptor.Player;
-
-    public virtual int Health
+    public virtual int MaxHealth
     {
-        get => health;
+        get => _maxHealth;
         set
         {
-            if (health > 0 && value <= 0)
+            if (value < 0)
+                return;
+
+            _maxHealth = value;
+            MaxHealthChanged?.Invoke(this, value);
+        }
+    }
+    public virtual int Health
+    {
+        get => _health;
+        set
+        {
+            if (_health > 0 && value <= 0)
             {
                 Death();
             }
 
-            health = value;
+            _health = value;
             HealthChanged?.Invoke(this, value);
         }
     }
+    public DamageAcceptor acceptor = DamageAcceptor.Player;
 
-    [SerializeField] protected int health;
+    [SerializeField, Range(1, 1000)] protected int _maxHealth = 100;
+    [SerializeField] protected int _health;
+
     public UnityEvent<AliveController, int> HealthChanged;
     public UnityEvent<AliveController, int> MaxHealthChanged;
     public UnityEvent<AliveController> WasDead;
 
-    protected void Start()
+    protected virtual void Start()
     {
-        MaxHealthChanged?.Invoke(this, maxHealth);
-        Health = maxHealth;
+        MaxHealthChanged?.Invoke(this, MaxHealth);
+        Health = MaxHealth;
     }
 
     public virtual void GetDamage(int damage)
@@ -41,7 +55,7 @@ public abstract class AliveController : MonoBehaviour
     }
     public virtual void GetHeal(int heal)
     {
-        if (Health < maxHealth)
+        if (Health < _maxHealth)
             Health += heal;
     }
     protected virtual void Death()
@@ -79,8 +93,4 @@ public abstract class AliveController : MonoBehaviour
         }
     }
 
-    private void EntetZone(Collider other)
-    {
-
-    }
 }

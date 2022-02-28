@@ -17,10 +17,11 @@ namespace Assets.Scripts.GenSystemV1
         private NavMeshSurface meshSurface;
         private Area area;
 
-        private void Start()
+        void Start()
         {
-            if (area.subElements.Count() <= 0)
-                GenNewMaze();
+            if (Application.isPlaying)
+                if (area.subElements.Count() <= 0)
+                    GenNewMaze();
         }
         void OnEnable()
         {

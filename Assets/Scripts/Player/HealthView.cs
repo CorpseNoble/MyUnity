@@ -18,8 +18,8 @@ namespace Assets.Scripts.Player
             if (aliveController == null)
                 if (this.TryGetComponent(out aliveController))
                 {
-                    slider.maxValue = aliveController.maxHealth;
-                    HealthChanged(aliveController, aliveController.maxHealth);
+                    slider.maxValue = aliveController.MaxHealth;
+                    HealthChanged(aliveController, aliveController.MaxHealth);
                     aliveController.HealthChanged.AddListener(HealthChanged);
                 }
         }

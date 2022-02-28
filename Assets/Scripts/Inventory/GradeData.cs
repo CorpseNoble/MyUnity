@@ -11,18 +11,18 @@ namespace Assets.Scripts.Inventory
     public class GradeData : ScriptableObject
     {
         public List<Grade> Grades = new List<Grade> {
-            new Grade { Name="Common"},
-            new Grade { Name="Steel", color = Color.gray},
-            new Grade { Name="Mithril", color = Color.blue},
-            new Grade { Name="Orichalcum", color = Color.magenta},
+            new Grade { name="Common"},
+            new Grade { name="Steel", color = Color.gray},
+            new Grade { name="Mithril", color = Color.blue},
+            new Grade { name="Orichalcum", color = Color.magenta},
         };
     }
 
     [Serializable]
     public class Grade
     {
-        public string Name;
-        public string Discriptions;
+        public string name;
+        public string discriptions;
         public Color color = Color.white;
     }
 }

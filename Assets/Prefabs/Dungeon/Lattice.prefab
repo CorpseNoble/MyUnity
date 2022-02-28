@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7005797950892412391}
   - component: {fileID: 5714404044373930368}
   - component: {fileID: 1306667351364625822}
-  - component: {fileID: 3233244477677770142}
+  - component: {fileID: 3088901723371874553}
   m_Layer: 0
   m_Name: Lattice
   m_TagString: Untagged
@@ -82,8 +82,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &3233244477677770142
-MeshCollider:
+--- !u!65 &3088901723371874553
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -92,10 +92,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: c26baeb74b0cb5943a8b5a5c25f10c21, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 6, y: 0.49999982, z: 4.000002}
+  m_Center: {x: 0, y: 0, z: 2.000001}
 --- !u!1 &5490371620909308281
 GameObject:
   m_ObjectHideFlags: 0

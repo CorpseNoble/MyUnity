@@ -7,12 +7,13 @@ using UnityEngine;
 
 namespace Assets.Scripts.Inventory
 {
+    [ExecuteAlways]
     public class InventoryPrefsScript : MonoBehaviour
     {
-        public InventoryPrefs inventoryPrefs;
+        public InventoryPrefs inventoryPrefs = InventoryPrefs.Instant;
     }
 
-    [Serializable]
+    [Serializable,ExecuteAlways]
     public class InventoryPrefs
     {
         public ItemsData itemsData;

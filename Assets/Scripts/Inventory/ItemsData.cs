@@ -10,50 +10,95 @@ namespace Assets.Scripts.Inventory
     [CreateAssetMenu(fileName = "New Items Data", menuName = "Items Data", order = 52)]
     public class ItemsData : ScriptableObject
     {
-        public List<GameItem> gameItems = new List<GameItem>();
+        public List<WeaponItem> weapons = new List<WeaponItem>();
+        public List<EqupmentItem> equpments = new List<EqupmentItem>();
+        public List<ConsumableItem> consumbles = new List<ConsumableItem>();
+        public List<OterItem> oters = new List<OterItem>();
     }
 
     [Serializable]
-    public class GameItem
+    public abstract class GameItem
     {
-        public GameItemType itemType = (GameItemType)0;
+        public string name;
+        public string discription;
+        public Sprite sprite;
         public GameObject gameObject;
-        public string Name;
-        public string Discription;
-        public List<Stat> Effects;
+        public int price = 100;
     }
     [Serializable]
-    public class Stat
+    public class WeaponItem : GameItem
     {
-        public MainStatType mainStatType;
-        public int Value;
+        public Type type = 0;
+        public List<Stat<MainStatType>> statEffects = new List<Stat<MainStatType>>();
+
+        public enum Type
+        {
+            WeaponOneH,
+            WeaponTwoH,
+            Shild,
+        }
+    }
+    [Serializable]
+    public class EqupmentItem : GameItem
+    {
+        public Type type = 0;
+        public List<Stat<MainStatType>> statEffects = new List<Stat<MainStatType>>();
+
+        public enum Type
+        {
+            ArmorUpper,
+            ArmorLower,
+            ArmorArm,
+            ArmorLeg,
+            ArmorBoot,
+            ArmorHead,
+            Ring,
+            Collar,
+        }
+    }
+    [Serializable]
+    public class ConsumableItem : GameItem
+    {
+        public Type type = 0;
+        public List<Stat<MainStatType>> statEffects = new List<Stat<MainStatType>>();
+        public List<StatDuretion<BarStatType>> barEffects = new List<StatDuretion<BarStatType>>();
+        public enum Type
+        {
+            Poution,
+            Scroll,
+            Food,
+        }
+    }
+    [Serializable]
+    public class OterItem : GameItem
+    {
+        public Type type = 0;
+        public enum Type
+        {
+            Key,
+            Material,
+            Sellable,
+        }
+    }
+    [Serializable]
+    public class Stat<T> where T : struct
+    {
+        public T tType;
+        public int value = 1;
+        public bool percent = false;
+
+        public override string ToString()
+        {
+            return tType.ToString() + " " + value;
+        }
     }
 
     [Serializable]
-    public class StatEffect : Stat
+    public class StatDuretion<T> : Stat<T> where T : struct
     {
-        public bool Percent = false;
-        public bool UnDuration = false;
-        public int Duration;
+        public bool unDuration = false;
+        public int duration = 30;
     }
-    public enum GameItemType
-    {
-        WeaponOneH,
-        WeaponTwoH,
-        Shild,
-        ArmorUpper,
-        ArmorLower,
-        ArmorArm,
-        ArmorLeg,
-        ArmorBoot,
-        ArmorHead,
-        Ring,
-        Collar,
-        Poution,
-        Scroll,
-    }
-
-
     public enum MainStatType
     {
         Strength,     //сила:         +++PhAttack ++Weight              +HP +SP +Pain

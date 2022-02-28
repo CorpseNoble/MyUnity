@@ -32,6 +32,9 @@ namespace Assets.Scripts.GenSystemV1
         /// </summary>
         public abstract void Generate();
 
+        public virtual void GenInternalStruct() { }
+        public virtual void GenConnections() { }
+
         public Connect Connect(GraphElement graph, ConnectType connectType = ConnectType.Path)
         {
             var connect = new Connect(this, graph);

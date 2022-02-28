@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 296a923cc693f984da837352e0e936cc, type: 3}
+  m_Name: New Grade Data
+  m_EditorClassIdentifier: 
+  Grades:
+  - name: Common
+    discriptions: 
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - name: Steel
+    discriptions: 
+    color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  - name: Mithril
+    discriptions: 
+    color: {r: 0, g: 0, b: 1, a: 1}
+  - name: Orichalcum
+    discriptions: 
+    color: {r: 1, g: 0, b: 1, a: 1}

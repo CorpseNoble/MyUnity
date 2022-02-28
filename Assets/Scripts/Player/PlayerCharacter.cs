@@ -3,23 +3,46 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Assets.Scripts.Inventory;
 
-public class PlayerCharacter : AliveController
+
+namespace Assets.Scripts.Player
 {
-    protected new void Start()
+    public class PlayerCharacter : AliveController
     {
-        base.Start();
-        acceptor = DamageAcceptor.Player;
-    }
-    protected override void Death()
-    {
-        base.Death();
-        Debug.Log("You Dead");
-        Invoke(nameof(Restart), 2f);
-    }
+        public PlayerInventoryData playerInventory;
+        public override int MaxHealth 
+        { 
+            get => playerInventory.status.HP.valueMax;
+            set
+            {
+                base.MaxHealth = value;
+                playerInventory.status.HP.valueMax = value;
+            }
+        }
+        public override int Health 
+        { 
+            get => playerInventory.status.HP.valueCurrent; 
+            set 
+            {
+                base.Health = value;
+                playerInventory.status.HP.valueCurrent = value;
+            } 
+        }
+        protected override void Start()
+        {
+            base.Start();
+        }
+        protected override void Death()
+        {
+            base.Death();
+            Debug.Log("You Dead");
+            Invoke(nameof(Restart), 2f);
+        }
 
-    protected void Restart()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        protected void Restart()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 }

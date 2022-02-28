@@ -10,16 +10,19 @@ namespace Assets.Scripts.Inventory
     [CreateAssetMenu(fileName = "New Trait Data", menuName = "Trait Data", order = 52)]
     public class TraitData : ScriptableObject
     {
-        public List<Trait> Traits = new List<Trait>();
+        public List<CategoryTraitData> categoryData;
     }
     [Serializable]
     public class Trait
     {
-        public string Name = "";
-        public string Descriptions = "Trait Description";
+        //Quantity exp per one trait using
+        public const int Exp_Per_One = 10;
+
+        public string name = "";
+        public string descriptions = "Trait Description";
         public int expirience = 0;
-        public int NextTraitID = -1;
-        public bool Scalabe = false;
-        public List<Stat> Effects = new List<Stat>();
+        public int nextTraitID = -1;
+        public bool scalabe = false;
+        public List<Stat<MainStatType>> statEffects = new List<Stat<MainStatType>>();
     }
 }
