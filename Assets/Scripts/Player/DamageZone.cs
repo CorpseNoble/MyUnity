@@ -11,7 +11,12 @@ public class DamageZone : MonoBehaviour
     public AudioClip audioClip;
     public bool Zone => _zone;
     [SerializeField] protected bool _zone = false;
-    public void GiveGamege(AliveController alive)
+    
+    /// <summary>
+    /// Метод нанесения урона противнику
+    /// </summary>
+    /// <param name="alive"></param>
+    public void GiveDamage(AliveController alive)
     {
         if (Multi <= 0)
             return;

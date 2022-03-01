@@ -9,7 +9,7 @@ namespace Assets.Scripts.AI
     [RequireComponent(typeof(NavMeshAgent))]
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(Collider))]
-    public class Slime : AliveController
+    public class SimpleEnemyManager : AliveController
     {
         [SerializeField]
         private GameObject _player;
@@ -28,6 +28,14 @@ namespace Assets.Scripts.AI
         private EnemyState _state;
         private Animator _anim;
         private bool _stunned = false;
+
+        private AliveController _currentEnemy;
+
+        public AliveController CurrentEnemy
+        {
+            get => _currentEnemy;
+            set => _currentEnemy = value;
+        }
 
 
         new void Start()

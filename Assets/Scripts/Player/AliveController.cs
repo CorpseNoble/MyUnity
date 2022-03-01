@@ -69,7 +69,7 @@ public abstract class AliveController : MonoBehaviour
         if (other.gameObject.TryGetComponent(out DamageZone damageZone))
         {
             if (acceptor == damageZone.acceptor && !damageZone.Zone)
-                damageZone.GiveGamege(this);
+                damageZone.GiveDamage(this);
         }
 
         if (other.gameObject.TryGetComponent(out GetHeal getHeal))
@@ -83,7 +83,7 @@ public abstract class AliveController : MonoBehaviour
         if (other.gameObject.TryGetComponent(out DamageZone damageZone))
         {
             if (acceptor == damageZone.acceptor && damageZone.Zone)
-                damageZone.GiveGamege(this);
+                damageZone.GiveDamage(this);
         }
 
         if (other.gameObject.TryGetComponent(out GetHeal getHeal))
