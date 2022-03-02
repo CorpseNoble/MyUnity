@@ -57,7 +57,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ddc03fd19a06c049ad6811d19d9cb29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageValue: 100
+  DamageValue: 10
   Multi: 1
   acceptor: 0
   hitReserver: []
@@ -537,6 +537,10 @@ MonoBehaviour:
   acceptor: 1
   _maxHealth: 100
   _health: 0
+  audioSource: {fileID: 0}
+  getDamage: {fileID: 0}
+  getHeal: {fileID: 0}
+  death: {fileID: 0}
   HealthChanged:
     m_PersistentCalls:
       m_Calls: []

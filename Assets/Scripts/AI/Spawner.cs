@@ -50,10 +50,10 @@ namespace Assets.Scripts.AI
             foreach (var spawning in _spawnings)
             {
                 Vector3 randomPosition = new Vector3(
-                    transform.position.x + _random.Next(-1 * _spawnRange, _spawnRange),
+                    transform.position.x + _random.Next(-1 * _spawnRange, _spawnRange), 
                     transform.position.y,
                     transform.position.z + _random.Next(-1 * _spawnRange, _spawnRange));
-                var spawnedObject = Instantiate(spawning, randomPosition, transform.rotation).AddComponent<SpawnedObject>();
+                var spawnedObject = Instantiate(spawning, randomPosition, transform.rotation,transform.parent).AddComponent<SpawnedObject>();
                 spawnedObject.spawner = this;
                 spawnedObjects.Add(spawnedObject);
             }

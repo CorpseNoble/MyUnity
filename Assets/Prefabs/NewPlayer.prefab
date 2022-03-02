@@ -1899,13 +1899,10 @@ MonoBehaviour:
   sprint: 304
   onOff: 113
   jump: 32
-  _audioSource: {fileID: 0}
-  _audioClip: {fileID: 0}
+  _audioSource: {fileID: 3068371220174485753}
+  _attackAudioClip: {fileID: 8300000, guid: aa532b7ee9b9c4c4492c9a2e41b23419, type: 3}
   _getDamage: {fileID: 336901414482021357}
   _animator: {fileID: 3068371220859676864}
-  _speedMultiPerCombo: 0.4
-  _maxCombo: 10
-  _comboMulti: 0.1
   _attackText: Attack
   _vertText: Forw
   _horText: Right
@@ -1921,6 +1918,9 @@ MonoBehaviour:
   _attack: 0
   _comboCount: 0
   _speedMultiplicator: 1
+  _damageMultiplicator: 0
+  _waitEndCombo: 0
+  _endComboDelay: 5
 --- !u!1 &3068371220888802522
 GameObject:
   m_ObjectHideFlags: 0
@@ -2334,10 +2334,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ddc03fd19a06c049ad6811d19d9cb29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageValue: 100
-  Multi: 1
+  DamageValue: 20
+  Multi: 0
   acceptor: 1
   hitReserver: []
   audioSource: {fileID: 3068371220563190191}
-  audioClip: {fileID: 8300000, guid: aa532b7ee9b9c4c4492c9a2e41b23419, type: 3}
+  audioClip: {fileID: 8300000, guid: 3d7216244857b9344b20a968c110309e, type: 3}
   _zone: 0

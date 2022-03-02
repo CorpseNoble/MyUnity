@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +21,6 @@ namespace Assets.Scripts.Player
         [SerializeField] private DamageZone _getDamage;
         [SerializeField] private Animator _animator;
 
-        [SerializeField] [Range(0.1f, 1f)] private float _speedMultiPerCombo = 0.4f;
-        [SerializeField] [Range(5, 50)] private int _maxCombo = 10;
-        [SerializeField] [Range(0.1f, 1f)] private float _comboMulti = 0.1f;
 
         [SerializeField] private string _attackText = "Attack";
         [SerializeField] private string _vertText = "Forw";
@@ -39,7 +37,10 @@ namespace Assets.Scripts.Player
         [SerializeField] private bool _onOff;
         [SerializeField] private bool _attack;
         [SerializeField] private int _comboCount;
-        [SerializeField] private float _speedMultiplicator = 1;
+        [SerializeField] private float _speedMultiplicator;
+        [SerializeField] private float _damageMultiplicator;
+        [SerializeField] private float _waitEndCombo;
+        [SerializeField] private float _endComboDelay = 5f;
 
         public int ComboCount
         {
@@ -47,7 +48,11 @@ namespace Assets.Scripts.Player
             set
             {
                 _comboCount = value;
-                SpeedMultiplicator = 1 + value * _speedMultiPerCombo;
+                SpeedMultiplicator = 1 + (float)Math.Log10(1 + value);
+                DamageMultiplicator = 1 + (float)Math.Sqrt(value);
+
+                if (value > 0)
+                    _waitEndCombo = _endComboDelay;
             }
         }
         public float Horizontal
@@ -122,6 +127,15 @@ namespace Assets.Scripts.Player
             }
         }
 
+        public float DamageMultiplicator
+        {
+            get => _damageMultiplicator;
+            set
+            {
+                _damageMultiplicator = value;
+            }
+        }
+
         void Start()
         {
         }
@@ -129,6 +143,7 @@ namespace Assets.Scripts.Player
         void Update()
         {
             InputKey();
+            ComboEnd();
         }
 
         private void InputKey()
@@ -143,7 +158,7 @@ namespace Assets.Scripts.Player
 
         private void AttackStart(float multi = 1)
         {
-            _getDamage.Multi = multi + ComboCount * _comboMulti;
+            _getDamage.Multi = multi * DamageMultiplicator;
             _audioSource.PlayOneShot(_attackAudioClip);
         }
 
@@ -152,6 +167,20 @@ namespace Assets.Scripts.Player
             _getDamage.Multi = 0;
             _getDamage.EndHit(out int countHit);
             ComboCount += countHit;
+        }
+
+        private void ComboEnd()
+        {
+            if (ComboCount <= 0)
+                return;
+
+            if (_waitEndCombo <= 0)
+            {
+                ComboCount = 0;
+                return;
+            }
+
+            _waitEndCombo -= Time.deltaTime;
         }
     }
     [Serializable]
