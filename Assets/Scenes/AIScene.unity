@@ -715,6 +715,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1624516673, guid: 11093c19497cef941acb02854f7cb6cc, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1624516673, guid: 11093c19497cef941acb02854f7cb6cc, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 14675295590137274, guid: 11093c19497cef941acb02854f7cb6cc, type: 3}
       propertyPath: m_Name
       value: SlimeSpawner
@@ -763,10 +771,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 14675297547167050, guid: 11093c19497cef941acb02854f7cb6cc, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 11093c19497cef941acb02854f7cb6cc, type: 3}
 --- !u!1001 &5738778021077935703
@@ -776,6 +780,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1180400902, guid: 6889fc7ec46626d40bba5c1399868bdc, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1180400902, guid: 6889fc7ec46626d40bba5c1399868bdc, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5738778020581666145, guid: 6889fc7ec46626d40bba5c1399868bdc, type: 3}
       propertyPath: m_Name
       value: Slime

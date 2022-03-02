@@ -1,5 +1,69 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &267400124
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 267400127}
+  - component: {fileID: 267400126}
+  - component: {fileID: 267400125}
+  m_Layer: 0
+  m_Name: attackZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &267400127
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 267400124}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.07, y: -0.4, z: 3.23}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 14675295590137275}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &267400126
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 267400124}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 2}
+  m_Center: {x: 0, y: 2.5, z: 0}
+--- !u!114 &267400125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 267400124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ddc03fd19a06c049ad6811d19d9cb29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageValue: 100
+  Multi: 1
+  acceptor: 0
+  hitReserver: []
+  audioSource: {fileID: 0}
+  audioClip: {fileID: 0}
+  _zone: 0
 --- !u!1 &662683703
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,6 +454,7 @@ GameObject:
   - component: {fileID: 530664114}
   - component: {fileID: 530664115}
   - component: {fileID: 530664118}
+  - component: {fileID: 14675297232473983}
   m_Layer: 0
   m_Name: SlimeSpawner
   m_TagString: Untagged
@@ -410,6 +475,7 @@ Transform:
   m_Children:
   - {fileID: 14675297547167050}
   - {fileID: 1169546494}
+  - {fileID: 267400127}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -468,9 +534,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7555ff01eecd95e4591463db4c88a149, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 500
   acceptor: 1
-  health: 0
+  _maxHealth: 100
+  _health: 0
   HealthChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -484,6 +550,7 @@ MonoBehaviour:
   _visionDistance: 100
   _attackDistance: 2
   _deathTimer: 0
+  _updatingDelay: 0
 --- !u!195 &530664115
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -526,6 +593,21 @@ MonoBehaviour:
   - {fileID: 5738778020581666145, guid: 6889fc7ec46626d40bba5c1399868bdc, type: 3}
   - {fileID: 5738778020581666145, guid: 6889fc7ec46626d40bba5c1399868bdc, type: 3}
   - {fileID: 5738778020581666145, guid: 6889fc7ec46626d40bba5c1399868bdc, type: 3}
+--- !u!114 &14675297232473983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 14675295590137274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18983136ac9aeae4c8f6357ed54c7816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damageZone: {fileID: 267400125}
+  _collider: {fileID: 267400126}
+  _attackDelay: 10
 --- !u!1 &14675297547167054
 GameObject:
   m_ObjectHideFlags: 0

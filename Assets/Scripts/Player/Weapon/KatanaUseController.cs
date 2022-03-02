@@ -105,12 +105,13 @@ namespace Assets.Scripts.Player.Weapon
         }
         public AudioClip audioClip;
         public DamageZone getDamage;
+        
         private void AttackStart(float multi = 1)
         {
             getDamage.Multi = multi + ComboCount * comboMulti;
             audioSource.PlayOneShot(audioClip);
         }
-
+        
         private void AttackEnd()
         {
             getDamage.Multi = 0;

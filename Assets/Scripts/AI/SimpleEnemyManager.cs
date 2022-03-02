@@ -11,23 +11,19 @@ namespace Assets.Scripts.AI
     [RequireComponent(typeof(Collider))]
     public class SimpleEnemyManager : AliveController
     {
-        [SerializeField]
-        private GameObject _player;
-        [SerializeField]
-        [Range(0, 1000)]
-        private float _visionDistance = 500;
-        [SerializeField]
-        [Range(0, 10)]
-        private float _attackDistance = 5;
-        [SerializeField]
-        [Range(0, 10)]
-        private float _deathTimer = 0;
-
+        [SerializeField] private GameObject _player;
+        [SerializeField] [Range(0, 1000)] private float _visionDistance = 500;
+        [SerializeField] [Range(0, 10)] private float _attackDistance = 5;
+        [SerializeField] [Range(0, 10)] private float _deathTimer = 0;
+        [SerializeField] private float _updatingDelay = 0.1f;
         private NavMeshAgent _agent;
         private NavMeshPath _path;
         private EnemyState _state;
         private Animator _anim;
+        private Attack _atk;
         private bool _stunned = false;
+        private bool _attackStarted = false;
+        
 
         private AliveController _currentEnemy;
 
@@ -41,6 +37,7 @@ namespace Assets.Scripts.AI
         new void Start()
         {
             base.Start();
+            _atk = GetComponent<Attack>();
             acceptor = DamageAcceptor.Enemy;
             _player = GameObject.FindGameObjectWithTag("Player");
             _agent = GetComponent<NavMeshAgent>();
@@ -53,26 +50,31 @@ namespace Assets.Scripts.AI
                 _agent.path = _path;
                 _agent.isStopped = false;
             }
+
+            StartCoroutine(Updating());
         }
 
-        private void Update()
+        private IEnumerator Updating()
         {
-            switch (_state)
+            while (true)
             {
-                case EnemyState.Iddle:
-                    Iddle();
-                    break;
-                case EnemyState.Move:
-                    Move();
-                    break;
-                case EnemyState.Attack:
-                    Attack();
-                    break;
-                default:
-                    break;
+                switch (_state)
+                {
+                    case EnemyState.Iddle:
+                        Iddle();
+                        break;
+                    case EnemyState.Move:
+                        Move();
+                        break;
+                    case EnemyState.Attack:
+                        Attack();
+                        break;
+                    default:
+                        break;
+                }
+                yield return new WaitForSeconds( _updatingDelay);
             }
         }
-
 
 
         protected virtual void Move()
@@ -103,13 +105,22 @@ namespace Assets.Scripts.AI
             }
         }
 
+
         protected void Attack()
         {
             _agent.isStopped = true;
+            if (!_attackStarted)
+            {
+                _atk.Action();
+                _attackStarted = !_attackStarted;
+            }
+
             //_anim.SetTrigger("Attack");   //???
-            if ((_player.transform.position - transform.position).magnitude > _attackDistance) //&& !stunned)//делать рейкаст и доставать компонент каждый раз???
+            if ((_player.transform.position - transform.position).magnitude >
+                _attackDistance) //&& !stunned)//делать рейкаст и доставать компонент каждый раз???
             {
                 _state = EnemyState.Move;
+                _atk.EndAction();
             }
         }
 
@@ -150,7 +161,6 @@ namespace Assets.Scripts.AI
             yield return new WaitForSeconds(time);
             _stunned = false;
         }
-
     }
 }
 
