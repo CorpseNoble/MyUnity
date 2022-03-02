@@ -109,33 +109,33 @@ namespace Assets.Scripts.Inventory
     [Serializable]
     public class Status
     {
-        public PlayerBarStats<BarStatType> HP
-        {
-            get => playerBarStats.Where(c => c.stat == BarStatType.HP).First();
-            //{
-            //    if (_HP == null)
-            //        _HP = 
-            //    return _HP;
-            //}
-        }
-        public PlayerBarStats<BarStatType> MP
-        {
-            get => playerBarStats.Where(c => c.stat == BarStatType.MP).First();
-            //{
-            //    if (_MP == null)
-            //        _MP 
-            //    return _MP;
-            //}
-        }
-        public PlayerBarStats<BarStatType> SP
-        {
-            get => playerBarStats.Where(c => c.stat == BarStatType.SP).First();
-            //{
-            //    if (_SP == null)
-            //        _SP 
-            //    return _SP;
-            //}
-        }
+        public PlayerBarStats<BarStatType> HP => playerBarStats.Where(c => c.stat == BarStatType.HP).First();
+        //{
+        //    get 
+        //{
+        //    if (_HP == null)
+        //        _HP = playerBarStats.Where(c => c.stat == BarStatType.HP).First();
+        //    return _HP;
+        //}
+        //}
+        public PlayerBarStats<BarStatType> MP => playerBarStats.Where(c => c.stat == BarStatType.MP).First();
+        //{
+        //get 
+        //{
+        //    if (_MP == null)
+        //        _MP = playerBarStats.Where(c => c.stat == BarStatType.MP).First();
+        //    return _MP;
+        //}
+        //}
+        public PlayerBarStats<BarStatType> SP => playerBarStats.Where(c => c.stat == BarStatType.SP).First();
+        //{
+        //    get
+        //{
+        //    if (_SP == null)
+        //        _SP = playerBarStats.Where(c => c.stat == BarStatType.SP).First();
+        //    return _SP;
+        //}
+        //}
 
         public PlayerBarStats<BarStatType> Pain => playerBarStats.Where(c => c.stat == BarStatType.Pain).First();
         public PlayerBarStats<BarStatType> Fatigue => playerBarStats.Where(c => c.stat == BarStatType.Fatigue).First();

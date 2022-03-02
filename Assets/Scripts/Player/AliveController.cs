@@ -38,6 +38,11 @@ public abstract class AliveController : MonoBehaviour
     [SerializeField, Range(1, 1000)] protected int _maxHealth = 100;
     [SerializeField] protected int _health;
 
+    public AudioSource audioSource;
+    public AudioClip getDamage;
+    public AudioClip getHeal;
+    public AudioClip death;
+
     public UnityEvent<AliveController, int> HealthChanged;
     public UnityEvent<AliveController, int> MaxHealthChanged;
     public UnityEvent<AliveController> WasDead;
@@ -51,17 +56,23 @@ public abstract class AliveController : MonoBehaviour
     public virtual void GetDamage(int damage)
     {
         if (Health > 0)
+        {
             Health -= damage;
+            audioSource?.PlayOneShot(getDamage);
+        }
     }
     public virtual void GetHeal(int heal)
     {
         if (Health < _maxHealth)
+        {
             Health += heal;
+            audioSource?.PlayOneShot(getHeal);
+        }
     }
     protected virtual void Death()
     {
+        audioSource?.PlayOneShot(death);
         WasDead?.Invoke(this);
-
     }
 
     protected void OnTriggerStay(Collider other)
