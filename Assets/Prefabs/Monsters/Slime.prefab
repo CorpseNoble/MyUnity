@@ -175,6 +175,70 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 3
+--- !u!1 &1306912323
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1306912325}
+  - component: {fileID: 1306912324}
+  - component: {fileID: 1306912326}
+  m_Layer: 0
+  m_Name: attackZone (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1306912325
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1306912323}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1.028}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5738778020581666154}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1306912324
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1306912323}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1306912326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1306912323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ddc03fd19a06c049ad6811d19d9cb29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageValue: 100
+  Multi: 1
+  acceptor: 0
+  hitReserver: []
+  audioSource: {fileID: 0}
+  audioClip: {fileID: 0}
+  _zone: 0
 --- !u!1 &1572283085
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,6 +455,7 @@ GameObject:
   - component: {fileID: 5738778020581666159}
   - component: {fileID: 5738778020581666144}
   - component: {fileID: 6554121751808380296}
+  - component: {fileID: 2143237085}
   m_Layer: 0
   m_Name: Slime
   m_TagString: Untagged
@@ -410,6 +475,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 252721631}
+  - {fileID: 1306912325}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -525,9 +591,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7555ff01eecd95e4591463db4c88a149, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
   acceptor: 1
-  health: 0
+  _maxHealth: 100
+  _health: 0
   HealthChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -541,6 +607,7 @@ MonoBehaviour:
   _visionDistance: 100
   _attackDistance: 2
   _deathTimer: 0
+  _updatingDelay: 0
 --- !u!114 &6554121751808380296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -555,3 +622,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aliveController: {fileID: 0}
   slider: {fileID: 1703571240}
+--- !u!114 &2143237085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5738778020581666145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18983136ac9aeae4c8f6357ed54c7816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damageZone: {fileID: 1306912326}
+  _collider: {fileID: 1306912324}
+  _attackDelay: 5
