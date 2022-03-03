@@ -23,7 +23,7 @@ namespace Assets.Scripts.AI
         private Attack _atk;
         private bool _stunned = false;
         private bool _attackStarted = false;
-        
+
 
         private AliveController _currentEnemy;
 
@@ -37,6 +37,7 @@ namespace Assets.Scripts.AI
         new void Start()
         {
             base.Start();
+            _anim = GetComponent<Animator>();
             _atk = GetComponent<Attack>();
             acceptor = DamageAcceptor.Enemy;
             _player = GameObject.FindGameObjectWithTag("Player");
@@ -53,7 +54,18 @@ namespace Assets.Scripts.AI
 
             StartCoroutine(Updating());
         }
-
+        public float State
+        {
+            set
+            {
+                if(value != _st)
+                {
+                    _st = value;
+                    _anim.SetFloat("State", value);
+                }
+            }
+        }
+        [SerializeField] private float _st; 
         private IEnumerator Updating()
         {
             while (true)
@@ -72,7 +84,8 @@ namespace Assets.Scripts.AI
                     default:
                         break;
                 }
-                yield return new WaitForSeconds( _updatingDelay);
+                State = (float)_state;
+                yield return new WaitForSeconds(_updatingDelay);
             }
         }
 
@@ -88,6 +101,8 @@ namespace Assets.Scripts.AI
                 {
                     _state = EnemyState.Iddle;
                 }
+
+
                 else if ((_player.transform.position - transform.position).magnitude < _attackDistance)
                 {
                     _state = EnemyState.Attack;
@@ -166,7 +181,8 @@ namespace Assets.Scripts.AI
 
 enum EnemyState
 {
-    Iddle,
-    Attack,
-    Move
+    Iddle = 0,
+    Move = 1,
+    Attack = 2,
+
 }
