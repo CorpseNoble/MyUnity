@@ -15,59 +15,59 @@ MonoBehaviour:
   status:
     playerMainStats:
     - stat: 0
-      value: 5
+      _value: 5
     - stat: 1
-      value: 5
+      _value: 5
     - stat: 2
-      value: 5
+      _value: 5
     - stat: 3
-      value: 5
+      _value: 5
     - stat: 4
-      value: 5
+      _value: 5
     - stat: 5
-      value: 5
+      _value: 5
     - stat: 6
-      value: 10
+      _value: 10
     playerSecStats:
     - stat: 0
-      value: 25
+      _value: 25
     - stat: 1
-      value: 25
+      _value: 25
     - stat: 2
-      value: 30
+      _value: 30
     - stat: 3
-      value: 30
+      _value: 30
     - stat: 4
-      value: 30
+      _value: 30
     - stat: 5
-      value: 30
+      _value: 30
     - stat: 6
-      value: 25
+      _value: 25
     - stat: 7
-      value: 15
+      _value: 15
     - stat: 8
-      value: 30
+      _value: 30
     playerBarStats:
     - stat: 0
-      valueMax: 50
-      valueCurrent: 50
+      _valueMax: 50
+      _valueCurrent: 5
     - stat: 1
-      valueMax: 30
-      valueCurrent: 0
+      _valueMax: 30
+      _valueCurrent: 0
     - stat: 2
-      valueMax: 50
-      valueCurrent: 0
+      _valueMax: 50
+      _valueCurrent: 0
     - stat: 3
-      valueMax: 30
-      valueCurrent: 0
+      _valueMax: 30
+      _valueCurrent: 0
     - stat: 4
-      valueMax: 40
-      valueCurrent: 0
+      _valueMax: 40
+      _valueCurrent: 0
     - stat: 5
-      valueMax: 30
-      valueCurrent: 0
+      _valueMax: 30
+      _valueCurrent: 0
     raceTrait:
-      level: 0
+      level: 1
       _experience: 0
       _traitCategoryID: 0
       _traitID: 0
