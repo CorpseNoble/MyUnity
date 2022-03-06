@@ -31,12 +31,12 @@ RectTransform:
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children:
   - {fileID: 1703571239}
-  m_Father: {fileID: 5738778020581666154}
-  m_RootOrder: 0
+  m_Father: {fileID: 21546423320232240}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0.75}
   m_SizeDelta: {x: 100, y: 12.84}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &252721634
@@ -450,7 +450,6 @@ GameObject:
   - component: {fileID: 21546423320232240}
   - component: {fileID: 5399686747518157432}
   - component: {fileID: 1224458969417990815}
-  - component: {fileID: 5528603741345298338}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -470,8 +469,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1306912325}
+  - {fileID: 252721631}
   m_Father: {fileID: 5738778020581666154}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5399686747518157432
 MeshFilter:
@@ -500,7 +500,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -522,19 +522,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5528603741345298338
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1003035558408244477}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5738778020581666145
 GameObject:
   m_ObjectHideFlags: 0
@@ -569,7 +556,6 @@ Transform:
   m_LocalPosition: {x: 1.456, y: 0.521, z: 1.631}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 252721631}
   - {fileID: 21546423320232240}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -606,7 +592,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 1
-  m_BaseOffset: 0.5
+  m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!54 &5738778020581666159

@@ -5,7 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEditor;
-public class SideSecScript : SideScript
+
+namespace GenPr1
 {
-    public SideType SecSide;
+    public class SideSecScript : SideScript
+    {
+        public SideType SecSide;
+    }
 }

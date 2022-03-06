@@ -1,49 +1,53 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageZone : MonoBehaviour
+namespace Assets.Scripts.Player
 {
-    public int DamageValue = 100;
-    public float Multi = 1;
-    public DamageAcceptor acceptor = DamageAcceptor.Player;
-    public List<AliveController> hitReserver = new List<AliveController>();
-    public AudioSource audioSource;
-    public AudioClip audioClip;
-    public bool Zone => _zone;
-    [SerializeField] protected bool _zone = false;
-    
-    /// <summary>
-    /// Метод нанесения урона противнику
-    /// </summary>
-    /// <param name="alive"></param>
-    public void GiveDamage(AliveController alive)
-    {
-        if (Multi <= 0)
-            return;
 
-        if (!Zone)
+    public class DamageZone : MonoBehaviour
+    {
+        public int DamageValue = 100;
+        public float Multi = 1;
+        public DamageAcceptor acceptor = DamageAcceptor.Player;
+        public List<AliveController> hitReserver = new List<AliveController>();
+        public AudioSource audioSource;
+        public AudioClip audioClip;
+        public bool Zone => _zone;
+        [SerializeField] protected bool _zone = false;
+
+        /// <summary>
+        /// Метод нанесения урона противнику
+        /// </summary>
+        /// <param name="alive"></param>
+        public void GiveDamage(AliveController alive)
         {
-            if (hitReserver.Contains(alive))
+            if (Multi <= 0)
                 return;
-            hitReserver.Add(alive);
+
+            if (!Zone)
+            {
+                if (hitReserver.Contains(alive))
+                    return;
+                hitReserver.Add(alive);
+            }
+
+            alive.GetDamage((int)(DamageValue * Multi));
+
+
+            if (audioSource == null)
+                return;
+            audioSource.PlayOneShot(audioClip);
         }
-
-        alive.GetDamage((int)(DamageValue * Multi));
-
-
-        if (audioSource == null)
-            return;
-        audioSource.PlayOneShot(audioClip);
+        public void EndHit(out int countHit)
+        {
+            countHit = hitReserver.Count;
+            hitReserver.Clear();
+        }
     }
-    public void EndHit(out int countHit)
+
+    public enum DamageAcceptor
     {
-        countHit = hitReserver.Count;
-        hitReserver.Clear();
+        Player,
+        Enemy,
     }
-}
-
-public enum DamageAcceptor
-{
-    Player,
-    Enemy,
 }

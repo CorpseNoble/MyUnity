@@ -15,12 +15,14 @@ namespace Assets.Scripts.Inventory
         public List<ConsumableItem> consumbles = new List<ConsumableItem>();
         public List<OterItem> oters = new List<OterItem>();
     }
-
-    [Serializable]
-    public abstract class GameItem
+    public abstract class NameDisciption
     {
         public string name;
         public string discription;
+    }
+    [Serializable]
+    public abstract class GameItem : NameDisciption
+    {
         public Sprite sprite;
         public GameObject gameObject;
         public int price = 100;

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Assets.Scripts.Player;
 
 namespace Assets.Scripts.AI
 {
@@ -58,14 +59,14 @@ namespace Assets.Scripts.AI
         {
             set
             {
-                if(value != _st)
+                if (value != _st)
                 {
                     _st = value;
                     _anim.SetFloat("State", value);
                 }
             }
         }
-        [SerializeField] private float _st; 
+        [SerializeField] private float _st;
         private IEnumerator Updating()
         {
             while (true)
@@ -177,12 +178,12 @@ namespace Assets.Scripts.AI
             _stunned = false;
         }
     }
-}
 
-enum EnemyState
-{
-    Iddle = 0,
-    Move = 1,
-    Attack = 2,
+    enum EnemyState
+    {
+        Iddle = 0,
+        Move = 1,
+        Attack = 2,
 
+    }
 }

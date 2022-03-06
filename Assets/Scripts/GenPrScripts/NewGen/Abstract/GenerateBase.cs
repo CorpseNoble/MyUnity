@@ -3,19 +3,23 @@ using System.Collections.Generic;
 using System.Collections;
 using System;
 
-[ExecuteInEditMode]
-public abstract class GenerateBase : MonoBehaviour
+
+namespace GenPr1
 {
-    public Action Complite;
-
-    public Interect Start;
-
-    private void OnEnable()
+    [ExecuteInEditMode]
+    public abstract class GenerateBase : MonoBehaviour
     {
-        Start = new Interect(StartGenerate);
-    }
-    public virtual void StartGenerate()
-    {
-        Complite?.Invoke();
+        public Action Complite;
+
+        public Interect Start;
+
+        private void OnEnable()
+        {
+            Start = new Interect(StartGenerate);
+        }
+        public virtual void StartGenerate()
+        {
+            Complite?.Invoke();
+        }
     }
 }

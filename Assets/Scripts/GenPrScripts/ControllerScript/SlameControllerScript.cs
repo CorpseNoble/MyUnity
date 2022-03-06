@@ -7,58 +7,61 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class SlameControllerScript : Monster
+namespace GenPr1
 {
-    public float waitForUnity = 30f;
-    public float timerForUnity = 0f;
-    public SlameType slameType;
+    public class SlameControllerScript : Monster
+    {
+        public float waitForUnity = 30f;
+        public float timerForUnity = 0f;
+        public SlameType slameType;
 
-    public SlameControllerScript boss;
-    public List<SlameControllerScript> satellites = new List<SlameControllerScript>();
+        public SlameControllerScript boss;
+        public List<SlameControllerScript> satellites = new List<SlameControllerScript>();
 
-    private new void Start()
-    {
-        base.Start();
-        if (level > 1)
+        private new void Start()
         {
-            slameType = SlameType.Boss;
-        }
-        else
-        {
-            slameType = SlameType.Satellite;
-        }
-    }
-    public override MonsterStay Stay
-    {
-        get => stay;
-        set
-        {
-            base.Stay = value;
-            if (!stan)
-                if (value == MonsterStay.Spec)
-                {
-                    switch (slameType)
-                    {
-                        case SlameType.Boss:
-                            break;
-                        case SlameType.Satellite:
-                            if (boss != null)
-                                navMeshAgent.destination = boss.transform.position;
-                            break;
-                    }
-                }
-        }
-    }
-    private new void FixedUpdate()
-    {
-        base.FixedUpdate();
-        if ((satellites.Count > 0 || boss != null) && Stay == MonsterStay.Idle)
-        {
-            timerForUnity += Time.fixedDeltaTime;
-            if (timerForUnity % waitForUnity > 1)
+            base.Start();
+            if (level > 1)
             {
-                Stay = MonsterStay.Spec;
-                meshRenderer.material = materials.spec;
+                slameType = SlameType.Boss;
+            }
+            else
+            {
+                slameType = SlameType.Satellite;
+            }
+        }
+        public override MonsterStay Stay
+        {
+            get => stay;
+            set
+            {
+                base.Stay = value;
+                if (!stan)
+                    if (value == MonsterStay.Spec)
+                    {
+                        switch (slameType)
+                        {
+                            case SlameType.Boss:
+                                break;
+                            case SlameType.Satellite:
+                                if (boss != null)
+                                    navMeshAgent.destination = boss.transform.position;
+                                break;
+                        }
+                    }
+            }
+        }
+        private new void FixedUpdate()
+        {
+            base.FixedUpdate();
+            if ((satellites.Count > 0 || boss != null) && Stay == MonsterStay.Idle)
+            {
+                timerForUnity += Time.fixedDeltaTime;
+                if (timerForUnity % waitForUnity > 1)
+                {
+                    Stay = MonsterStay.Spec;
+                    meshRenderer.material = materials.spec;
+                }
             }
         }
     }

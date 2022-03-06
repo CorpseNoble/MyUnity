@@ -5,31 +5,34 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class CumScript : MonoBehaviour
+namespace GenPr1
 {
-    public GameObject target;
-
-    [Range(1f, 10f)]
-    public float distance = 1;
-
-    //public Transform pos;
-
-    private void Start()
+    public class CumScript : MonoBehaviour
     {
-        //transform.position = pos.position;
+        public GameObject target;
 
-        //transform.rotation = pos.rotation;
+        [Range(1f, 10f)]
+        public float distance = 1;
 
-    }
+        //public Transform pos;
 
-    private void Update()
-    {
-        //transform.position = pos.position;
-        CumNormalized();
-    }
+        private void Start()
+        {
+            //transform.position = pos.position;
 
-    public void CumNormalized()
-    {
-        transform.forward = (target.transform.position - transform.position).normalized;
+            //transform.rotation = pos.rotation;
+
+        }
+
+        private void Update()
+        {
+            //transform.position = pos.position;
+            CumNormalized();
+        }
+
+        public void CumNormalized()
+        {
+            transform.forward = (target.transform.position - transform.position).normalized;
+        }
     }
 }

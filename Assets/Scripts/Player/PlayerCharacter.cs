@@ -13,20 +13,20 @@ namespace Assets.Scripts.Player
         public PlayerInventoryData playerInventory;
         public override int MaxHealth 
         { 
-            get => playerInventory.status.HP.valueMax;
+            get => playerInventory.status.HP.ValueMax;
             set
             {
                 base.MaxHealth = value;
-                playerInventory.status.HP.valueMax = value;
+                playerInventory.status.HP.ValueMax = value;
             }
         }
         public override int Health 
         { 
-            get => playerInventory.status.HP.valueCurrent; 
+            get => playerInventory.status.HP.ValueCurrent; 
             set 
             {
                 base.Health = value;
-                playerInventory.status.HP.valueCurrent = value;
+                playerInventory.status.HP.ValueCurrent = value;
             } 
         }
         protected override void Start()
@@ -37,12 +37,6 @@ namespace Assets.Scripts.Player
         {
             base.Death();
             Debug.Log("You Dead");
-            Invoke(nameof(Restart), 2f);
-        }
-
-        protected void Restart()
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }

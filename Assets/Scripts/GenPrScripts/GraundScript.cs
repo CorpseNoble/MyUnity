@@ -5,37 +5,41 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class GraundScript : MonoBehaviour
+
+namespace GenPr1
 {
-    public bool OnGraund = false;
-    public string collisionName = "paladin_prop_j_nordstrom";
-    public OnGraundHelper helper;
-    private void OnCollisionEnter(Collision collision)
+    public class GraundScript : MonoBehaviour
     {
-        if (collision.gameObject.name != collisionName)
+        public bool OnGraund = false;
+        public string collisionName = "paladin_prop_j_nordstrom";
+        public OnGraundHelper helper;
+        private void OnCollisionEnter(Collision collision)
         {
-            OnGraund = true;
-            helper?.Invoke();
+            if (collision.gameObject.name != collisionName)
+            {
+                OnGraund = true;
+                helper?.Invoke();
+            }
+        }
+
+        private void OnCollisionStay(Collision collision)
+        {
+            if (collision.gameObject.name != collisionName && !OnGraund)
+            {
+                OnGraund = true;
+                helper?.Invoke();
+            }
+        }
+
+        private void OnCollisionExit(Collision collision)
+        {
+            if (collision.gameObject.name != collisionName)
+            {
+                OnGraund = false;
+                helper?.Invoke();
+            }
         }
     }
 
-    private void OnCollisionStay(Collision collision)
-    {
-        if (collision.gameObject.name != collisionName && !OnGraund)
-        {
-            OnGraund = true;
-            helper?.Invoke();
-        }
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.name != collisionName)
-        {
-            OnGraund = false;
-            helper?.Invoke();
-        }
-    }
+    public delegate void OnGraundHelper();
 }
-
-public delegate void OnGraundHelper();

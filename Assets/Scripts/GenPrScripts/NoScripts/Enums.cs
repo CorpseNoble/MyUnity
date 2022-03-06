@@ -4,72 +4,76 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public enum SideType
-{
-    Forward,
-    Back,
-    Right,
-    Left,
-    Up,
-    Down,
-}
 
-public enum WayType
+namespace GenPr1
 {
-    OpenDoor,
-    Area,
-    Other,
-}
+    public enum SideType
+    {
+        Forward,
+        Back,
+        Right,
+        Left,
+        Up,
+        Down,
+    }
 
-public enum PatternParamType
-{
-    end,
-    branch,
-    path,
-    twist,
-    turnR,
-    turnL,
-    down,
-    up,
-}
+    public enum WayType
+    {
+        OpenDoor,
+        Area,
+        Other,
+    }
 
-public enum TriggerType
-{
-    AttackTrigger,
-    ReadyAttackTrigger,
-    TargetTrigger,
-}
+    public enum PatternParamType
+    {
+        end,
+        branch,
+        path,
+        twist,
+        turnR,
+        turnL,
+        down,
+        up,
+    }
 
-public enum ControllerType
-{
-    Player,
-    Monster,
-}
+    public enum TriggerType
+    {
+        AttackTrigger,
+        ReadyAttackTrigger,
+        TargetTrigger,
+    }
 
-public enum MonsterStay
-{
-    Idle,
-    Go,
-    Attack,
-    Spec,
-}
+    public enum ControllerType
+    {
+        Player,
+        Monster,
+    }
 
-public enum TypeSize
-{
-    Big,
-    Normal,
-    Small,
-}
+    public enum MonsterStay
+    {
+        Idle,
+        Go,
+        Attack,
+        Spec,
+    }
 
-public enum SlameType
-{
-    Boss,
-    Satellite,
-}
+    public enum TypeSize
+    {
+        Big,
+        Normal,
+        Small,
+    }
 
-public enum GenType
-{
-    Random,
-    Pattern,
-    Mixed,
+    public enum SlameType
+    {
+        Boss,
+        Satellite,
+    }
+
+    public enum GenType
+    {
+        Random,
+        Pattern,
+        Mixed,
+    }
 }

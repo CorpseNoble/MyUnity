@@ -5,5 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class SampleGenWall : GenWallBase
-{ }
+namespace GenPr1
+{
+    public class SampleGenWall : GenWallBase
+    { }
+}

@@ -5,50 +5,54 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-[ExecuteInEditMode]
-public class MainStructGenScript : MonoBehaviour
+
+namespace GenPr1
 {
-    //public Interect GenInEditorMode;
-    //public Interect DestroyInEditorMode;
-    //public Interect ViewDebug;
-
-    public GenNodeMapBase genNodeMap;
-    public GenWallBase genWall;
-
-    private NodeMap nodeMap;
-    //private void OnEnable()
-    //{
-    //    GenInEditorMode = new Interect(Gen);
-    //    DestroyInEditorMode = new Interect(ClearAll);
-    //    ViewDebug = new Interect(DebugRender);
-    //}
-    [ContextMenu("Gen")]
-    public void Gen()
+    [ExecuteInEditMode]
+    public class MainStructGenScript : MonoBehaviour
     {
-        ClearAll();
+        //public Interect GenInEditorMode;
+        //public Interect DestroyInEditorMode;
+        //public Interect ViewDebug;
 
-        nodeMap = genNodeMap.GenerateNodeMap();
+        public GenNodeMapBase genNodeMap;
+        public GenWallBase genWall;
 
-        genWall.GenWay(nodeMap);
-    }
-    [ContextMenu("ClearAll")]
+        private NodeMap nodeMap;
+        //private void OnEnable()
+        //{
+        //    GenInEditorMode = new Interect(Gen);
+        //    DestroyInEditorMode = new Interect(ClearAll);
+        //    ViewDebug = new Interect(DebugRender);
+        //}
+        [ContextMenu("Gen")]
+        public void Gen()
+        {
+            ClearAll();
 
-    public void ClearAll()
-    {
-        //foreach (var b in nodeMap.nodes)
-        //    DestroyImmediate(b.gameObject);
+            nodeMap = genNodeMap.GenerateNodeMap();
 
-        var childCount = gameObject.transform.childCount;
+            genWall.GenWay(nodeMap);
+        }
+        [ContextMenu("ClearAll")]
 
-        for (int i = 0; i < childCount; i++)
-            DestroyImmediate(gameObject.transform.GetChild(0).gameObject);
-    }
-    [ContextMenu("DebugRender")]
+        public void ClearAll()
+        {
+            //foreach (var b in nodeMap.nodes)
+            //    DestroyImmediate(b.gameObject);
 
-    public void DebugRender()
-    {
-        foreach (var n in nodeMap.nodes)
-            foreach (var n2 in n.sides)
-                Debug.DrawLine(n.transform.position, n2.Value.n.transform.position, Color.white, 10f);
+            var childCount = gameObject.transform.childCount;
+
+            for (int i = 0; i < childCount; i++)
+                DestroyImmediate(gameObject.transform.GetChild(0).gameObject);
+        }
+        [ContextMenu("DebugRender")]
+
+        public void DebugRender()
+        {
+            foreach (var n in nodeMap.nodes)
+                foreach (var n2 in n.sides)
+                    Debug.DrawLine(n.transform.position, n2.Value.n.transform.position, Color.white, 10f);
+        }
     }
 }

@@ -22,12 +22,12 @@ namespace Assets.Scripts.Player.UI
         public GameObject deadPanel;
         private void Awake()
         {
-            HP.Init(playerInventory.status.HP.valueMax);
-            SP.Init(playerInventory.status.SP.valueMax);
-            MP.Init(playerInventory.status.MP.valueMax);
-            pain.Init(playerInventory.status.Pain.valueMax);
-            fatigue.Init(playerInventory.status.Fatigue.valueMax);
-            stress.Init(playerInventory.status.Stress.valueMax);
+            HP.Init(playerInventory.status.HP.ValueMax);
+            SP.Init(playerInventory.status.SP.ValueMax);
+            MP.Init(playerInventory.status.MP.ValueMax);
+            pain.Init(playerInventory.status.Pain.ValueMax);
+            fatigue.Init(playerInventory.status.Fatigue.ValueMax);
+            stress.Init(playerInventory.status.Stress.ValueMax);
 
             //player.MaxHealthChanged.AddListener(MaxHPChanged);
             //player.HealthChanged.AddListener(HPChanged);

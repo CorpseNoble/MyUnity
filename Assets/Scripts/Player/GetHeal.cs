@@ -1,8 +1,13 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class GetHeal : MonoBehaviour
+
+namespace Assets.Scripts.Player
 {
-    public int HealValue = 100;
-    public DamageAcceptor acceptor = DamageAcceptor.Player;
+
+    public class GetHeal : MonoBehaviour
+    {
+        public int HealValue = 100;
+        public DamageAcceptor acceptor = DamageAcceptor.Player;
+    }
 }

@@ -53,7 +53,12 @@ namespace Assets.Scripts.GenSystemV1
             if (backElement != null)
             {
                 var con = backElement.Connect(rootElement);
+
                 if (backElement.parentElement.parentElement != parentElement)
+                    con.connectType = ConnectType.Door;
+
+                var room = backElement.parentElement as Room;
+                if (room.saveZone)
                     con.connectType = ConnectType.Door;
             }
             if (!sample)

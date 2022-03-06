@@ -13,13 +13,11 @@ namespace Assets.Scripts.Inventory
         public List<CategoryTraitData> categoryData;
     }
     [Serializable]
-    public class Trait
+    public class Trait : NameDisciption
     {
         //Quantity exp per one trait using
         public const int Exp_Per_One = 10;
 
-        public string name = "";
-        public string descriptions = "Trait Description";
         public int expirience = 0;
         public int nextTraitID = -1;
         public bool scalabe = false;

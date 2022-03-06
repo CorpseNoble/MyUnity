@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+namespace GenPr1
+{
+
 public class Char1ControllerScript : MonoBehaviour
 {
     //CharacterController characterController;
@@ -65,4 +68,5 @@ public class Char1ControllerScript : MonoBehaviour
 
         ControllerMethods.SetTrigger(playerInputs.Action.key, "OpenChest", animator);
     }
+}
 }

@@ -5,7 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class ElementScript : MonoBehaviour
+namespace GenPr1
 {
-    public TypeSize type;
+    public class ElementScript : MonoBehaviour
+    {
+        public TypeSize type;
+    }
 }

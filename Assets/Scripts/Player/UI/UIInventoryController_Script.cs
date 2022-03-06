@@ -12,6 +12,8 @@ namespace Assets.Scripts.Player.UI
     public class UIInventoryController_Script : MonoBehaviour
     {
         public PlayerInventoryData inventoryData;
+        public KeyCode key = KeyCode.I;
+        public GameObject inventoryPanel;
 
         public GameObject uiGameItemContainer;
         public GameObject uiTraitContainer;
@@ -28,6 +30,28 @@ namespace Assets.Scripts.Player.UI
         public Dictionary<BarStatType, Text> barStatTexts;
         public Text uiStatPrefab;
 
+        public bool InMenu
+        {
+            get => PlayerGamePrefs.InMenu;
+            set
+            {
+                PlayerGamePrefs.InMenu = value;
+                inventoryPanel.SetActive(value);
+            }
+        }
+
+        public bool InDialog => PlayerGamePrefs.InDialog;
+
+        private void OnEnable()
+        {
+            inventoryData.status.StatusChanged += StatusUpdated;
+        }
+
+        private void OnDisable()
+        {
+            inventoryData.status.StatusChanged -= StatusUpdated;
+        }
+
         private void Start()
         {
             FillStat(mainStatContainer, inventoryData.status.playerMainStats, out mainStatTexts);
@@ -36,7 +60,22 @@ namespace Assets.Scripts.Player.UI
             RenderTraitInventory();
             RenderItemInventory();
         }
-        public void FillStat<T>(GameObject statContainer, List<PlayerStats<T>> playerStats, out Dictionary<T, Text> statTexts) where T : struct
+        private void Update()
+        {
+            if (Input.GetKeyDown(key))
+            {
+                InMenu = !InMenu;
+            }
+        }
+        public void StatusUpdated(Status status)
+        {
+            FillStat(mainStatContainer, inventoryData.status.playerMainStats, out mainStatTexts);
+            FillStat(secStatContainer, inventoryData.status.playerSecStats, out secStatTexts);
+            FillBarStat(barStatContainer, inventoryData.status.playerBarStats, out barStatTexts);
+            RenderTraitInventory();
+            RenderItemInventory();
+        }
+        public void FillStat<T>(GameObject statContainer, List<Status.PlayerStats<T>> playerStats, out Dictionary<T, Text> statTexts) where T : struct
         {
             statTexts = new Dictionary<T, Text>();
             var stats = typeof(T).GetEnumValues();
@@ -45,14 +84,14 @@ namespace Assets.Scripts.Player.UI
             {
                 var text = Instantiate(uiStatPrefab, statContainer.transform);
                 statTexts.Add(stat, text);
-                gameObject.name = stat.ToString();
+                text.gameObject.name = stat.ToString();
                 var playerStat = inventoryData.status.GetStat(stat, playerStats);
-                text.text = stat.ToString() + "\n" + playerStat.value;
+                text.text = stat.ToString() + "\n" + playerStat.Value;
 
             }
         }
 
-        public void FillBarStat<T>(GameObject statContainer, List<PlayerBarStats<T>> playerStats, out Dictionary<T, Text> statTexts) where T : struct
+        public void FillBarStat<T>(GameObject statContainer, List<Status.PlayerBarStats<T>> playerStats, out Dictionary<T, Text> statTexts) where T : struct
         {
             statTexts = new Dictionary<T, Text>();
             var stats = typeof(T).GetEnumValues();
@@ -63,7 +102,7 @@ namespace Assets.Scripts.Player.UI
                 statTexts.Add(stat, text);
                 gameObject.name = stat.ToString();
                 var barPlayerStat = inventoryData.status.GetBarStat(stat, playerStats);
-                text.text = stat.ToString() + "\n" + barPlayerStat.valueCurrent + "\\" + barPlayerStat.valueMax;
+                text.text = stat.ToString() + "\n" + barPlayerStat.ValueCurrent + "\\" + barPlayerStat.ValueMax;
             }
         }
 

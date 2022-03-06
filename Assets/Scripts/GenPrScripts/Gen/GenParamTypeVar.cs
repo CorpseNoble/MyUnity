@@ -6,21 +6,24 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 
-[Serializable]
-public abstract class GenParamTypeVar
+namespace GenPr1
 {
-    public RoomSide side;
-    public string name;
-    [Range(0, max)]
-    public int weight;
-
-    public GenParamTypeVar(RoomSide side)
+    [Serializable]
+    public abstract class GenParamTypeVar
     {
-        this.side = side;
+        public RoomSide side;
+        public string name;
+        [Range(0, max)]
+        public int weight;
+
+        public GenParamTypeVar(RoomSide side)
+        {
+            this.side = side;
+        }
+
+        private static AllSide allSide = new AllSide();
+        private const int max = 20;
+
+
     }
-
-    private static AllSide allSide = new AllSide();
-    private const int max = 20;
-
-
 }

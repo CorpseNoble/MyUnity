@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEditor;
 
-public class WayListScript : MonoBehaviour
+namespace GenPr1
 {
-    public WayType Way;
+    public class WayListScript : MonoBehaviour
+    {
+        public WayType Way;
 
-    public List<SideScript> sides = new List<SideScript>();
+        public List<SideScript> sides = new List<SideScript>();
 
+    }
 }

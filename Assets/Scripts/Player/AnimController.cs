@@ -14,12 +14,16 @@ namespace Assets.Scripts.Player
         public KeyCode sprint = KeyCode.LeftShift;
         public KeyCode onOff = KeyCode.Q;
         public KeyCode jump = KeyCode.Space;
-
+        public KeyCode dash = KeyCode.F;
+        [Range(0, 10)] public float jumpImpuls = 5f;
+        [Range(0, 2)] public float dashTime = 1f;
+        [Range(0, 10)] public float dashMulti = 5f;
 
         [SerializeField] private AudioSource _audioSource;
         [SerializeField] private AudioClip _attackAudioClip;
         [SerializeField] private DamageZone _getDamage;
         [SerializeField] private Animator _animator;
+        [SerializeField] private Rigidbody _rigidbody;
 
 
         [SerializeField] private string _attackText = "Attack";
@@ -60,9 +64,10 @@ namespace Assets.Scripts.Player
             get => _horiz;
             set
             {
+                if (_horiz == value)
+                    return;
+
                 _animator.SetFloat(_horText, value);
-
-
                 _horiz = value;
             }
         }
@@ -71,8 +76,10 @@ namespace Assets.Scripts.Player
             get => _vertical;
             set
             {
-                _animator.SetFloat(_vertText, value);
+                if (_vertical == value)
+                    return;
 
+                _animator.SetFloat(_vertText, value);
                 _vertical = value;
             }
         }
@@ -81,6 +88,8 @@ namespace Assets.Scripts.Player
             get => _inputShift;
             set
             {
+                if (_inputShift == value)
+                    return;
                 _animator.SetFloat(_shiftText, 1 + (value ? 1 : 0));
                 _inputShift = value;
             }
@@ -90,7 +99,10 @@ namespace Assets.Scripts.Player
             get => _inputSpace;
             set
             {
+                if (_inputSpace == value)
+                    return;
                 _inputSpace = value;
+                _rigidbody.AddForce(Vector3.up * jumpImpuls * Physics.gravity.magnitude, ForceMode.Impulse);
             }
         }
         public bool OnOff
@@ -112,6 +124,8 @@ namespace Assets.Scripts.Player
             get => _attack;
             set
             {
+                if (_attack == value)
+                    return;
                 _attack = value;
                 _animator.SetBool(_attackText, value);
             }
@@ -122,6 +136,8 @@ namespace Assets.Scripts.Player
             get => _speedMultiplicator;
             set
             {
+                if (_speedMultiplicator == value)
+                    return;
                 _speedMultiplicator = value;
                 _animator.SetFloat(_speedMultiText, value);
             }
@@ -135,15 +151,33 @@ namespace Assets.Scripts.Player
                 _damageMultiplicator = value;
             }
         }
+        public bool InputDash
+        {
+            set
+            {
+                if (!value)
+                    return;
+
+                _animator.SetFloat(_shiftText, dashMulti);
+                Invoke(nameof(DashEnd), dashTime);
+            }
+        }
+
+        public bool InMenu { get => PlayerGamePrefs.InMenu; }
+        public bool InDialogue { get => PlayerGamePrefs.InDialog; }
+
 
         void Start()
         {
+            _rigidbody = GetComponent<Rigidbody>();
         }
-
         void Update()
         {
-            InputKey();
-            ComboEnd();
+            if (!InMenu && !InDialogue)
+            {
+                InputKey();
+                ComboEnd();
+            }
         }
 
         private void InputKey()
@@ -154,6 +188,7 @@ namespace Assets.Scripts.Player
             Vertical = Input.GetAxis("Vertical");
             InputShift = Input.GetKey(sprint);
             InputSpace = Input.GetKeyDown(jump);
+            InputDash = Input.GetKeyDown(dash);
         }
 
         private void AttackStart(float multi = 1)
@@ -181,6 +216,11 @@ namespace Assets.Scripts.Player
             }
 
             _waitEndCombo -= Time.deltaTime;
+        }
+
+        private void DashEnd()
+        {
+            _animator.SetFloat(_shiftText, 1);
         }
     }
     [Serializable]

@@ -4,23 +4,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
-public class MyGravityScript : MonoBehaviour
+
+namespace GenPr1
 {
-    public GraundScript graund;
-
-    public float Gravity = 1f;
-
-    private bool onGraund = false;
-    private void FixedUpdate()
+    public class MyGravityScript : MonoBehaviour
     {
-        if (!onGraund)
+        public GraundScript graund;
+
+        public float Gravity = 1f;
+
+        private bool onGraund = false;
+        private void FixedUpdate()
         {
-            gameObject.transform.Translate(Vector3.down * Gravity * Time.fixedTime);
+            if (!onGraund)
+            {
+                gameObject.transform.Translate(Vector3.down * Gravity * Time.fixedTime);
+            }
         }
-    }
 
-    private void SetOnGraund()
-    {
-        onGraund = graund.OnGraund;
+        private void SetOnGraund()
+        {
+            onGraund = graund.OnGraund;
+        }
     }
 }

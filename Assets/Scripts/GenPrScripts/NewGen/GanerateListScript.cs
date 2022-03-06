@@ -6,30 +6,34 @@ using System.Threading;
 using System.Threading.Tasks;
 
 
-[ExecuteInEditMode]
-public class GanerateListScript : GenerateBase
+
+namespace GenPr1
 {
-    public List<GenerateBase> generatesQueue;
-
-    public override async void StartGenerate()
+    [ExecuteInEditMode]
+    public class GanerateListScript : GenerateBase
     {
-        bool forcontinue = false;
+        public List<GenerateBase> generatesQueue;
 
-        foreach (var gen in generatesQueue)
+        public override async void StartGenerate()
         {
-            forcontinue = false;
-            gen.Complite += ChangeBool;
+            bool forcontinue = false;
 
-            gen.StartGenerate();
+            foreach (var gen in generatesQueue)
+            {
+                forcontinue = false;
+                gen.Complite += ChangeBool;
 
-            while (forcontinue)
-                await Task.Delay(1000);
+                gen.StartGenerate();
 
-            gen.Complite -= ChangeBool;
+                while (forcontinue)
+                    await Task.Delay(1000);
+
+                gen.Complite -= ChangeBool;
+            }
+            Complite?.Invoke();
+            return;
+            void ChangeBool() => forcontinue = true;
         }
-        Complite?.Invoke();
-        return;
-        void ChangeBool() => forcontinue = true;
-    }
 
+    }
 }

@@ -5,5 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class SampleGenNodeMap : GenNodeMapBase
-{ }
+
+namespace GenPr1
+{
+    public class SampleGenNodeMap : GenNodeMapBase
+    { }
+}

@@ -66,6 +66,12 @@ MonoBehaviour:
     - stat: 5
       valueMax: 30
       valueCurrent: 0
+    raceTrait:
+      level: 0
+      _experience: 0
+      _traitCategoryID: 0
+      _traitID: 0
+      _gradeID: 0
     _lowEff: 1
     _medEff: 3
     _higEff: 5
@@ -149,10 +155,5 @@ MonoBehaviour:
           quantity: 1
           _gameItemID: 0
           _gradeID: 0
-  playerTraits:
-  - level: 1
-    _experience: 0
-    _traitCategoryID: 0
-    _traitID: 0
-    _gradeID: 0
+  playerTraits: []
   playerItems: []

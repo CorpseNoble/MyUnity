@@ -6,25 +6,29 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEditor;
 
-[Serializable]
-public class Interect
+namespace GenPr1
 {
-    //public bool button;
 
-    public Action action;
-
-    //public void Check()
-    //{
-    //    if (button)
-    //    {
-    //        action?.Invoke();
-    //        button = false;
-    //    }
-    //}
-
-    public Interect(Action action)
+    [Serializable]
+    public class Interect
     {
-        this.action = action;
+        //public bool button;
+
+        public Action action;
+
+        //public void Check()
+        //{
+        //    if (button)
+        //    {
+        //        action?.Invoke();
+        //        button = false;
+        //    }
+        //}
+
+        public Interect(Action action)
+        {
+            this.action = action;
+        }
     }
 }
 

@@ -7,64 +7,68 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BarScript : MonoBehaviour
+
+namespace GenPr1
 {
-    public Image background;
-    public Image fillBack;
-    public Image fill;
-
-    public Color backgroundColor;
-    public Color fillBackColor;
-    public Color fillColor;
-
-    public float speedSetCurrentValue = 1f;
-    public float delay = 1f;
-
-    private bool f = false;
-    private float currentValueFill = 1f;
-
-    private float CurrentValueFill
+    public class BarScript : MonoBehaviour
     {
-        get => currentValueFill;
-        set
+        public Image background;
+        public Image fillBack;
+        public Image fill;
+
+        public Color backgroundColor;
+        public Color fillBackColor;
+        public Color fillColor;
+
+        public float speedSetCurrentValue = 1f;
+        public float delay = 1f;
+
+        private bool f = false;
+        private float currentValueFill = 1f;
+
+        private float CurrentValueFill
         {
-            currentValueFill = value;
-            fill.fillAmount = value;
+            get => currentValueFill;
+            set
+            {
+                currentValueFill = value;
+                fill.fillAmount = value;
+            }
         }
-    }
 
-    private float currentValueFillBack = 1f;
+        private float currentValueFillBack = 1f;
 
-    private float CurrentValueFillBack
-    {
-        get => currentValueFillBack;
-        set
+        private float CurrentValueFillBack
         {
-            currentValueFillBack = value;
-            fillBack.fillAmount = value;
+            get => currentValueFillBack;
+            set
+            {
+                currentValueFillBack = value;
+                fillBack.fillAmount = value;
+            }
         }
-    }
-    private void Start()
-    {
-        background.color = backgroundColor;
-        fillBack.color = fillBackColor;
-        fill.color = fillColor;
-    }
-    private void Update()
-    {
-        if (CurrentValueFill < CurrentValueFillBack)
-            if (f)
-                CurrentValueFillBack -= (speedSetCurrentValue * Time.deltaTime);
-    }
-    public void SetValue(float max, float curr)
-    {
-        CurrentValueFill = curr / max;
-        f = false;
-        StartCoroutine(Delay(delay));
-    }
-    private IEnumerator Delay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        f = true;
+        private void Start()
+        {
+            background.color = backgroundColor;
+            fillBack.color = fillBackColor;
+            fill.color = fillColor;
+        }
+        private void Update()
+        {
+            if (CurrentValueFill < CurrentValueFillBack)
+                if (f)
+                    CurrentValueFillBack -= (speedSetCurrentValue * Time.deltaTime);
+        }
+        public void SetValue(float max, float curr)
+        {
+            CurrentValueFill = curr / max;
+            f = false;
+            StartCoroutine(Delay(delay));
+        }
+        private IEnumerator Delay(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            f = true;
+        }
     }
 }

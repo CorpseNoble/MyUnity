@@ -9,16 +9,19 @@ using UnityEditor;
 
 
 
-[Serializable]
-public class SelectOnList
+namespace GenPr1
 {
-    [SerializeField]
-    public IEnumerable<MonoBehaviour> list;
-    public MonoBehaviour Value { get => (index >= 0 && index < list.Count() ? list.ElementAt(index) : null); }
-    [SerializeField]
-    public int index = -1;
-    public SelectOnList(IEnumerable<MonoBehaviour> list)
+    [Serializable]
+    public class SelectOnList
     {
-        this.list = list;
+        [SerializeField]
+        public IEnumerable<MonoBehaviour> list;
+        public MonoBehaviour Value { get => (index >= 0 && index < list.Count() ? list.ElementAt(index) : null); }
+        [SerializeField]
+        public int index = -1;
+        public SelectOnList(IEnumerable<MonoBehaviour> list)
+        {
+            this.list = list;
+        }
     }
 }

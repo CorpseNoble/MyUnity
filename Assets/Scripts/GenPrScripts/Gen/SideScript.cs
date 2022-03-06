@@ -6,7 +6,10 @@ using System.Collections;
 using UnityEngine;
 using UnityEditor;
 
-public class SideScript : MonoBehaviour
+namespace GenPr1
 {
-    public SideType Side;
+    public class SideScript : MonoBehaviour
+    {
+        public SideType Side;
+    }
 }
