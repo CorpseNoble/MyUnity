@@ -9,7 +9,7 @@ namespace Assets.Scripts.AI
     [RequireComponent(typeof(NavMeshAgent))]
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(Collider))]
-    public class SimpleEnemyManager : AliveController
+    public class SimpleEnemyManager : MonoBehaviour
     {
         [SerializeField] private GameObject _player;
         [SerializeField] [Range(0, 1000)] private float _visionDistance = 500;
@@ -26,6 +26,7 @@ namespace Assets.Scripts.AI
         
 
         private AliveController _currentEnemy;
+        private AliveController _myAliveController;
 
         public AliveController CurrentEnemy
         {
@@ -36,9 +37,8 @@ namespace Assets.Scripts.AI
 
         new void Start()
         {
-            base.Start();
             _atk = GetComponent<Attack>();
-            acceptor = DamageAcceptor.Enemy;
+            _myAliveController.acceptor = DamageAcceptor.Enemy;
             _player = GameObject.FindGameObjectWithTag("Player");
             _agent = GetComponent<NavMeshAgent>();
             _agent.isStopped = true;
@@ -146,9 +146,9 @@ namespace Assets.Scripts.AI
         }
 
 
-        protected override void Death()
+        protected void Death()
         {
-            base.Death();
+            _myAliveController.Death();
             Debug.Log("Slame Dead");
             Stun(_deathTimer);
             Destroy(gameObject, _deathTimer);
