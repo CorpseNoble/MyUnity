@@ -9,20 +9,22 @@ using Assets.Scripts.Inventory;
 
 namespace Assets.Scripts.Player.UI
 {
-    public class UITrait_Script : MonoBehaviour
+    public class UITraitItem : MonoBehaviour
     {
+        public string lvlStyle = "LV: ";
         public Text traitName;
-        public Text traitDiscription;
         public Text traitLV;
         public Image background;
         public Slider traitProgres;
 
         public PlayerTrait playerTrait;
 
-        public void SetUp()
+        private void Start()
         {
             traitName.text = playerTrait.Trait.name;
-            traitDiscription.text = playerTrait.Trait.discription;
+            traitLV.text = lvlStyle + playerTrait.level.ToString();
+            traitProgres.maxValue = playerTrait.Trait.expirience;
+            traitProgres.value = playerTrait.experience;
         }
     }
 }

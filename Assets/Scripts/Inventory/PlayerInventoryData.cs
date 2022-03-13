@@ -104,7 +104,7 @@ namespace Assets.Scripts.Inventory
                 status.UpMainStat(sec.tType, (int)(status.GetStat(sec.tType, status.playerMainStats).Value * (sec.value * 0.01f)));
             }
 
-            status.StatusChangedInvoker();
+            status.OnStatusChanged();
         }
     }
 

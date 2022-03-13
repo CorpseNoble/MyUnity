@@ -115,8 +115,8 @@ namespace Assets.Scripts.Inventory
     public enum BarStatType
     {
         HP,           //очки здоровья
-        MP,           //очки маны
         FP,           //очки силы
+        MP,           //очки маны
         Stress,       //стресс
         Fatigue,      //усталость
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using UnityEngine;
 
@@ -21,6 +22,9 @@ namespace Assets.Scripts.Inventory
         public PlayerTrait raceTrait;
 
         public event Action<Status> StatusChanged;
+        public event Action<BarStatType, int> BarStatChanged;
+        public event Action<MainStatType, int> MainStatChanged;
+        public event Action<SecStatType, int> SecStatChanged;
 
         [SerializeField, Range(1, 9)] private int _lowEff = 1;
         [SerializeField, Range(1, 9)] private int _medEff = 3;
@@ -31,9 +35,30 @@ namespace Assets.Scripts.Inventory
             FillStat(out playerSecStats);
             FillStat(out playerBarStats);
         }
-        public void StatusChangedInvoker()
+        public void OnStatusChanged()
         {
             StatusChanged?.Invoke(this);
+        }
+        public void OnStatChanged<T>(T stat, int value) where T : struct
+        {
+            if (stat is BarStatType bar)
+                OnBarStatChanged(bar, value);
+            if (stat is MainStatType main)
+                OnMainStatChanged(main, value);
+            if (stat is SecStatType sec)
+                OnSecStatChanged(sec, value);
+        }
+        public void OnBarStatChanged(BarStatType barStat, int value)
+        {
+            BarStatChanged?.Invoke(barStat, value);
+        }
+        public void OnMainStatChanged(MainStatType mainStat, int value)
+        {
+            MainStatChanged?.Invoke(mainStat, value);
+        }
+        public void OnSecStatChanged(SecStatType secStat, int value)
+        {
+            SecStatChanged?.Invoke(secStat, value);
         }
         private void ApplyRace()
         {
@@ -59,7 +84,7 @@ namespace Assets.Scripts.Inventory
             foreach (T stat in stats)
             {
                 var playerstat = new PlayerStats<T>() { stat = stat };
-                playerstat.ValueChanged += (PlayerStats<T> playerStats1) => StatusChangedInvoker();
+                playerstat.ValueChanged += OnStatChanged;
                 playerStats.Add(playerstat);
             }
         }
@@ -146,16 +171,17 @@ namespace Assets.Scripts.Inventory
         [Serializable]
         public class PlayerStats<T> where T : struct
         {
-            public event Action<PlayerStats<T>> ValueChanged;
+            public event Action<T, int> ValueChanged;
             public T stat;
             [SerializeField] private int _value;
 
             public int Value
             {
-                get => _value; set
+                get => _value;
+                set
                 {
                     this._value = value;
-                    ValueChanged?.Invoke(this);
+                    ValueChanged?.Invoke(stat, value);
                 }
             }
         }

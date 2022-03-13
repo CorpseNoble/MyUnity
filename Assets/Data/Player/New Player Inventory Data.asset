@@ -49,17 +49,17 @@ MonoBehaviour:
       _value: 30
     playerBarStats:
     - stat: 0
-      _value: 500
-    - stat: 1
-      _value: 30
-    - stat: 2
       _value: 50
+    - stat: 1
+      _value: 50
+    - stat: 2
+      _value: 30
     - stat: 3
       _value: 30
     - stat: 4
       _value: 30
     raceTrait:
-      level: 1
+      level: 0
       experience: 0
       _traitCategoryID: 0
       _traitID: 0
@@ -76,7 +76,7 @@ MonoBehaviour:
           _gameItemID: 0
           _gradeID: 0
       _shild:
-        type: 2
+        type: 1
         free: 1
         playerItem:
           quantity: 1

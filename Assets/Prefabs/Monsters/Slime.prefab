@@ -651,7 +651,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   _player: {fileID: 0}
-  _visionDistance: 20
+  _visionDistance: 50
   _attackDistance: 2
   _deathTimer: 0
   _updatingDelay: 0

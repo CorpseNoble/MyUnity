@@ -707,7 +707,6 @@ GameObject:
   - component: {fileID: 9140162191785800217}
   - component: {fileID: 9140162191785800216}
   - component: {fileID: 9140162191785800223}
-  - component: {fileID: 537015201}
   m_Layer: 0
   m_Name: NewPlayer
   m_TagString: Player
@@ -917,22 +916,6 @@ MonoBehaviour:
       m_Calls: []
   _waitEndCombo: 0
   _waitEndFPRecovery: 0
---- !u!114 &537015201
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9140162191785800212}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c794dca559535b748ac9a9aa916be292, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventoryPrefs:
-    itemsData: {fileID: 11400000, guid: 00a035aa10bf67346872454ba2bf7777, type: 2}
-    traitData: {fileID: 11400000, guid: ca88225ffd2fae6438e7295074acfcd2, type: 2}
-    gradeData: {fileID: 11400000, guid: 2c0fafdbcd6fa4747ba166a06e0f0890, type: 2}
 --- !u!1 &9140162191932634813
 GameObject:
   m_ObjectHideFlags: 0
