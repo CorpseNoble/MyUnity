@@ -36,7 +36,6 @@ namespace Assets.Scripts.Inventory
         public enum Type
         {
             WeaponOneH,
-            WeaponTwoH,
             Shild,
         }
     }
@@ -117,9 +116,8 @@ namespace Assets.Scripts.Inventory
     {
         HP,           //очки здоровья
         MP,           //очки маны
-        SP,           //спец. очки
+        FP,           //очки силы
         Stress,       //стресс
-        Pain,         //боль
         Fatigue,      //усталость
     }
     public enum SecStatType

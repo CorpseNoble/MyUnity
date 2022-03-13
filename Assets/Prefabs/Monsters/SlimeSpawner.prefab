@@ -375,6 +375,7 @@ GameObject:
   - component: {fileID: 1406665094}
   - component: {fileID: 1406665097}
   - component: {fileID: 1406665096}
+  - component: {fileID: 357160403409545027}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -423,7 +424,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: a7ef8522bd0ab2a468a08383ce7ae947, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -445,6 +446,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &357160403409545027
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1406665093}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1624516672
 GameObject:
   m_ObjectHideFlags: 0
@@ -584,7 +598,7 @@ BoxCollider:
   m_GameObject: {fileID: 14675295590137274}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0}
@@ -624,14 +638,11 @@ MonoBehaviour:
   HealthChanged:
     m_PersistentCalls:
       m_Calls: []
-  MaxHealthChanged:
-    m_PersistentCalls:
-      m_Calls: []
   WasDead:
     m_PersistentCalls:
       m_Calls: []
   _player: {fileID: 0}
-  _visionDistance: 100
+  _visionDistance: 20
   _attackDistance: 2
   _deathTimer: 0
   _updatingDelay: 0

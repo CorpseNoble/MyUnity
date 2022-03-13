@@ -23,7 +23,6 @@ namespace Assets.Scripts.Player.UI
         {
             traitName.text = playerTrait.Trait.name;
             traitDiscription.text = playerTrait.Trait.discription;
-            background.color = playerTrait.Grade.color;
         }
     }
 }

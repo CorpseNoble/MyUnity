@@ -33,7 +33,7 @@ namespace Assets.Scripts.Inventory
         }
         public void AddItem(PlayerItem playerItem)
         {
-            var itemsInPlayer = playerItems.Where(c => c.GameItem == playerItem.GameItem && c.Grade == playerItem.Grade).First();
+            var itemsInPlayer = playerItems.Where(c => c.GameItem == playerItem.GameItem).First();
             if (itemsInPlayer == null)
             {
                 playerItems.Add(playerItem);
@@ -107,216 +107,6 @@ namespace Assets.Scripts.Inventory
             status.StatusChangedInvoker();
         }
     }
-    [Serializable]
-    public class Status
-    {
-        public PlayerBarStats<BarStatType> HP => playerBarStats.Where(c => c.stat == BarStatType.HP).First();
-        public PlayerBarStats<BarStatType> MP => playerBarStats.Where(c => c.stat == BarStatType.MP).First();
-        public PlayerBarStats<BarStatType> SP => playerBarStats.Where(c => c.stat == BarStatType.SP).First();
-        public PlayerBarStats<BarStatType> Pain => playerBarStats.Where(c => c.stat == BarStatType.Pain).First();
-        public PlayerBarStats<BarStatType> Fatigue => playerBarStats.Where(c => c.stat == BarStatType.Fatigue).First();
-        public PlayerBarStats<BarStatType> Stress => playerBarStats.Where(c => c.stat == BarStatType.Stress).First();
-
-
-
-        [SerializeField] public List<PlayerStats<MainStatType>> playerMainStats;
-        [SerializeField] public List<PlayerStats<SecStatType>> playerSecStats;
-        [SerializeField] public List<PlayerBarStats<BarStatType>> playerBarStats;
-
-        public PlayerTrait raceTrait;
-
-        public event Action<Status> StatusChanged;
-        //private PlayerBarStats<BarStatType> _HP;
-        //private PlayerBarStats<BarStatType> _MP;
-        //private PlayerBarStats<BarStatType> _SP;
-        //private PlayerBarStats<BarStatType> _Pain;
-        //private PlayerBarStats<BarStatType> _Fatigue;
-        //private PlayerBarStats<BarStatType> _Stress;
-
-        [SerializeField, Range(1, 9)] private int _lowEff = 1;
-        [SerializeField, Range(1, 9)] private int _medEff = 3;
-        [SerializeField, Range(1, 9)] private int _higEff = 5;
-        public Status()
-        {
-            FillStat(out playerMainStats);
-            FillStat(out playerSecStats);
-            FillBarStat(out playerBarStats);
-        }
-        public void StatusChangedInvoker()
-        {
-            StatusChanged?.Invoke(this);
-        }
-        private void ApplyRace()
-        {
-            foreach (var eff in raceTrait.Trait.statEffects)
-                UpMainStat(eff.tType, eff.value);
-        }
-        public void Clear()
-        {
-            playerBarStats.Clear();
-            playerMainStats.Clear();
-            playerSecStats.Clear();
-            FillStat(out playerMainStats);
-            FillStat(out playerSecStats);
-            FillBarStat(out playerBarStats);
-            ApplyRace();
-
-        }
-        public void FillStat<T>(out List<PlayerStats<T>> playerStats) where T : struct
-        {
-            playerStats = new List<PlayerStats<T>>();
-            var stats = typeof(T).GetEnumValues();
-
-            foreach (T stat in stats)
-            {
-                var playerstat = new PlayerStats<T>() { stat = stat };
-                playerstat.ValueChanged += (PlayerStats<T> playerStats1) => StatusChangedInvoker();
-                playerStats.Add(playerstat);
-            }
-        }
-        public void FillBarStat<T>(out List<PlayerBarStats<T>> playerStats) where T : struct
-        {
-            playerStats = new List<PlayerBarStats<T>>();
-            var stats = typeof(T).GetEnumValues();
-
-            foreach (T stat in stats)
-            {
-                var playerstat = new PlayerBarStats<T>() { stat = stat };
-                playerstat.ValueChanged += (PlayerBarStats<T> playerStats1) => StatusChangedInvoker();
-                playerStats.Add(playerstat);
-            }
-        }
-
-        public void UpMainStat(MainStatType mainStat, int value)
-        {
-            GetStat(mainStat, playerMainStats).Value += value;
-
-            switch (mainStat)
-            {
-                case MainStatType.Strength:
-
-                    GetStat(SecStatType.PhAttack, playerSecStats).Value += value * _higEff;
-                    GetStat(SecStatType.Weight, playerSecStats).Value += value * _medEff;
-
-                    GetBarStat(BarStatType.HP, playerBarStats).ValueMax += value * _lowEff;
-                    GetBarStat(BarStatType.SP, playerBarStats).ValueMax += value * _lowEff;
-                    GetBarStat(BarStatType.Pain, playerBarStats).ValueMax += value * _lowEff;
-
-                    break;
-                case MainStatType.Agility:
-
-                    GetStat(SecStatType.Accuracity, playerSecStats).Value += value * _medEff;
-                    GetStat(SecStatType.CritRate, playerSecStats).Value += value * _lowEff;
-                    GetStat(SecStatType.Avade, playerSecStats).Value += value * _medEff;
-
-                    GetBarStat(BarStatType.HP, playerBarStats).ValueMax += value * _lowEff;
-                    GetBarStat(BarStatType.SP, playerBarStats).ValueMax += value * _lowEff;
-                    GetBarStat(BarStatType.Pain, playerBarStats).ValueMax += value * _lowEff;
-
-                    break;
-                case MainStatType.Vitality:
-
-                    GetStat(SecStatType.PhRes, playerSecStats).Value += value * _higEff;
-                    GetStat(SecStatType.MagRes, playerSecStats).Value += value * _lowEff;
-                    GetStat(SecStatType.Weight, playerSecStats).Value += value * _lowEff;
-
-                    GetBarStat(BarStatType.HP, playerBarStats).ValueMax += value * _higEff;
-                    GetBarStat(BarStatType.SP, playerBarStats).ValueMax += value * _medEff;
-                    GetBarStat(BarStatType.Pain, playerBarStats).ValueMax += value * _medEff;
-                    GetBarStat(BarStatType.Fatigue, playerBarStats).ValueMax += value * _medEff;
-
-                    break;
-                case MainStatType.Endurance:
-
-                    GetStat(SecStatType.PhRes, playerSecStats).Value += value * _lowEff;
-                    GetStat(SecStatType.MagRes, playerSecStats).Value += value * _higEff;
-                    GetStat(SecStatType.Weight, playerSecStats).Value += value * _lowEff;
-
-                    GetBarStat(BarStatType.HP, playerBarStats).ValueMax += value * _medEff;
-                    GetBarStat(BarStatType.SP, playerBarStats).ValueMax += value * _higEff;
-                    GetBarStat(BarStatType.Pain, playerBarStats).ValueMax += value * _medEff;
-                    GetBarStat(BarStatType.Fatigue, playerBarStats).ValueMax += value * _medEff;
-
-                    break;
-                case MainStatType.Intelligence:
-
-                    GetStat(SecStatType.MagAttack, playerSecStats).Value += value * _higEff;
-
-                    GetBarStat(BarStatType.MP, playerBarStats).ValueMax += value * _lowEff;
-                    GetBarStat(BarStatType.Stress, playerBarStats).ValueMax += value * _higEff;
-
-                    break;
-                case MainStatType.Knowledge:
-
-                    GetStat(SecStatType.Accuracity, playerSecStats).Value += value * _lowEff;
-                    GetStat(SecStatType.CritRate, playerSecStats).Value += value * _medEff;
-
-                    GetBarStat(BarStatType.MP, playerBarStats).ValueMax += value * _higEff;
-                    GetBarStat(BarStatType.Stress, playerBarStats).ValueMax += value * _lowEff;
-
-                    break;
-                case MainStatType.Luck:
-
-                    GetStat(SecStatType.DropRate, playerSecStats).Value += value * _medEff;
-                    GetStat(SecStatType.Accuracity, playerSecStats).Value += value * _lowEff;
-                    GetStat(SecStatType.CritRate, playerSecStats).Value += value * _lowEff;
-
-                    break;
-
-            }
-        }
-        public PlayerStats<T> GetStat<T>(T stat, List<PlayerStats<T>> stats) where T : struct
-        {
-            return stats.Where(c => c.stat.Equals(stat)).First();
-        }
-        public PlayerBarStats<T> GetBarStat<T>(T stat, List<PlayerBarStats<T>> stats) where T : struct
-        {
-            return stats.Where(c => c.stat.Equals(stat)).First();
-        }
-
-        [Serializable]
-        public class PlayerStats<T> where T : struct
-        {
-            public event Action<PlayerStats<T>> ValueChanged;
-            public T stat;
-            [SerializeField] private int _value;
-
-            public int Value
-            {
-                get => _value; set
-                {
-                    this._value = value;
-                    ValueChanged?.Invoke(this);
-                }
-            }
-        }
-
-        [Serializable]
-        public class PlayerBarStats<T> where T : struct
-        {
-            public event Action<PlayerBarStats<T>> ValueChanged;
-            public T stat;
-            [SerializeField] private int _valueMax;
-            [SerializeField] private int _valueCurrent;
-
-            public int ValueMax
-            {
-                get => _valueMax; set
-                {
-                    _valueMax = value;
-                    ValueChanged?.Invoke(this);
-                }
-            }
-            public int ValueCurrent
-            {
-                get => _valueCurrent; set
-                {
-                    _valueCurrent = value;
-                    ValueChanged?.Invoke(this);
-                }
-            }
-        }
-    }
 
 
 
@@ -334,190 +124,26 @@ namespace Assets.Scripts.Inventory
             }
         }
 
-        public Grade Grade
-        {
-            get
-            {
-                if (_grade == null)
-                    _grade = InventoryPrefs.Instant.gradeData.Grades[_gradeID];
-                return _grade;
-            }
-        }
-
-        public int Experience { get => _experience; set { if (value >= Trait.expirience) level++; _experience = value; } }
+        public int Experience { get => experience; set { if (value >= Trait.expirience) level++; experience = value; } }
 
         [SerializeField] public int level = 0;
-        [SerializeField] private int _experience = 0;
+        [SerializeField] public int experience = 0;
 
         [NonSerialized] private Trait _trait;
-        [NonSerialized] private Grade _grade;
 
         [SerializeField] private int _traitCategoryID = 0;
         [SerializeField] private int _traitID = 0;
-        [SerializeField] private int _gradeID = 0;
     }
 
-    [Serializable]
-    public class Equpment
-    {
-        public WeaponPlace weaponPlace = new WeaponPlace();
-        public ArmorPlace armorPlace = new ArmorPlace();
-    }
-    [Serializable]
-    public class WeaponPlace
-    {
-        [NonSerialized] public List<EqupmentPlace<WeaponItem.Type, PlayerWeapon>> equpmentPlaces;
-
-        [SerializeField]
-        private EqupmentPlace<WeaponItem.Type, PlayerWeapon> _weaponTwoH
-            = new EqupmentPlace<WeaponItem.Type, PlayerWeapon>(WeaponItem.Type.WeaponTwoH);
-
-        [SerializeField]
-        private EqupmentPlace<WeaponItem.Type, PlayerWeapon> _weaponOneH
-            = new EqupmentPlace<WeaponItem.Type, PlayerWeapon>(WeaponItem.Type.WeaponOneH);
-        [SerializeField]
-        private EqupmentPlace<WeaponItem.Type, PlayerWeapon> _shild
-             = new EqupmentPlace<WeaponItem.Type, PlayerWeapon>(WeaponItem.Type.Shild);
-
-        public WeaponPlace()
-        {
-            equpmentPlaces = new List<EqupmentPlace<WeaponItem.Type, PlayerWeapon>>();
-
-            var fildsInfo = typeof(Equpment).GetFields();
-            foreach (var fo in fildsInfo)
-            {
-                if (fo.FieldType == typeof(EqupmentPlace<WeaponItem.Type, PlayerWeapon>))
-                {
-                    equpmentPlaces.Add(fo.GetValue(this) as EqupmentPlace<WeaponItem.Type, PlayerWeapon>);
-                }
-            }
-        }
-
-        public void EqupWeapon(PlayerWeapon playerWeapon)
-        {
-            WeaponItem weaponItem = playerWeapon.GameItem as WeaponItem;
-
-            switch (weaponItem.type)
-            {
-                case WeaponItem.Type.WeaponTwoH:
-
-                    if (!_weaponOneH.free) _weaponOneH.UnEqup();
-                    if (!_shild.free) _shild.UnEqup();
-
-                    if (!_weaponTwoH.free) _weaponTwoH.UnEqup();
-                    _weaponTwoH.Equp(playerWeapon);
-                    break;
-
-                case WeaponItem.Type.WeaponOneH:
-
-                    if (!_weaponOneH.free) _weaponOneH.UnEqup();
-                    _weaponOneH.Equp(playerWeapon);
-                    break;
-
-                case WeaponItem.Type.Shild:
-
-                    if (!_shild.free) _shild.UnEqup();
-                    _shild.Equp(playerWeapon);
-                    break;
-            }
-        }
-    }
-    [Serializable]
-    public class ArmorPlace
-    {
-        [NonSerialized] public List<EqupmentPlace<EqupmentItem.Type, PlayerEqupment>> equpmentPlaces;
-
-        [SerializeField]
-        private EqupmentPlace<EqupmentItem.Type, PlayerEqupment> _armorHead
-            = new EqupmentPlace<EqupmentItem.Type, PlayerEqupment>(EqupmentItem.Type.ArmorHead);
-        [SerializeField]
-        private EqupmentPlace<EqupmentItem.Type, PlayerEqupment> _armorUpper
-            = new EqupmentPlace<EqupmentItem.Type, PlayerEqupment>(EqupmentItem.Type.ArmorUpper);
-        [SerializeField]
-        private EqupmentPlace<EqupmentItem.Type, PlayerEqupment> _armorLower
-            = new EqupmentPlace<EqupmentItem.Type, PlayerEqupment>(EqupmentItem.Type.ArmorLower);
-        [SerializeField]
-        private EqupmentPlace<EqupmentItem.Type, PlayerEqupment> _armorArm
-            = new EqupmentPlace<EqupmentItem.Type, PlayerEqupment>(EqupmentItem.Type.ArmorArm);
-        [SerializeField]
-        private EqupmentPlace<EqupmentItem.Type, PlayerEqupment> _armorLeg
-            = new EqupmentPlace<EqupmentItem.Type, PlayerEqupment>(EqupmentItem.Type.ArmorLeg);
-        [SerializeField]
-        private EqupmentPlace<EqupmentItem.Type, PlayerEqupment> _armorBoot
-            = new EqupmentPlace<EqupmentItem.Type, PlayerEqupment>(EqupmentItem.Type.ArmorBoot);
-        [SerializeField]
-        private EqupmentPlace<EqupmentItem.Type, PlayerEqupment> _ring
-            = new EqupmentPlace<EqupmentItem.Type, PlayerEqupment>(EqupmentItem.Type.Ring);
-        [SerializeField]
-        private EqupmentPlace<EqupmentItem.Type, PlayerEqupment> _collar
-            = new EqupmentPlace<EqupmentItem.Type, PlayerEqupment>(EqupmentItem.Type.Collar);
-
-        public ArmorPlace()
-        {
-            equpmentPlaces = new List<EqupmentPlace<EqupmentItem.Type, PlayerEqupment>>();
-
-            var fildsInfo = typeof(Equpment).GetFields();
-            foreach (var fo in fildsInfo)
-            {
-                if (fo.FieldType == typeof(EqupmentPlace<EqupmentItem.Type, PlayerEqupment>))
-                {
-                    equpmentPlaces.Add(fo.GetValue(this) as EqupmentPlace<EqupmentItem.Type, PlayerEqupment>);
-                }
-            }
-        }
-
-        public void EqupArmor(PlayerEqupment playerEqupment)
-        {
-            EqupmentItem equpmentItem = playerEqupment.GameItem as EqupmentItem;
-            var equpPlace = equpmentPlaces.Where(w => w.type == equpmentItem.type).First();
-            if (!equpPlace.free)
-                equpPlace.UnEqup();
-            equpPlace.Equp(playerEqupment);
-        }
-    }
-    [Serializable]
-    public class EqupmentPlace<T, K> where T : struct
-                                     where K : PlayerItem
-    {
-        public T type;
-        public bool free = true;
-        public K playerItem;
-
-        public EqupmentPlace(T type)
-        {
-            this.type = type;
-        }
-        public void Equp(K item)
-        {
-            playerItem = item;
-            free = false;
-        }
-        public void UnEqup()
-        {
-            playerItem = null;
-            free = true;
-        }
-    }
 
     [Serializable]
     public class PlayerItem
     {
         public virtual GameItem GameItem { get => _gameItem; }
 
-        public Grade Grade
-        {
-            get
-            {
-                if (_grade == null)
-                    _grade = InventoryPrefs.Instant.gradeData.Grades[_gradeID];
-                return _grade;
-            }
-        }
-
         [SerializeField] public int quantity = 1;
 
         [NonSerialized] protected GameItem _gameItem;
-        [NonSerialized] protected Grade _grade;
 
         [SerializeField] protected int _gameItemID = 0;
         [SerializeField] protected int _gradeID = 0;
@@ -527,6 +153,7 @@ namespace Assets.Scripts.Inventory
     [Serializable]
     public class PlayerWeapon : PlayerItem
     {
+        public WeaponItem WeaponItem => GameItem as WeaponItem;
         public override GameItem GameItem
         {
             get
@@ -540,6 +167,7 @@ namespace Assets.Scripts.Inventory
     [Serializable]
     public class PlayerEqupment : PlayerItem
     {
+        public EqupmentItem EqupmentItem => GameItem as EqupmentItem;
         public override GameItem GameItem
         {
             get
@@ -553,6 +181,7 @@ namespace Assets.Scripts.Inventory
     [Serializable]
     public class PlayerConsumble : PlayerItem
     {
+        public ConsumableItem ConsumableItem => GameItem as ConsumableItem;
         public override GameItem GameItem
         {
             get
@@ -566,6 +195,7 @@ namespace Assets.Scripts.Inventory
     [Serializable]
     public class PlayerOther : PlayerItem
     {
+        public OterItem OterItem => GameItem as OterItem;
         public override GameItem GameItem
         {
             get

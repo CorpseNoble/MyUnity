@@ -35,8 +35,6 @@ public class MaxCurrentChangeSlider : MonoBehaviour
             if (currentValue > value)
             {
                 currentDelay = delay;
-                if (Current.value == Change.value)
-                    StartCoroutine(OnChangeCurrentValue());
             }
             else
             {
@@ -49,9 +47,7 @@ public class MaxCurrentChangeSlider : MonoBehaviour
     public Slider Change;
     public Slider Current;
     public Slider Max;
-    [SerializeField] private float currentMaxValue = 1000f;
-    [SerializeField] private float maxValue = 1000f;
-    [SerializeField] private float currentValue = 1000f;
+
     public float delay = 0.2f;
     public float currentDelay = 0f;
     public Image imageBackgroung;
@@ -61,18 +57,23 @@ public class MaxCurrentChangeSlider : MonoBehaviour
     public Color currentColor = Color.red;
     public Color changeColor = Color.red;
 
+    [SerializeField] private float currentMaxValue = 1000f;
+    [SerializeField] private float maxValue = 1000f;
+    [SerializeField] private float currentValue = 1000f;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        StartCoroutine(OnChangeCurrentValue());
     }
 
-    public void Init(float maxVal)
+    public void Init(float maxVal, Color color)
     {
         MaxMaxValue = MaxMaxMaxValue;
         CurrentMaxValue = maxVal;
         CurrentValue = maxVal;
 
+        currentColor = color;
         imageBackgroung.color = backgroundColor;
         imageChange.color = changeColor;
         imageCurrent.color = currentColor;
@@ -81,29 +82,24 @@ public class MaxCurrentChangeSlider : MonoBehaviour
     [ContextMenu("Init500")]
     public void Init500()
     {
-        Init(500);
+        Init(500, Color.red);
     }
     public IEnumerator OnChangeCurrentValue()
     {
-        do
+        while (true)
         {
-            
+
             yield return new WaitForFixedUpdate();
 
             if (currentDelay > 0)
             {
                 currentDelay -= Time.fixedDeltaTime;
             }
-            else
+            else if (Current.value < Change.value)
             {
                 Change.value -= Time.fixedDeltaTime * changeMilti;
             }
-        } while (Current.value < Change.value);
-
+        }
     }
-    // Update is called once per frame
-    void Update()
-    {
 
-    }
 }

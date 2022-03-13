@@ -49,41 +49,25 @@ MonoBehaviour:
       _value: 30
     playerBarStats:
     - stat: 0
-      _valueMax: 50
-      _valueCurrent: 5
+      _value: 500
     - stat: 1
-      _valueMax: 30
-      _valueCurrent: 0
+      _value: 30
     - stat: 2
-      _valueMax: 50
-      _valueCurrent: 0
+      _value: 50
     - stat: 3
-      _valueMax: 30
-      _valueCurrent: 0
+      _value: 30
     - stat: 4
-      _valueMax: 40
-      _valueCurrent: 0
-    - stat: 5
-      _valueMax: 30
-      _valueCurrent: 0
+      _value: 30
     raceTrait:
       level: 1
-      _experience: 0
+      experience: 0
       _traitCategoryID: 0
       _traitID: 0
-      _gradeID: 0
     _lowEff: 1
     _medEff: 3
     _higEff: 5
   equipment:
     weaponPlace:
-      _weaponTwoH:
-        type: 1
-        free: 1
-        playerItem:
-          quantity: 1
-          _gameItemID: 0
-          _gradeID: 0
       _weaponOneH:
         type: 0
         free: 1
@@ -148,6 +132,13 @@ MonoBehaviour:
           quantity: 1
           _gameItemID: 0
           _gradeID: 0
+      _ring2:
+        type: 6
+        free: 1
+        playerItem:
+          quantity: 1
+          _gameItemID: 0
+          _gradeID: 0
       _collar:
         type: 7
         free: 1
@@ -155,5 +146,6 @@ MonoBehaviour:
           quantity: 1
           _gameItemID: 0
           _gradeID: 0
+    currentWeight: 0
   playerTraits: []
   playerItems: []

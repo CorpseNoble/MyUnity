@@ -91,7 +91,7 @@ namespace Assets.Scripts.Player.UI
             }
         }
 
-        public void FillBarStat<T>(GameObject statContainer, List<Status.PlayerBarStats<T>> playerStats, out Dictionary<T, Text> statTexts) where T : struct
+        public void FillBarStat<T>(GameObject statContainer, List<Status.PlayerStats<T>> playerStats, out Dictionary<T, Text> statTexts) where T : struct
         {
             statTexts = new Dictionary<T, Text>();
             var stats = typeof(T).GetEnumValues();
@@ -101,8 +101,8 @@ namespace Assets.Scripts.Player.UI
                 var text = Instantiate(uiStatPrefab, statContainer.transform);
                 statTexts.Add(stat, text);
                 gameObject.name = stat.ToString();
-                var barPlayerStat = inventoryData.status.GetBarStat(stat, playerStats);
-                text.text = stat.ToString() + "\n" + barPlayerStat.ValueCurrent + "\\" + barPlayerStat.ValueMax;
+                var barPlayerStat = inventoryData.status.GetStat(stat, playerStats);
+                text.text = stat.ToString() + "\n" + barPlayerStat.Value + "\\" + barPlayerStat.Value;
             }
         }
 

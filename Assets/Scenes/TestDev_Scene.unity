@@ -418,27 +418,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &537015193 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9140162191785800212, guid: ead5c6560b225f94fa813ae9df336a67, type: 3}
-  m_PrefabInstance: {fileID: 9140162192573096354}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &537015201
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 537015193}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c794dca559535b748ac9a9aa916be292, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventoryPrefs:
-    itemsData: {fileID: 11400000, guid: 00a035aa10bf67346872454ba2bf7777, type: 2}
-    traitData: {fileID: 11400000, guid: ca88225ffd2fae6438e7295074acfcd2, type: 2}
-    gradeData: {fileID: 11400000, guid: 2c0fafdbcd6fa4747ba166a06e0f0890, type: 2}
 --- !u!1 &763326968
 GameObject:
   m_ObjectHideFlags: 0
@@ -762,7 +741,7 @@ Terrain:
   m_DrawInstanced: 0
   m_DrawTreesAndFoliage: 1
   m_ReflectionProbeUsage: 1
-  m_MaterialTemplate: {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  m_MaterialTemplate: {fileID: 2100000, guid: 8175cff842ea7324385df97f07abf898, type: 2}
   m_BakeLightProbesForTrees: 1
   m_PreserveTreePrototypeLayers: 0
   m_DeringLightProbesForTrees: 1
@@ -1504,10 +1483,6 @@ PrefabInstance:
       propertyPath: HealthChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 8227503413293136182}
-    - target: {fileID: 9140162191785800217, guid: ead5c6560b225f94fa813ae9df336a67, type: 3}
-      propertyPath: MaxHealthChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 8227503413293136182}
     - target: {fileID: 9140162191785800219, guid: ead5c6560b225f94fa813ae9df336a67, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -1551,6 +1526,34 @@ PrefabInstance:
     - target: {fileID: 9140162191785800219, guid: ead5c6560b225f94fa813ae9df336a67, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9140162191785800223, guid: ead5c6560b225f94fa813ae9df336a67, type: 3}
+      propertyPath: FPChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9140162191785800223, guid: ead5c6560b225f94fa813ae9df336a67, type: 3}
+      propertyPath: FPChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9140162191785800223, guid: ead5c6560b225f94fa813ae9df336a67, type: 3}
+      propertyPath: FPChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 8227503413293136182}
+    - target: {fileID: 9140162191785800223, guid: ead5c6560b225f94fa813ae9df336a67, type: 3}
+      propertyPath: FPChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9140162191785800223, guid: ead5c6560b225f94fa813ae9df336a67, type: 3}
+      propertyPath: FPChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BarStatChanged
+      objectReference: {fileID: 0}
+    - target: {fileID: 9140162191785800223, guid: ead5c6560b225f94fa813ae9df336a67, type: 3}
+      propertyPath: FPChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Assets.Scripts.Player.UI.ActionUI_Controller, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 9140162191785800223, guid: ead5c6560b225f94fa813ae9df336a67, type: 3}
+      propertyPath: FPChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ead5c6560b225f94fa813ae9df336a67, type: 3}

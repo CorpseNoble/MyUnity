@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-
+using Assets.Scripts.Inventory;
 
 namespace Assets.Scripts.Player
 {
@@ -19,7 +19,6 @@ namespace Assets.Scripts.Player
                     return;
 
                 _maxHealth = value;
-                MaxHealthChanged?.Invoke(this, value);
             }
         }
         public virtual int Health
@@ -33,7 +32,8 @@ namespace Assets.Scripts.Player
                 }
 
                 _health = value;
-                HealthChanged?.Invoke(this, value);
+                if (HealthChanged.GetPersistentEventCount() > 0)
+                    HealthChanged.Invoke(BarStatType.HP, value);
             }
         }
         public DamageAcceptor acceptor = DamageAcceptor.Player;
@@ -46,13 +46,11 @@ namespace Assets.Scripts.Player
         public AudioClip getHeal;
         public AudioClip death;
 
-        public UnityEvent<AliveController, int> HealthChanged;
-        public UnityEvent<AliveController, int> MaxHealthChanged;
-        public UnityEvent<AliveController> WasDead;
+        public UnityEvent<BarStatType, int> HealthChanged;
+        public UnityEvent WasDead;
 
         protected virtual void Start()
         {
-            MaxHealthChanged?.Invoke(this, MaxHealth);
             Health = MaxHealth;
         }
 
@@ -67,18 +65,20 @@ namespace Assets.Scripts.Player
         }
         public virtual void GetHeal(int heal)
         {
-            if (Health < _maxHealth)
-            {
-                Health += heal;
-                if (audioSource != null)
-                    audioSource.PlayOneShot(getHeal);
-            }
+            if (Health > 0)
+                if (Health < MaxHealth)
+                {
+                    Health += heal;
+                    if (audioSource != null)
+                        audioSource.PlayOneShot(getHeal);
+                }
         }
         protected virtual void Death()
         {
             if (audioSource != null)
                 audioSource.PlayOneShot(death);
-            WasDead?.Invoke(this);
+            if (WasDead.GetPersistentEventCount() > 0)
+                WasDead.Invoke();
         }
 
         protected void OnTriggerStay(Collider other)

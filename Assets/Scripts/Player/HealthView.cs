@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
+using Assets.Scripts.Inventory;
 
 namespace Assets.Scripts.Player
 {
@@ -19,12 +20,12 @@ namespace Assets.Scripts.Player
                 if (this.TryGetComponent(out aliveController))
                 {
                     slider.maxValue = aliveController.MaxHealth;
-                    HealthChanged(aliveController, aliveController.MaxHealth);
+                    HealthChanged(BarStatType.HP, aliveController.MaxHealth);
                     aliveController.HealthChanged.AddListener(HealthChanged);
                 }
         }
 
-        private void HealthChanged(AliveController sender, int value)
+        private void HealthChanged(BarStatType sender, int value)
         {
             slider.value = value;
         }
