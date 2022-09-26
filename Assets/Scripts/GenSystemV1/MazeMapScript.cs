@@ -76,9 +76,11 @@ namespace Assets.Scripts.GenSystemV1
             GenStepWall();
             if (nav)
                 meshSurface.BuildNavMesh();
-            if(occl)
+            if (occl)
             {
+#if UNITY_EDITOR
                 UnityEditor.StaticOcclusionCulling.Compute();
+#endif
             }
         }
         //public NavMeshDataInstance dataInstance = new NavMeshDataInstance();

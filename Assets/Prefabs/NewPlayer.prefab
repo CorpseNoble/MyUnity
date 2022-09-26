@@ -705,10 +705,9 @@ GameObject:
   - component: {fileID: 9140162191785800213}
   - component: {fileID: 9140162191785800222}
   - component: {fileID: 9140162191785800217}
-  - component: {fileID: 9140162191785800216}
-  - component: {fileID: 9140162191785800223}
   - component: {fileID: 537015201}
   - component: {fileID: 537015194}
+  - component: {fileID: 8704733646058346812}
   m_Layer: 0
   m_Name: NewPlayer
   m_TagString: Player
@@ -844,92 +843,6 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   playerInventory: {fileID: 11400000, guid: 17031b14f74f6a54b8f697ff8eb4e89d, type: 2}
---- !u!114 &9140162191785800216
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9140162191785800212}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a90a48bfa97b4e84e9a0f4dce8f94a78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewObject: {fileID: 9140162192517428863}
-  ignoreMask:
-    serializedVersion: 2
-    m_Bits: 0
-  sensitivityHor: 9
-  sensitivityVert: 9
-  minimumVert: -45
-  maximumVert: 45
-  lookPoint: {fileID: 0}
---- !u!114 &9140162191785800223
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9140162191785800212}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa6bc0c80112f0e4ab2a471a27bd1dea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprint: 304
-  onOff: 113
-  jump: 32
-  dash: 102
-  jumpImpuls: 1
-  dashTime: 1
-  dashMulti: 5
-  endComboDelay: 5
-  currentFPRecoverDelay: 0.5
-  currentFPRecoverAmount: 1
-  attack_FPCost: 5
-  dash_FPCost: 10
-  run_FPCost: 0.116
-  _playerInventory: {fileID: 11400000, guid: 17031b14f74f6a54b8f697ff8eb4e89d, type: 2}
-  _getDamage: {fileID: 5828080427876831539}
-  _animator: {fileID: 9140162191785800222}
-  _rigidbody: {fileID: 9140162191785800218}
-  _audioSource: {fileID: 9140162192158384679}
-  _attackAudioClip: {fileID: 8300000, guid: aa532b7ee9b9c4c4492c9a2e41b23419, type: 3}
-  _attackText: Attack
-  _vertText: Forw
-  _horText: Right
-  _shiftText: Sprint
-  _onOffText: OnOff
-  _onText: On
-  _speedMultiText: SpeedMulti
-  _currentFP: 0
-  _horiz: 0
-  _vertical: 0
-  _inputShift: 0
-  _inputSpace: 0
-  _onOff: 1
-  _attack: 0
-  _comboCount: 0
-  _speedMultiplicator: 1
-  _damageMultiplicator: 1
-  FPChanged:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Assets.Scripts.Player.UI.ActionUI_Controller, Assembly-CSharp
-        m_MethodName: BarStatChanged
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _waitEndCombo: 0
-  _waitEndFPRecovery: 0
 --- !u!114 &537015201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -959,7 +872,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: f3bba8d61f05bf9478b3115ea9d9aba6, type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 1
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -970,12 +883,127 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: bd20f1b6-11c3-4bf0-a58e-1023d5f16ef8
+    m_ActionName: Gameplay/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 43ef58a8-697b-4854-a966-2adf26790a4b
+    m_ActionName: Gameplay/Camera[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: bef8ff47-fa49-4f52-80ca-23b466946c48
+    m_ActionName: Gameplay/Sprint[/Keyboard/shift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 71dbd11d-27a2-434f-b373-ae1fdfb3a6da
+    m_ActionName: Gameplay/Use[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3eb7d992-b95d-4c8f-b6ba-53573c8950ea
+    m_ActionName: Gameplay/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 92db320b-cc7d-4303-b538-96092258168f
+    m_ActionName: Gameplay/FirAttack[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 867d073c-6dab-471f-907b-57db69f43b96
+    m_ActionName: Gameplay/SecAttack[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b30a8619-0876-4077-b913-5d6f9182bf7c
+    m_ActionName: Gameplay/Item1[/Keyboard/1]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0fd65e19-2cd9-48df-9b0f-b18bc5e4e400
+    m_ActionName: Gameplay/Item2[/Keyboard/2]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3ee97aca-aa3f-4e38-a6a1-6ea17b7ed371
+    m_ActionName: Gameplay/Item3[/Keyboard/3]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 087e19df-799d-430b-99f6-9ee62acb257d
+    m_ActionName: Gameplay/Item4[/Keyboard/4]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &8704733646058346812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9140162191785800212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8f165bb996c75d4ead06090d7327717, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpImpuls: 5
+  dashTime: 1
+  dashMulti: 5
+  endComboDelay: 5
+  currentFPRecoverDelay: 0.5
+  currentFPRecoverAmount: 1
+  attack_FPCost: 5
+  dash_FPCost: 10
+  run_FPCost: 0.1
+  _playerInventory: {fileID: 11400000, guid: 17031b14f74f6a54b8f697ff8eb4e89d, type: 2}
+  _getDamage: {fileID: 5828080427876831539}
+  _playerInput: {fileID: 0}
+  _rigidbody: {fileID: 0}
+  _animator: {fileID: 0}
+  _audioSource: {fileID: 0}
+  _attackAudioClip: {fileID: 0}
+  _attackText: Attack
+  _vertText: Forw
+  _horText: Right
+  _shiftText: Sprint
+  _onOffText: OnOff
+  _onText: On
+  _speedMultiText: SpeedMulti
+  _currentFP: 0
+  _horiz: 0
+  _vertical: 0
+  _inputShift: 0
+  _inputSpace: 0
+  _onOff: 1
+  _attack: 0
+  _comboCount: 0
+  _speedMultiplicator: 1
+  _damageMultiplicator: 1
+  FPChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  _waitEndCombo: 0
+  _waitEndFPRecovery: 0
+  lookPoint: {fileID: 0}
+  viewObject: {fileID: 9140162192517428863}
+  ignoreMask:
+    serializedVersion: 2
+    m_Bits: 0
+  sensitivityHor: 9
+  sensitivityVert: 9
+  minimumVert: -45
+  maximumVert: 45
 --- !u!1 &9140162191932634813
 GameObject:
   m_ObjectHideFlags: 0
