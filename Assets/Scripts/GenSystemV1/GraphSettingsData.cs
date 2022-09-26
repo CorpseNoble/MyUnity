@@ -12,7 +12,7 @@ namespace Assets.Scripts.GenSystemV1
         public int seed = 0;
         public bool pillarAboutWall = true;
         [Range(1, 5)] public int hight = 2;
-        [Range(10, 100)] public int maxZoneCount = 60;
+        [Range(3, 100)] public int maxZoneCount = 60;
         public RandRangeValue nextZoneCount;
 
         [Header("Way Room Zone")]
@@ -25,6 +25,7 @@ namespace Assets.Scripts.GenSystemV1
         public RandPercentValue LRPercent;
 
         [Header("Room")]
+        public RandPercentValue wallWindowPercent;
         public RandPercentValue roomPercent;
         public RandPercentValue roundRoomPercent;
 
@@ -32,6 +33,7 @@ namespace Assets.Scripts.GenSystemV1
         public RandPercentValue DangerSaveRoomPercent;
         public RandPercentValue EnemyPercent;
         public RandPercentValue TrapPercent;
+        public RandPercentValue StairsPercent;
 
         [HideInInspector] public RandPercentValue corridorPercent;
         [HideInInspector] public RandPercentValue rameZonePercent;
@@ -59,12 +61,14 @@ namespace Assets.Scripts.GenSystemV1
             corridorPercent = new RandPercentValue(5, random);
             rameZonePercent = new RandPercentValue(5, random);
 
+            wallWindowPercent = new RandPercentValue(5, random);
             roomPercent = new RandPercentValue(5, random);
             roundRoomPercent = new RandPercentValue(5, random);
 
             DangerSaveRoomPercent = new RandPercentValue(5, random);
             EnemyPercent = new RandPercentValue(7, random);
             TrapPercent = new RandPercentValue(7, random);
+            StairsPercent = new RandPercentValue(5, random);
 
             randomValues = new List<IRandom>()
             {
@@ -137,7 +141,7 @@ namespace Assets.Scripts.GenSystemV1
     {
         [Range(1, 20)]
         public int avarage = 2;
-        [Range(1, 10)]
+        [Range(0, 10)]
         public int deviation = 1;
 
         public System.Random Random { get; set; }
@@ -178,6 +182,7 @@ namespace Assets.Scripts.GenSystemV1
 
         public bool GetValue()
         {
+            if(percent == 0) return false;
             return Random.Next(0, 11) < (percent + 1);
         }
     }

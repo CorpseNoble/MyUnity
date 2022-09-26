@@ -19,7 +19,7 @@ namespace Assets.Scripts.GenSystemV1
             var HScale = FabricGameObject.elementsData.HorScale;
             for (int j = 0; j < roomSize; j++)
             {
-                if (blacklist.Contains(currentPos))
+                if (blacklist.CheckPos(currentPos))
                 {
                     if (interestPlace == null)
                         interestPlace = generalList.Last() as Point;
@@ -36,7 +36,7 @@ namespace Assets.Scripts.GenSystemV1
                 for (int i = 0; i < rad; i++)
                 {
                     currentPosR = currentPosR.StepH(rightVector);
-                    if (blacklist.Contains(currentPosR))
+                    if (blacklist.CheckPos(currentPosR))
                         break;
                     if (Vector3.Distance(center, currentPosR) <= rad * HScale)
                     {
@@ -48,7 +48,7 @@ namespace Assets.Scripts.GenSystemV1
                 for (int i = 0; i < rad; i++)
                 {
                     currentPosL = currentPosL.StepH(leftVector);
-                    if (blacklist.Contains(currentPosL))
+                    if (blacklist.CheckPos(currentPosL))
                         break;
 
                     if (Vector3.Distance(center, currentPosL) <= rad * HScale)

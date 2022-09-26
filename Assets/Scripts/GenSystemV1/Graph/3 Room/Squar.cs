@@ -16,7 +16,7 @@ namespace Assets.Scripts.GenSystemV1
 
             for (int j = 0; j < roomSize; j++)
             {
-                if (blacklist.Contains(currentPos))
+                if (blacklist.CheckPos(currentPos))
                 {
                     if (interestPlace == null)
                         interestPlace = generalList.Last() as Point;
@@ -38,7 +38,7 @@ namespace Assets.Scripts.GenSystemV1
                 for (int i = 0; i < roomSize / 2 - 1; i++)
                 {
                     currentPosR = currentPosR.StepH(rightVector);
-                    if (blacklist.Contains(currentPosR))
+                    if (blacklist.CheckPos(currentPosR))
                         break;
                     var pr = FabricGameObject.InstantiateElement<Point>(currentPosR, this, buildVector);
                     subElements.Add(pr);
@@ -47,7 +47,7 @@ namespace Assets.Scripts.GenSystemV1
                 for (int i = 0; i < roomSize / 2 - 1; i++)
                 {
                     currentPosL = currentPosL.StepH(leftVector);
-                    if (blacklist.Contains(currentPosL))
+                    if (blacklist.CheckPos(currentPosL))
                         break;
                     var pl = FabricGameObject.InstantiateElement<Point>(currentPosL, this, buildVector);
                     subElements.Add(pl);

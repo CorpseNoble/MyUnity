@@ -11,7 +11,10 @@ namespace Assets.Scripts.GenSystemV1
     [RequireComponent(typeof(Area))]
     public class MazeMapScript : MonoBehaviour
     {
-
+        public new bool light = true;
+        public bool nav = true;
+        public bool occl = true;
+        public bool entry = true;
         public BlacklistManager blacklist;
 
         private NavMeshSurface meshSurface;
@@ -66,10 +69,17 @@ namespace Assets.Scripts.GenSystemV1
             Clear();
             area.blacklist = blacklist;
             area.Generate();
-            area.GenLight();
-            area.GenRoomEntry();
+            if (light)
+                area.GenLight();
+            if (entry)
+                area.GenRoomEntry();
             GenStepWall();
-            meshSurface.BuildNavMesh();
+            if (nav)
+                meshSurface.BuildNavMesh();
+            if(occl)
+            {
+                UnityEditor.StaticOcclusionCulling.Compute();
+            }
         }
         //public NavMeshDataInstance dataInstance = new NavMeshDataInstance();
         //public NavMeshData data;

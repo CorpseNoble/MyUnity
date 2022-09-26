@@ -40,7 +40,7 @@ namespace Assets.Scripts.GenSystemV1
 
         public bool Contains(Vector3 pos)
         {
-            return PointBlacklist.Where(c=>c.transform.position==pos).Any();
+            return PointBlacklist.Where(c => c.transform.position == pos).Any();
         }
         public Point SelectPoint(Vector3 pos)
         {
@@ -72,15 +72,30 @@ namespace Assets.Scripts.GenSystemV1
 
             for (int i = 0; i < lenght; i++)
             {
-                if (Contains(pos))
+                if (CheckPos(pos))
                     return false;
-
-                pos = pos.StepH(vector);
             }
             return true;
         }
+        /// <summary>
+        /// true is blocked
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <returns></returns>
+        public bool CheckPos(Vector3 pos)
+        {
+            if (Contains(pos))
+                return true;
+            for (int j = 1; j < PrefsGraph.Instant.SettingGraph.hight; j++)
+            {
+                if (Contains(pos.StepV(j)))
+                    return true;
+            }
 
-        public bool FullLRCheck(Vector3 pos, Vector3 vector, int lenght,ref Vector3 currentVector)
+            return false;
+        }
+
+        public bool FullLRCheck(Vector3 pos, Vector3 vector, int lenght, ref Vector3 currentVector)
         {
             if (!WayCheckClear(pos, vector, lenght))
             {

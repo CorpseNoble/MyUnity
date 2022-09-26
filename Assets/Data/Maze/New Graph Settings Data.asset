@@ -12,36 +12,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d2b17fa2a8f55d4cbdd0e6487770248, type: 3}
   m_Name: New Graph Settings Data
   m_EditorClassIdentifier: 
-  seed: 955045470
+  seed: 785117296
   pillarAboutWall: 1
   hight: 2
-  maxZoneCount: 10
+  maxZoneCount: 3
   nextZoneCount:
     avarage: 2
-    deviation: 1
+    deviation: 0
   waySize:
-    avarage: 8
-    deviation: 2
+    avarage: 4
+    deviation: 1
   roomSize:
     avarage: 10
-    deviation: 2
+    deviation: 0
   subzoneSize:
-    avarage: 7
-    deviation: 2
+    avarage: 3
+    deviation: 1
   noizePercent:
-    percent: 7
+    percent: 5
   LRPercent:
     percent: 5
+  wallWindowPercent:
+    percent: 5
   roomPercent:
-    percent: 9
+    percent: 0
   roundRoomPercent:
     percent: 5
   DangerSaveRoomPercent:
-    percent: 9
+    percent: 5
   EnemyPercent:
-    percent: 10
+    percent: 5
   TrapPercent:
-    percent: 7
+    percent: 0
+  StairsPercent:
+    percent: 2
   corridorPercent:
     percent: 5
   rameZonePercent:

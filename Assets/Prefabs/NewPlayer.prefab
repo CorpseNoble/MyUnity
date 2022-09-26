@@ -707,6 +707,8 @@ GameObject:
   - component: {fileID: 9140162191785800217}
   - component: {fileID: 9140162191785800216}
   - component: {fileID: 9140162191785800223}
+  - component: {fileID: 537015201}
+  - component: {fileID: 537015194}
   m_Layer: 0
   m_Name: NewPlayer
   m_TagString: Player
@@ -913,9 +915,67 @@ MonoBehaviour:
   _damageMultiplicator: 1
   FPChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Assets.Scripts.Player.UI.ActionUI_Controller, Assembly-CSharp
+        m_MethodName: BarStatChanged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _waitEndCombo: 0
   _waitEndFPRecovery: 0
+--- !u!114 &537015201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9140162191785800212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c794dca559535b748ac9a9aa916be292, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryPrefs:
+    itemsData: {fileID: 11400000, guid: 00a035aa10bf67346872454ba2bf7777, type: 2}
+    traitData: {fileID: 11400000, guid: ca88225ffd2fae6438e7295074acfcd2, type: 2}
+    gradeData: {fileID: 11400000, guid: 2c0fafdbcd6fa4747ba166a06e0f0890, type: 2}
+--- !u!114 &537015194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9140162191785800212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: f3bba8d61f05bf9478b3115ea9d9aba6, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Gameplay
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &9140162191932634813
 GameObject:
   m_ObjectHideFlags: 0
@@ -1344,8 +1404,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 0
+  m_RenderPostProcessing: 1
+  m_Antialiasing: 2
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0

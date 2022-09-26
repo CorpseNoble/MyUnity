@@ -22,11 +22,11 @@ namespace Assets.Scripts.Inventory
             if (traitInPlayer == null)
             {
                 playerTraits.Add(playerTrait);
-                playerTrait.Experience += Trait.Exp_Per_One;
+                playerTrait.Trait.level.CurExp += 1;
             }
             else
             {
-                traitInPlayer.Experience += Trait.Exp_Per_One;
+                playerTrait.Trait.level.CurExp += 1;
             }
             UpdateStat();
 
@@ -50,7 +50,7 @@ namespace Assets.Scripts.Inventory
             status.Clear();
             foreach (var trait in playerTraits)
             {
-                if (trait.level <= 0) continue;
+                if (trait.Trait.level.CurLevel <= 0) continue;
 
                 foreach (var eff in trait.Trait.statEffects)
                 {
@@ -123,11 +123,6 @@ namespace Assets.Scripts.Inventory
                 return _trait;
             }
         }
-
-        public int Experience { get => experience; set { if (value >= Trait.expirience) level++; experience = value; } }
-
-        [SerializeField] public int level = 0;
-        [SerializeField] public int experience = 0;
 
         [NonSerialized] private Trait _trait;
 

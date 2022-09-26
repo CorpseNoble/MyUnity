@@ -22,9 +22,9 @@ namespace Assets.Scripts.Player.UI
         private void Start()
         {
             traitName.text = playerTrait.Trait.name;
-            traitLV.text = lvlStyle + playerTrait.level.ToString();
-            traitProgres.maxValue = playerTrait.Trait.expirience;
-            traitProgres.value = playerTrait.experience;
+            traitLV.text = lvlStyle + playerTrait.Trait.level.CurLevel.ToString();
+            traitProgres.maxValue = playerTrait.Trait.level.MaxExp;
+            traitProgres.value = playerTrait.Trait.level.CurExp;
         }
     }
 }

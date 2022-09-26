@@ -14,19 +14,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HorScale: 6
   VerScale: 4
-  Ground: {fileID: 8402805595255715730, guid: ca7fd1f5bf2319b43a2a1770b3bcbe16, type: 3}
   Roof: {fileID: 8402805595255715730, guid: 2a8bc00a312526c47a6aef8c769da3f4, type: 3}
-  GroundPathWay: {fileID: 1877940776385465065, guid: 282073974db58b94b942cd453f92008b, type: 3}
-  GroundPillar: {fileID: 6656861176064105999, guid: 33784b40c8fab5647b5d5af9ea891be3, type: 3}
-  Wall: {fileID: 6040371639833822620, guid: 51433dd6d6d0ced449a8645aba89a235, type: 3}
-  PillarBase1: {fileID: 6124676528461110588, guid: 5b8c6919d27af914a95af31976034c8a, type: 3}
-  PillarBase2: {fileID: 1782781840173540097, guid: e1adc89aacc65fa4eaa6eca7a4d65781, type: 3}
-  PillarUp: {fileID: 4161907699726195609, guid: 5daa42e64c329a84a85da44a43a77ea3, type: 3}
-  PillarDown: {fileID: 8958601519311569002, guid: 1c557970871ccc54fa02809b92081cec, type: 3}
-  Door: {fileID: 8604047786785715865, guid: 3a1891201855047468b108512e4471b7, type: 3}
-  Lattice: {fileID: 5490371620909308281, guid: ff10f4f7835e633409a9dd1221f6c038, type: 3}
-  Light: {fileID: 5906541579054830671, guid: 114d7fada816ee849b5ab2af9df9b265, type: 3}
-  Chest: {fileID: 8227963812936457900, guid: d3fe3cac483302e4a92f63028f42cb93, type: 3}
-  Bonfire: {fileID: 8227963812936457900, guid: 21c21c3467218ef4691174e5a579721f, type: 3}
+  Ground: {fileID: 768181378842119988, guid: d95558fb12d96ed4cb324136b568de6b, type: 3}
+  GroundWallX: {fileID: 4530860375292725798, guid: 2d321c9f0400a0443a92ef2b1d7fcd16, type: 3}
+  GroundWallY: {fileID: 2214389124625124125, guid: 304a194fef8602f4a9fb1c1b50df0160, type: 3}
+  GroundPillar: {fileID: 2201109623164484790, guid: 6563ae8269cd25a4b9e7dca1699cdb44, type: 3}
+  PillarPack:
+    PillarBase1: {fileID: 4931978503079228603, guid: c68c77687e9b93449b1c7c2eda0ddd48, type: 3}
+    PillarBase2: {fileID: 9140666705534322202, guid: fac0b7289d6e71d469e76b407fe32b3e, type: 3}
+    PillarUp: {fileID: 5858678409423881247, guid: 82cca407cfa458040a917b05f8a61d91, type: 3}
+    PillarDown: {fileID: 6294838061975567775, guid: afd236ad5fb9609408958e920af5cccd, type: 3}
+  Door: {fileID: 5725297869538423464, guid: 5594289c366d2754d8f03ef8fb86563a, type: 3}
+  Wall: {fileID: 3431037443802635514, guid: 731213bd02e4c324e914dfe51eb8fe65, type: 3}
+  WallWindow: {fileID: 2470312131470173329, guid: e19c426aa3976ba4088189cb0d099371, type: 3}
+  StairsGround: {fileID: 90008397815395910, guid: 4b9a3ca946e5e3b4fa7348f561dfa38e, type: 3}
+  StairsRoof: {fileID: 3115019645544538610, guid: 13dac7d8c31223b4db670ae0ed8999e0, type: 3}
+  StairsWallR: {fileID: 3264293943526943480, guid: 05c76bfb2825d804e9b5b00acb9d201f, type: 3}
+  StairsWallL: {fileID: 2784626953018459619, guid: 4f5970a8bfb7e8e42a71f6a0936e72da, type: 3}
+  StairsGroundLWall: {fileID: 5285761827873854952, guid: 2316e6c7887851343a160b2a98a7e539, type: 3}
+  StairsGroundRWall: {fileID: 5062433426089245408, guid: 907d04ae0ed758c4bb5dee49ae7484ab, type: 3}
+  SpecialPack:
+    Light: {fileID: 0}
+    Chest: {fileID: 0}
+    Bonfire: {fileID: 0}
+    Lever: {fileID: 0}
   MonsterSpawners:
   - {fileID: 14675295590137274, guid: 11093c19497cef941acb02854f7cb6cc, type: 3}

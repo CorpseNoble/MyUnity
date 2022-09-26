@@ -2057,7 +2057,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b9aed9afbd9da434c9f869a5c165e9fa, type: 2}
+  - {fileID: 2100000, guid: 67b849a3263b74e4187aadbf36e49596, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2122,10 +2122,8 @@ MonoBehaviour:
   vertSpeed: 0
   sprintCount: 0
   sprintCountBuffer: 0
-  inMenu: 0
   startup: 0
   fall: 0
-  inDialogue: 0
   fallTimer: 0
 --- !u!114 &9037013720441844382
 MonoBehaviour:
@@ -2173,21 +2171,6 @@ MonoBehaviour:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UI_Controller, Assembly-CSharp
         m_MethodName: HPChanged
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  MaxHealthChanged:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UI_Controller, Assembly-CSharp
-        m_MethodName: MaxHPChanged
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

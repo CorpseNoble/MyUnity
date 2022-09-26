@@ -49,6 +49,6 @@ namespace Assets.Scripts.GenSystemV1
         Path = 0,
         Door = 1,
         BrokenWall = 3,
-        Lattice = 4,
+        Window = 4,
     }
 }

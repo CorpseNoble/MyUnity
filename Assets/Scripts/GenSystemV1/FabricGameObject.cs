@@ -36,27 +36,51 @@ namespace Assets.Scripts.GenSystemV1
         }
 
         public static GameObject InstGro(Vector3 position, Transform parent) =>
-             InstantiateVectoredPrefab(elementsData.Ground, position, parent, Vector3.up);
+             InstantiateVectoredPrefab(elementsData.Ground, position, parent, Vector3.forward);
         public static GameObject InstRoof(Vector3 position, Transform parent) =>
             InstantiateVectoredPrefab(elementsData.Roof, position, parent, Vector3.up);
+
+        public static GameObject InstStGro(Vector3 position, Transform parent, Vector3 vector) =>
+            InstantiateVectoredPrefab(elementsData.StairsGround, position, parent, vector);
+        public static GameObject InstStRoof(Vector3 position, Transform parent, Vector3 vector) =>
+            InstantiateVectoredPrefab(elementsData.StairsRoof, position, parent, vector);
+        public static GameObject InstStRPath(Vector3 position, Transform parent, Vector3 vector) =>
+         InstantiateVectoredPrefab(elementsData.StairsGroundRWall, position, parent, -vector);
+        public static GameObject InstStLPath(Vector3 position, Transform parent, Vector3 vector) =>
+        InstantiateVectoredPrefab(elementsData.StairsGroundLWall, position, parent, -vector);
+
+        public static List<GameObject> InstStWallLH(Vector3 position, Transform parent, Vector3 vector, int hight) =>
+           InstantiateStHightPrefab(elementsData.StairsWallL, position, parent, -vector, hight);
+        public static List<GameObject> InstStWallRH(Vector3 position, Transform parent, Vector3 vector, int hight) =>
+           InstantiateStHightPrefab(elementsData.StairsWallR, position, parent, -vector, hight);
+
+
+
+
         public static List<GameObject> InstWallH(Vector3 position, Transform parent, Vector3 vector, int hight) =>
              InstantiateHightPrefab(elementsData.Wall, position, parent, -vector, hight);
         private static GameObject InstWall(Vector3 position, Transform parent, Vector3 vector) =>
             InstantiateVectoredPrefab(elementsData.Wall, position, parent, -vector);
         public static GameObject InstLight(Vector3 position, Transform parent, Vector3 vector) =>
-            InstantiateVectoredPrefab(elementsData.Light, position, parent, vector);
+            InstantiateVectoredPrefab(elementsData.SpecialPack.Light, position, parent, vector);
         private static List<GameObject> InstDoubleWall(Vector3 position, Transform parent, Vector3 vector) =>
             new List<GameObject>()
             {
                 InstantiateVectoredPrefab(elementsData.Wall, position, parent, vector),
                 InstantiateVectoredPrefab(elementsData.Wall, position, parent, -vector),
             };
-        public static GameObject InstPath(Vector3 position, Transform parent, Vector3 vector) =>
-             InstantiateVectoredPrefab(elementsData.GroundPathWay, position, parent, -vector);
+        public static GameObject InstPath(Vector3 position, Transform parent, Vector3 vector)
+        {
+            if(vector == Vector3.forward || vector == Vector3.back)
+            return InstantiateVectoredPrefab(elementsData.GroundWallX, position, parent);
+            else
+            return InstantiateVectoredPrefab(elementsData.GroundWallY, position, parent);
+
+        }
         public static List<GameObject> InstDoorH(Vector3 position, Transform parent, Vector3 vector, int hight) =>
             InstantiateHightPrefab(elementsData.Door, position, parent, -vector, hight, true);
-        public static List<GameObject> InstLatticeH(Vector3 position, Transform parent, Vector3 vector, int hight) =>
-          InstantiateHightPrefab(elementsData.Lattice, position, parent, -vector, hight, true);
+        public static List<GameObject> InstWallWindowH(Vector3 position, Transform parent, Vector3 vector, int hight) =>
+          InstantiateHightPrefab(elementsData.WallWindow, position, parent, -vector, hight, true);
 
         public static GameObject InstGrPillar(Vector3 position, Transform parent) =>
              InstantiateVectoredPrefab(elementsData.GroundPillar, position, parent);
@@ -80,14 +104,27 @@ namespace Assets.Scripts.GenSystemV1
             }
             return gameobjects;
         }
+
+        private static List<GameObject> InstantiateStHightPrefab(
+           GameObject prefab,
+           Vector3 position,
+           Transform parent,
+           Vector3 vector,
+           int hight)
+        {
+            var gameobjects = new List<GameObject>();
+            for (int i = 0; i < hight; i++)
+                gameobjects.Add(InstantiateVectoredPrefab(prefab, position.StepV(i), parent, vector));
+            return gameobjects;
+        }
         private static GameObject InstPillorBase1(Vector3 position, Transform parent) =>
-           InstantiateVectoredPrefab(elementsData.PillarBase1, position, parent);
+           InstantiateVectoredPrefab(elementsData.PillarPack.PillarBase1, position, parent);
         private static GameObject InstPillorBase2(Vector3 position, Transform parent) =>
-           InstantiateVectoredPrefab(elementsData.PillarBase2, position, parent);
+           InstantiateVectoredPrefab(elementsData.PillarPack.PillarBase2, position, parent);
         private static GameObject InstPillorUp(Vector3 position, Transform parent) =>
-          InstantiateVectoredPrefab(elementsData.PillarUp, position, parent);
+          InstantiateVectoredPrefab(elementsData.PillarPack.PillarUp, position, parent);
         private static GameObject InstPillorDown(Vector3 position, Transform parent) =>
-         InstantiateVectoredPrefab(elementsData.PillarDown, position, parent);
+         InstantiateVectoredPrefab(elementsData.PillarPack.PillarDown, position, parent);
         public static List<GameObject> InstHiPillar(Vector3 position, Transform parent, int hight)
         {
             var gameobjects = new List<GameObject>();
@@ -129,7 +166,10 @@ namespace Assets.Scripts.GenSystemV1
         {
             return pos + Vector3.up * elementsData.VerScale * distance;
         }
-
+        public static Vector3 Abort(this Vector3 pos)
+        {
+            return pos.ToRight().ToRight();
+        }
         public static Vector3 ToRight(this Vector3 vector)
         {
             if (vector == Vector3.forward) return Vector3.right;

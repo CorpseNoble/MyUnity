@@ -31,7 +31,12 @@ namespace Assets.Scripts.GenSystemV1
             }
             else
             {
+                
                 currElem = FabricGameObject.InstantiateElement<Way>(currentPos, this, currentVector);
+                if (currElem is Way way)
+                    way.stairs = PrefsGraph.Instant.SettingGraph.StairsPercent.GetValue();
+
+
                 _preRoom = false;
             }
 

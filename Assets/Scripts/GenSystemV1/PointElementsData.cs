@@ -13,23 +13,43 @@ namespace Assets.Scripts.GenSystemV1
         [Range(1, 100)] public float HorScale = 6;
         [Range(1, 100)] public float VerScale = 4;
 
-        public GameObject Ground;
         public GameObject Roof;
-        public GameObject GroundPathWay;
+        public GameObject Ground;
+        public GameObject GroundWallX;
+        public GameObject GroundWallY;
         public GameObject GroundPillar;
+        
+        public PillarPack PillarPack;
 
+        public GameObject Door;
         public GameObject Wall;
+        public GameObject WallWindow;
+
+        public GameObject StairsGround;
+        public GameObject StairsRoof;
+        public GameObject StairsWallR;
+        public GameObject StairsWallL;
+        public GameObject StairsGroundLWall;
+        public GameObject StairsGroundRWall;
+
+
+        public SpecialPack SpecialPack;
+        public List<GameObject> MonsterSpawners = new List<GameObject>();
+    }
+    [Serializable]
+    public class PillarPack
+    {
         public GameObject PillarBase1;
         public GameObject PillarBase2;
         public GameObject PillarUp;
         public GameObject PillarDown;
-
-        public GameObject Door;
-        public GameObject Lattice;
-
+    }
+    [Serializable]
+    public class SpecialPack
+    {
         public GameObject Light;
         public GameObject Chest;
         public GameObject Bonfire;
-        public List<GameObject> MonsterSpawners = new List<GameObject>();
+        public GameObject Lever;
     }
 }

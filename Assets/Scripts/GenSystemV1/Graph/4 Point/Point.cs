@@ -9,6 +9,7 @@ namespace Assets.Scripts.GenSystemV1
         [Header("Point")]
         public List<GameObject> geometric = new List<GameObject>();
         public bool pleced = false;
+        public bool stairs = false;
 
         Area _area;
         bool _save = false;
@@ -19,17 +20,31 @@ namespace Assets.Scripts.GenSystemV1
         {
             _area = parentElement.parentElement.parentElement as Area;
             _save = (parentElement as Room).saveZone;
-            var ground = FabricGameObject.InstGro(transform.position, transform);
+
+            var ground =
+                !stairs ?
+                FabricGameObject.InstGro(transform.position, transform) :
+                FabricGameObject.InstStGro(transform.position, transform, buildVector);
             if (_save)
                 SavePoint(ground);
             geometric.Add(ground);
 
 
-            var roof = FabricGameObject.InstRoof(transform.position.StepV(hight - 1), transform);
-            _area.lightPlaces.Add(roof.GetComponent<WallLightScript>().LightPlace);
+            var roof =
+                 !stairs ?
+                FabricGameObject.InstRoof(transform.position.StepV(hight - 1), transform) :
+                FabricGameObject.InstStRoof(transform.position.StepV(hight - 1), transform, buildVector);
+            //_area.lightPlaces.Add(roof.GetComponent<WallLightScript>().LightPlace);
             geometric.Add(roof);
 
             blacklist.Add(this);
+            for (int i = 1; i < hight; i++)
+            {
+                blacklist.Add(FabricGameObject.InstantiateElement<Point>(transform.position.StepV(i), this, buildVector));
+                if (i == hight - 1 && stairs)
+                    blacklist.Add(FabricGameObject.InstantiateElement<Point>(transform.position.StepV(i + 1), this, buildVector));
+            }
+
         }
 
         private void InstConType(ConnectType connectType, Vector3 pos, Vector3 vector)
@@ -41,23 +56,17 @@ namespace Assets.Scripts.GenSystemV1
                     geometric.AddRange(FabricGameObject.InstDoorH(pos, transform, vector, hight));
                     break;
                 case ConnectType.BrokenWall:
-                    geometric.AddRange(FabricGameObject.InstLatticeH(pos, transform, vector, hight));
+                    geometric.AddRange(FabricGameObject.InstWallWindowH(pos, transform, vector, hight));
                     break;
-                case ConnectType.Lattice:
-                    geometric.AddRange(FabricGameObject.InstLatticeH(pos, transform, vector, hight));
+                case ConnectType.Window:
+                    geometric.AddRange(FabricGameObject.InstWallWindowH(pos, transform, vector, hight));
                     break;
             }
         }
 
         public void GenWalls()
         {
-            var pullars = new[]
-            {
-            (Vector3.forward + Vector3.right)*0.5f,
-            (Vector3.forward + Vector3.left)*0.5f,
-            (Vector3.back + Vector3.right)*0.5f,
-            (Vector3.back + Vector3.left)*0.5f,
-            };
+
             var walls = new List<Vector3>()
             {
                 Vector3.forward,
@@ -71,7 +80,9 @@ namespace Assets.Scripts.GenSystemV1
                 //if (ce.GetConnect(this).connectElements.Count < 4)
                 //    hasWall = true;
 
-                var way = (ce.GetConnect(this).transform.position - transform.position).normalized;
+                var way = (ce.GetConnect(this).transform.position - transform.position);
+                way.y = 0;
+                way.Normalize();
                 var currP = transform.position.StepH(way, 0.5f);
                 if (!ce.instanted)
                 {
@@ -91,20 +102,50 @@ namespace Assets.Scripts.GenSystemV1
                 if (!blacklist.ContainsWall(currP))
                 {
                     blacklist.AddWall(currP);
-                    var ground = FabricGameObject.InstPath(currP, transform, w);
+                    var ground =
+                        !stairs ? FabricGameObject.InstPath(currP, transform, w) :
+                        buildVector.ToRight() == w ? FabricGameObject.InstStRPath(currP, transform, w) :
+                        buildVector.ToLeft() == w ? FabricGameObject.InstStLPath(currP, transform, w) :
+                        FabricGameObject.InstPath(currP, transform, w);
+
                     if (_save)
                         SavePoint(ground);
                     geometric.Add(ground);
                 }
+                if (!stairs)
+                {
+                    geometric.AddRange(FabricGameObject.InstWallH(currP, transform, w, hight));
+                }
+                else
+                {
+                    if (buildVector.ToRight() == w)
+                        geometric.AddRange(FabricGameObject.InstStWallRH(currP, transform, w, hight));
+                    else if (buildVector.ToLeft() == w)
+                        geometric.AddRange(FabricGameObject.InstStWallLH(currP, transform, w, hight));
+                    else
+                        geometric.AddRange(FabricGameObject.InstWallH(currP, transform, w, hight));
 
-                geometric.AddRange(FabricGameObject.InstWallH(currP, transform, w, hight));
+                }
 
             }
-
-            foreach (var p in pullars)
+            var pillars = new[]
             {
+            (buildVector + buildVector.ToLeft())*0.5f,
+            (buildVector + buildVector.ToRight())*0.5f,
+            (buildVector.Abort() + buildVector.ToLeft())*0.5f,
+            (buildVector.Abort() + buildVector.ToRight())*0.5f,
+            };
+            for (int i = 0; i < pillars.Length; i++)
+            {
+                Vector3 p = pillars[i];
                 var currP = transform.position.StepH(p);
-                if (!blacklist.ContainsPillarGround(currP))
+                bool b = true;
+                if (stairs && i > 1)
+                {
+                    currP = currP.StepV(1);
+
+                }
+                if (!blacklist.ContainsPillarGround(currP) && b)
                 {
                     blacklist.AddPillarGround(currP);
                     var ground = FabricGameObject.InstGrPillar(currP, transform);

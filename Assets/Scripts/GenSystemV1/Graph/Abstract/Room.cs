@@ -79,17 +79,19 @@ namespace Assets.Scripts.GenSystemV1
                     foreach (var a in aboutCons)
                         e.Connect(a);
 
-                    //Lattice gen
-                    foreach (var elem in aboutEl)
-                    {
-                        if (aboutCons.Where(c => c.transform.position == elem).Any())
-                            continue;
-                        if (blacklist.Contains(elem))
+                    if (PrefsGraph.Instant.SettingGraph.wallWindowPercent.GetValue())
+                        //Window gen
+                        foreach (var elem in aboutEl)
                         {
-                            var point = blacklist.SelectPoint(elem);
-                            e.Connect(point, ConnectType.Lattice);
+                            if (aboutCons.Where(c => c.transform.position == elem).Any())
+                                continue;
+                            if (blacklist.Contains(elem))
+                            {
+                                var point = blacklist.SelectPoint(elem);
+                                if(!point.stairs)
+                                e.Connect(point, ConnectType.Window);
+                            }
                         }
-                    }
                 }
 
             foreach (var e in subElements)
@@ -102,8 +104,8 @@ namespace Assets.Scripts.GenSystemV1
             if (interestPlace != null)
                 if (!saveZone)
                 {
-                    FabricGameObject.InstantiatePrefabPoint(PrefsGraph.Instant.elementsData.Chest, interestPlace);
-                    countSpawners = subElements.Count / roomSize;
+                    FabricGameObject.InstantiatePrefabPoint(PrefsGraph.Instant.elementsData.SpecialPack.Chest, interestPlace);
+                    countSpawners = (int) Mathf.Sqrt( subElements.Count / roomSize);
                     if (PrefsGraph.Instant.SettingGraph.EnemyPercent.GetValue())
                     {
                         var spawner = PrefsGraph.Instant.elementsData.MonsterSpawners.First();
@@ -126,7 +128,7 @@ namespace Assets.Scripts.GenSystemV1
                 }
                 else
                 {
-                    FabricGameObject.InstantiatePrefabPoint(PrefsGraph.Instant.elementsData.Bonfire, interestPlace);
+                    FabricGameObject.InstantiatePrefabPoint(PrefsGraph.Instant.elementsData.SpecialPack.Bonfire, interestPlace);
                 }
         }
     }
