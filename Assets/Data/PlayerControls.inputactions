@@ -23,9 +23,9 @@
                 },
                 {
                     "name": "Sprint",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "bef8ff47-fa49-4f52-80ca-23b466946c48",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
                 },
@@ -97,6 +97,14 @@
                     "name": "OnOff",
                     "type": "Button",
                     "id": "92062d41-0193-4add-8ebc-8967d89fadab",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Menu",
+                    "type": "Button",
+                    "id": "780f1018-d06b-42f2-82f9-2a0d1b1aaadc",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -463,6 +471,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "OnOff",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8148796e-7003-458f-9f23-ccc11964ddfb",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a85dbf78-f286-4846-b74a-c83358f81817",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -23,6 +23,7 @@ namespace Assets.Scripts.Player
         private void Start()
         {
             charController = GetComponent<CharacterController>();
+            Cursor.lockState = CursorLockMode.Locked;
         }
         void Update()
         {
@@ -46,15 +47,6 @@ namespace Assets.Scripts.Player
         }
 
 
-        private void OnPause(bool pause)
-        {
-            InMenu = pause;
-        }
-        public void SetDialogueState(bool inDialogueState)
-        {
-            InDialogue = inDialogueState;
-        }
-
         [SerializeField] private bool _inputShift;
 
         public bool InputShift
@@ -64,11 +56,7 @@ namespace Assets.Scripts.Player
             {
                 _inputShift = value;
 
-                if (value)
-                    sprintMultiplicatorBufer = Mathf.Clamp(sprintMultiplicatorBufer, 1, sprintMultiplicator);
-                else
-                    sprintMultiplicatorBufer = 1;
-
+                sprintMultiplicatorBufer = value ? Mathf.Lerp(1, sprintMultiplicator, sprintMultiplicatorBufer) : 1;
             }
         }
 
@@ -112,6 +100,7 @@ namespace Assets.Scripts.Player
             InputShift = value.Get<float>() > 0.5f;
         }
 
+        private Vector2 v2;
         private float _rotationX = 0;
         private float sensivityMultiplicator = 0.5f;
 
@@ -125,9 +114,15 @@ namespace Assets.Scripts.Player
 
         public void OnCamera(InputValue value)
         {
-            var v2 = value.Get<Vector2>();
+            v2 = value.Get<Vector2>();
+            if (!InMenu && !InDialogue)
+            {
+                CameraMove();
+            }
+        }
 
-
+        private void CameraMove()
+        {
             _rotationX -= v2.y * sensitivityVert * sensivityMultiplicator;
             _rotationX = Mathf.Clamp(_rotationX, minimumVert, maximumVert);
             float delta = v2.x * sensitivityHor * sensivityMultiplicator;

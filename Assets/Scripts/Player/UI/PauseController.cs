@@ -7,6 +7,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+using UnityEngine.InputSystem;
+using UnityEngine.Events;
+
 namespace Assets.Scripts.Player.UI
 {
     public class PauseController : MonoBehaviour
@@ -21,17 +24,22 @@ namespace Assets.Scripts.Player.UI
             {
                 PlayerGamePrefs.InMenu = value;
 
+                if (value)
+                    Cursor.lockState = CursorLockMode.None;
+                else
+                    Cursor.lockState = CursorLockMode.Locked;
+
                 pausePanel.SetActive(value);
             }
         }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(key))
-            {
-                InMenu = !InMenu;
-            }
-        }
+        //private void Update()
+        //{
+        //    if (Input.GetKeyDown(key))
+        //    {
+        //        InMenu = !InMenu;
+        //    }
+        //}
 
         public void Resume_ButtonClick()
         {
@@ -55,6 +63,16 @@ namespace Assets.Scripts.Player.UI
         public void Exit_ButtonClick()
         {
             Application.Quit();
+        }
+
+        public void OnMenu(InputValue value)
+        {
+            var menuBut = value.Get<float>() > 0.5f;
+
+            if (menuBut)
+                InMenu = !InMenu;
+
+
         }
     }
 }

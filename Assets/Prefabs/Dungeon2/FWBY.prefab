@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5792596053013491343}
   - component: {fileID: 3734490350429629290}
   - component: {fileID: 1769987724099560965}
+  - component: {fileID: -3028325298476637222}
   m_Layer: 0
   m_Name: FWBY
   m_TagString: Untagged
@@ -81,3 +82,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &-3028325298476637222
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2214389124625124125}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 462791220975427207, guid: 641b2046f79b91a42bec1cfabb04a1c1, type: 3}

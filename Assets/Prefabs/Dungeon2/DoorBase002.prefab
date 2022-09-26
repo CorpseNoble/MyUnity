@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5390655985767186723}
   - component: {fileID: 9034412836066135686}
   - component: {fileID: 6522436920124078668}
+  - component: {fileID: 2085752195050105575}
   m_Layer: 0
   m_Name: DoorBase002
   m_TagString: Untagged
@@ -81,6 +82,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &2085752195050105575
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4721080426663041945}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -6257348565035935825, guid: ba271f8ae3b170e408eef8135ee9bba1, type: 3}
 --- !u!1 &5725297869538423464
 GameObject:
   m_ObjectHideFlags: 0

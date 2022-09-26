@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6825983123113088845}
   - component: {fileID: 6809073031396801958}
   - component: {fileID: 596067164338548340}
-  - component: {fileID: 3851169224191811367}
   m_Layer: 0
   m_Name: Quad
   m_TagString: Untagged
@@ -82,20 +81,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &3851169224191811367
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 214671014826391802}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &2470312131470173329
 GameObject:
   m_ObjectHideFlags: 0
@@ -138,6 +123,7 @@ GameObject:
   - component: {fileID: 2804847309548682036}
   - component: {fileID: 1243849265778062481}
   - component: {fileID: 3938394681947455579}
+  - component: {fileID: 4346724782980491165}
   m_Layer: 0
   m_Name: WindowBase
   m_TagString: Untagged
@@ -210,6 +196,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &4346724782980491165
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3289599603106357646}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2373143393152690711, guid: f845737e84375cd48b2353f609be96dd, type: 3}
 --- !u!1 &8963154241503018060
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,7 +221,6 @@ GameObject:
   - component: {fileID: 3920663635007106461}
   - component: {fileID: 5785558749093075358}
   - component: {fileID: 267858204545222000}
-  - component: {fileID: 3433684250283773345}
   m_Layer: 0
   m_Name: Quad (1)
   m_TagString: Untagged
@@ -292,17 +291,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &3433684250283773345
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8963154241503018060}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
