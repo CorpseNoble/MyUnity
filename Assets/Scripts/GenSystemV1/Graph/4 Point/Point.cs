@@ -99,14 +99,32 @@ namespace Assets.Scripts.GenSystemV1
             foreach (var w in walls)
             {
                 var currP = transform.position.StepH(w, 0.5f);
-                if (!blacklist.ContainsWall(currP))
+                if (!blacklist.ContainsWallGr(currP))
                 {
-                    blacklist.AddWall(currP);
-                    var ground =
-                        !stairs ? FabricGameObject.InstPath(currP, transform, w) :
-                        buildVector.ToRight() == w ? FabricGameObject.InstStRPath(currP, transform, w) :
-                        buildVector.ToLeft() == w ? FabricGameObject.InstStLPath(currP, transform, w) :
-                        FabricGameObject.InstPath(currP, transform, w);
+                    GameObject ground;
+                    if (stairs)
+                    {
+                        if(buildVector.ToRight() == w)
+                        {
+                            ground = FabricGameObject.InstStRPath(currP, transform, w);
+                        }
+                        else if (buildVector.ToLeft() == w)
+                        {
+                            ground = FabricGameObject.InstStLPath(currP, transform, w);
+                        }
+                        else
+                        {
+                            ground = FabricGameObject.InstPath(currP, transform, w);
+                            blacklist.AddWallGr(currP);
+
+                        }
+                    }
+                    else
+                    {
+                        ground = FabricGameObject.InstPath(currP, transform, w);
+                        blacklist.AddWallGr(currP);
+
+                    }
 
                     if (_save)
                         SavePoint(ground);

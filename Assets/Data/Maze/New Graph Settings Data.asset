@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d2b17fa2a8f55d4cbdd0e6487770248, type: 3}
   m_Name: New Graph Settings Data
   m_EditorClassIdentifier: 
-  seed: 785117296
+  seed: 1112390336
   pillarAboutWall: 1
   hight: 2
-  maxZoneCount: 3
+  maxZoneCount: 5
   nextZoneCount:
     avarage: 2
     deviation: 0

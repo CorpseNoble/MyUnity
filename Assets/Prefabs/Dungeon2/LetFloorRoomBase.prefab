@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 31
+  m_StaticEditorFlags: 15
   m_IsActive: 1
 --- !u!4 &8762496660952547417
 Transform:
@@ -48,7 +48,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 31
+  m_StaticEditorFlags: 15
   m_IsActive: 1
 --- !u!4 &7017923951538455230
 Transform:
@@ -124,6 +124,6 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 3238274340772601579, guid: e2fe23d9406847a4abfe3577134b8fed, type: 3}

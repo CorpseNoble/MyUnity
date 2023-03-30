@@ -81,11 +81,13 @@ namespace Assets.Scripts.GenSystemV1
             corridorPercent,
             nextZonePercent,
             rameZonePercent,
+            wallWindowPercent,
             roomPercent,
             roundRoomPercent,
             DangerSaveRoomPercent,
             EnemyPercent,
             TrapPercent,
+            StairsPercent,
             };
         }
         [ContextMenu("GenerateSeed")]

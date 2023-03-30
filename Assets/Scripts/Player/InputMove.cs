@@ -38,7 +38,7 @@ namespace Assets.Scripts.Player
         private void PlayerMove()
         {
 
-            moveVector = new Vector3(Horizontal, 0, Vertical).normalized;
+            moveVector = new Vector3(Horizontal, updown, Vertical).normalized;
             moveVector = moveVector * speed * sprintMultiplicatorBufer * Time.deltaTime;
 
             moveVector = transform.TransformDirection(moveVector);
@@ -56,7 +56,7 @@ namespace Assets.Scripts.Player
             {
                 _inputShift = value;
 
-                sprintMultiplicatorBufer = value ? Mathf.Lerp(1, sprintMultiplicator, sprintMultiplicatorBufer) : 1;
+                sprintMultiplicatorBufer = value ? Mathf.Lerp(1, sprintMultiplicator, sprintMultiplicatorBufer) : Mathf.Lerp(sprintMultiplicator, 1, sprintMultiplicatorBufer);
             }
         }
 
@@ -94,6 +94,11 @@ namespace Assets.Scripts.Player
 
             Horizontal = v2.x;
             Vertical = v2.y;
+        }
+        private float updown = 0f;
+        public void OnUpDown(InputValue value)
+        {
+            updown = value.Get<float>();
         }
         public void OnSprint(InputValue value)
         {

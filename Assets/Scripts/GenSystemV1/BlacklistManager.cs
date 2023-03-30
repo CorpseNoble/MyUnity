@@ -13,7 +13,7 @@ namespace Assets.Scripts.GenSystemV1
         [SerializeField] private List<Point> PointBlacklist;
         [SerializeField] private List<Vector3> pillarBlacklist = new List<Vector3>();
         [SerializeField] private List<Vector3> pillarGoundBlacklist = new List<Vector3>();
-        [SerializeField] private List<Vector3> wallBlacklist = new List<Vector3>();
+        [SerializeField] private List<Vector3> wallGrBlacklist = new List<Vector3>();
 
         public BlacklistManager()
         {
@@ -33,9 +33,9 @@ namespace Assets.Scripts.GenSystemV1
         {
             pillarGoundBlacklist.Add(pos);
         }
-        public void AddWall(Vector3 pos)
+        public void AddWallGr(Vector3 pos)
         {
-            wallBlacklist.Add(pos);
+            wallGrBlacklist.Add(pos);
         }
 
         public bool Contains(Vector3 pos)
@@ -54,9 +54,9 @@ namespace Assets.Scripts.GenSystemV1
         {
             return pillarGoundBlacklist.Contains(pos);
         }
-        public bool ContainsWall(Vector3 pos)
+        public bool ContainsWallGr(Vector3 pos)
         {
-            return wallBlacklist.Contains(pos);
+            return wallGrBlacklist.Contains(pos);
         }
 
         public void Clear()
@@ -64,7 +64,7 @@ namespace Assets.Scripts.GenSystemV1
             PointBlacklist.Clear();
             pillarBlacklist.Clear();
             pillarGoundBlacklist.Clear();
-            wallBlacklist.Clear();
+            wallGrBlacklist.Clear();
         }
 
         public bool WayCheckClear(Vector3 pos, Vector3 vector, int lenght)
